@@ -1647,15 +1647,18 @@ img {
 }
 
 .modal-logo {
-  width: 100px;
-
-  margin: 0 auto 15px;
+  display: block;
+  width: 90px;
+  height: auto;
+  margin: 0 auto 18px;
 }
 
 .join-modal h2 {
-  color: var(--navy);
-
-  font-size: 27px;
+  font-size: 30px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0 0 24px;
 }
 
 .join-modal p {
@@ -2345,3 +2348,128 @@ a:focus-visible {
   }
 
 }
+
+/* =========================================================
+   BUTTON HIGHLIGHT / BLINK EFFECT
+========================================================= */
+
+.primary-button,
+.section-join-button,
+.cta-button,
+.payment-button {
+  animation: button-highlight 1.6s ease-in-out infinite;
+}
+
+.primary-button:hover,
+.section-join-button:hover,
+.cta-button:hover,
+.payment-button:hover {
+  animation-play-state: paused;
+}
+
+@keyframes button-highlight {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 8px 20px rgba(16, 141, 204, 0.20);
+  }
+
+  50% {
+    transform: translateY(-2px) scale(1.025);
+    box-shadow:
+      0 12px 30px rgba(16, 141, 204, 0.38),
+      0 0 0 7px rgba(16, 141, 204, 0.08);
+  }
+}
+
+/* =========================================================
+   ENROLLMENT OFFER PRICE
+========================================================= */
+
+.enrollment-offer {
+  margin: 18px 0 20px;
+  padding: 16px 18px;
+  border: 1px solid #cfe4ff;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    #eef6ff 0%,
+    #f8fbff 100%
+  );
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(16, 94, 170, 0.06);
+}
+
+.offer-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.offer-prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.offer-original-price {
+  color: #7b8794;
+  font-size: 15px;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  margin-bottom: 2px;
+}
+
+.offer-current-price {
+  color: #155eef;
+  font-family: "Inter", sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.offer-label {
+  display: inline-flex;
+  margin-top: 6px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #fff0e6;
+  color: #d94801;
+  font-family: "Inter", sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.offer-saving {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #07883f;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+@media (max-width: 520px) {
+  .enrollment-offer {
+    padding: 15px;
+    margin: 16px 0 18px;
+  }
+
+  .offer-price-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .offer-current-price {
+    font-size: 36px;
+  }
+
+  .offer-saving {
+    align-self: flex-start;
+  }
+}
+

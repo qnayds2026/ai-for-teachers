@@ -1060,8 +1060,20 @@ function App() {
               alt="QNAYDS"
               className="modal-logo"
             />
-
             <h2>Complete Your Enrollment</h2>
+
+            <div className="enrollment-offer">
+        
+              <div className="offer-price-row">
+                <div className="offer-prices">
+                  <span className="offer-original-price">₹5,000</span>
+                  <span className="offer-current-price">₹1,999</span>
+                  <span className="offer-label">LIMITED-TIME OFFER</span>
+                </div>
+
+                <span className="offer-saving">Save ₹3,001</span>
+              </div>
+            </div>
 
             {!paymentStarted ? (
               <form className="enrollment-form" onSubmit={handleContinuePayment}>
