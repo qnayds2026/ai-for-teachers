@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from "../QNAYDS_LOGO.png";
 
 import {
   Check,
@@ -209,8 +210,8 @@ function App() {
         <div className="container hero-content">
 
           <img
-            src="image.png"
-            alt="QNAYDS"
+            src={logo}
+            alt="QNAYDS Academy Logo"
             className="main-logo"
           />
 
@@ -417,6 +418,9 @@ function App() {
             type="button"
             className="section-join-button"
             onClick={openEnrollment}
+            style={{
+              marginTop: "30px",
+            }}
           >
             ഇപ്പോൾ Join ചെയ്യാം
             <ArrowRight size={18} />
@@ -1056,9 +1060,9 @@ function App() {
             </button>
 
             <img
-              src="image.png"
-              alt="QNAYDS"
-              className="modal-logo"
+              src="/QNAYDS_LOGO.png"
+              alt="QNAYDS Academy Logo"
+              className="mx-auto mb-5 h-20 w-auto object-contain sm:h-24"
             />
             <h2>Complete Your Enrollment</h2>
 
