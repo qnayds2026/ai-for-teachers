@@ -290,6 +290,62 @@ function App() {
 
         </div>
       </section>
+
+            {/* =================================================
+          WATCH BEFORE YOU ENROLL
+      ================================================= */}
+
+      <section className="section video-section">
+
+        <div className="container narrow">
+
+          <div className="section-heading">
+
+            <span className="section-tag">
+              WATCH BEFORE YOU ENROLL
+            </span>
+
+            <h2>
+              ഈ course നിങ്ങള്‍ക്ക്
+              <span> എങ്ങനെ സഹായിക്കും?</span>
+            </h2>
+
+            <p>
+              Enroll ചെയ്യുന്നതിന് മുമ്പ് course-നെ കുറിച്ച്
+              ഒരു ചെറിയ introduction കാണാം.
+            </p>
+
+          </div>
+
+          <div className="course-video">
+
+            <div className="video-placeholder">
+
+              <button
+                type="button"
+                className="video-play-button"
+              >
+                ▶
+              </button>
+
+              <h3>
+                AI for Teachers Course
+              </h3>
+
+              <p>
+                Course Introduction Video
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+  
       {/* =================================================
           INTRO
       ================================================= */}

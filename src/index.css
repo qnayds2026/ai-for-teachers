@@ -2183,3 +2183,165 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+/* =========================================================
+   WATCH BEFORE YOU ENROLL
+========================================================= */
+
+.video-section {
+  background: #f8fcff;
+  padding: 80px 0;
+}
+
+
+/* SECTION HEADING */
+
+.video-section .section-heading {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+
+/* VIDEO CONTAINER */
+
+.video-section .course-video {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+
+/* VIDEO PLACEHOLDER */
+
+.video-section .video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 20px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(16, 141, 204, 0.25),
+      transparent 55%
+    ),
+    #101c31;
+
+  box-shadow:
+    0 15px 40px rgba(13, 23, 45, 0.15);
+}
+
+
+/* PLAY BUTTON */
+
+.video-play-button {
+  width: 70px;
+  height: 70px;
+
+  border: none;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-left: 5px;
+
+  background: var(--blue);
+  color: white;
+
+  font-size: 26px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(16, 141, 204, 0.35);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* PLAY BUTTON HOVER */
+
+.video-play-button:hover {
+  background: var(--blue-dark);
+
+  transform: scale(1.08);
+
+  box-shadow:
+    0 15px 35px rgba(16, 141, 204, 0.45);
+}
+
+
+/* VIDEO TITLE */
+
+.video-section .video-placeholder h3 {
+  margin: 18px 0 0;
+
+  color: white;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+/* VIDEO SUBTITLE */
+
+.video-section .video-placeholder p {
+  margin: 5px 0 0;
+
+  color: #a8bfd2;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   WATCH VIDEO - MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+  .video-section {
+    padding: 60px 0;
+  }
+
+  .video-section .course-video {
+    max-width: 95%;
+  }
+
+  .video-section .video-placeholder {
+    border-radius: 15px;
+  }
+
+  .video-play-button {
+    width: 60px;
+    height: 60px;
+
+    font-size: 22px;
+  }
+
+  .video-section .video-placeholder h3 {
+    font-size: 17px;
+  }
+
+  .video-section .video-placeholder p {
+    font-size: 12px;
+  }
+
+}
