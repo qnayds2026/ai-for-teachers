@@ -1,16 +1,19 @@
-# React + Vite
+# AI for Teachers — QNAYDS
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite landing page based on the requested QNAYDS-style structure and the supplied
+"AI Foundations for Educators — Landing Page Plan".
 
-Currently, two official plugins are available:
+## Run
+```bash
+npm install
+npm run dev
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Important
+1. The project uses a QNAYDS-style logo mark in CSS so it runs immediately.
+2. If you have the official QNAYDS logo PNG/SVG, put it in `public/qnayds-logo.png` and replace the
+   `<Logo />` component in `src/App.jsx` with an `<img>` if you need the exact official artwork.
+3. WhatsApp number is configured at the top of `src/App.jsx`:
+   `const WHATSAPP_NUMBER = "919074871204";`
+4. Replace the mentor/testimonial placeholders with the actual approved content.
+5. Replace the checkout modal link with the actual payment/LMS checkout URL.
