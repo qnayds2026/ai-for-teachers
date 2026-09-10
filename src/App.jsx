@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import logo from "../QNAYDS_LOGO.png";
-
-const API_URL = import.meta.env.VITE_API_URL;
-const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY;
 
 import {
   Check,
@@ -160,23 +155,6 @@ const faqs = [
    APP
 ===================================================== */
 
-const loadRazorpay = () => {
-  return new Promise((resolve) => {
-    if (window.Razorpay) {
-      resolve(true);
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-
-    document.body.appendChild(script);
-  });
-};
-
 function App() {
   const [openFaq, setOpenFaq] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -186,135 +164,24 @@ function App() {
     email: "",
   });
   const [paymentStarted, setPaymentStarted] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const handleEnrollmentChange = (event) => {
     const { name, value } = event.target;
     setFormData((current) => ({ ...current, [name]: value }));
   };
 
- const handleContinuePayment = async (event) => {
-  event.preventDefault();
+  const handleContinuePayment = (event) => {
+    event.preventDefault();
 
-  if (
-    !formData.fullName.trim() ||
-    !formData.phone.trim() ||
-    !formData.email.trim()
-  ) {
-    alert("Please fill all details");
-    return;
-  }
-
-  try {
-    const razorpayLoaded = await loadRazorpay();
-
-    if (!razorpayLoaded) {
-      alert("Razorpay failed to load. Please try again.");
+    if (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()) {
       return;
     }
 
-    if (!RAZORPAY_KEY) {
-      alert("Razorpay key is missing.");
-      return;
-    }
+    setPaymentStarted(true);
 
-    // Create Razorpay order
-    const response = await fetch(`${API_URL}/landing/create-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    body: JSON.stringify({
-    name: formData.fullName,
-    phone: formData.phone,
-    email: formData.email,
-    courseId: import.meta.env.VITE_COURSE_ID,
-  }),
-    });
-
-    const result = await response.json();
-     console.log(
-    "CREATE ORDER RESPONSE:",
-    JSON.stringify(result, null, 2)
-   );
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Failed to create payment order");
-    }
-
-    const orderId = result.data?.order?.id;
-    const amount = result.data?.order?.amount;
-
-    if (!orderId) {
-      throw new Error("Order ID was not received from server");
-    }
-
-    const options = {
-      key: RAZORPAY_KEY,
-      amount: amount,
-      currency: "INR",
-      name: "QNAYDS Academy",
-      description: "AI for Teachers Course",
-      order_id: orderId,
-
-      prefill: {
-        name: formData.fullName,
-        email: formData.email,
-        contact: formData.phone,
-      },
-
-      handler: async function (payment) {
-        try {
-          const verifyResponse = await fetch(
-            `${API_URL}/payments/verify`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_order_id: payment.razorpay_order_id,
-                razorpay_payment_id: payment.razorpay_payment_id,
-                razorpay_signature: payment.razorpay_signature,
-              }),
-            }
-          );
-
-          const verifyResult = await verifyResponse.json();
-
-          if (!verifyResponse.ok || !verifyResult.success) {
-            throw new Error(
-              verifyResult.message || "Payment verification failed"
-            );
-          }
-
-         setPaymentSuccess(true);
-         setShowModal(false);
-         setPaymentStarted(false);
-        } catch (error) {
-          console.error("Payment verification error:", error);
-          alert("Payment verification failed. Please contact support.");
-        }
-      },
-
-      modal: {
-        ondismiss: function () {
-          console.log("Razorpay checkout closed");
-        },
-      },
-
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    const razorpay = new window.Razorpay(options);
-    razorpay.open();
-  } catch (error) {
-    console.error("Payment error:", error);
-    alert(error.message || "Something went wrong. Please try again.");
-  }
-};
+    // Connect your Razorpay/payment gateway here.
+    // Example: open your payment checkout after the form is validated.
+  };
 
   const openEnrollment = () => {
     setPaymentStarted(false);
@@ -326,14 +193,6 @@ function App() {
       behavior: "smooth",
     });
   };
-
- if (paymentSuccess) {
-  return (
-    <PaymentSuccess
-      onBack={() => setPaymentSuccess(false)}
-    />
-  );
-}
 
   return (
     <div className="page">
@@ -349,11 +208,14 @@ function App() {
 
         <div className="container hero-content">
 
-          <img
-            src={logo}
-            alt="QNAYDS Academy Logo"
-            className="main-logo"
-          />
+          {/* QNAYDS LOGO */}
+       <div className="modal-logo-wrapper">
+       <img
+          src="QNAYDS_LOGO.png"
+          alt="QNAYDS"
+          className="modal-logo"
+         />
+        </div>
 
           <div className="academy-label">
             QNAYDS ACADEMY
@@ -558,9 +420,6 @@ function App() {
             type="button"
             className="section-join-button"
             onClick={openEnrollment}
-            style={{
-              marginTop: "30px",
-            }}
           >
             ഇപ്പോൾ Join ചെയ്യാം
             <ArrowRight size={18} />
@@ -1192,32 +1051,37 @@ function App() {
             }
           >
 
-            <button
-              className="modal-close"
-              onClick={() => setShowModal(false)}
-            >
-              <X size={21} />
-            </button>
+            <div className="enrollment-header">
+              <div>
+                <h2>Complete Your Enrollment</h2>
+                <p>Enter your details to continue securely.</p>
+              </div>
 
-            <img
-              src="/QNAYDS_LOGO.png"
-              alt="QNAYDS Academy Logo"
-              className="mx-auto mb-5 h-20 w-auto object-contain sm:h-24"
-            />
-            <h2>Complete Your Enrollment</h2>
+              <button
+                className="modal-close"
+                onClick={() => setShowModal(false)}
+                aria-label="Close"
+              >
+                <X size={22} />
+              </button>
+            </div>
 
-            <div className="enrollment-offer">
-        
-              <div className="offer-price-row">
-                <div className="offer-prices">
-                  <span className="offer-original-price">₹5,000</span>
-                  <span className="offer-current-price">₹1,999</span>
-                  <span className="offer-label">LIMITED-TIME OFFER</span>
+            <div className="enrollment-body">
+              <div className="enrollment-offer">
+                <div className="offer-course-name">
+                  AI for Teachers
                 </div>
 
-                <span className="offer-saving">Save ₹3,001</span>
+                <div className="offer-price-row">
+                  <div className="offer-prices">
+                    <span className="offer-original-price">₹5,000</span>
+                    <span className="offer-current-price">₹1,999</span>
+                    <span className="offer-label">LIMITED-TIME OFFER</span>
+                  </div>
+
+                  <span className="offer-saving">Save ₹3,001</span>
+                </div>
               </div>
-            </div>
 
             {!paymentStarted ? (
               <form className="enrollment-form" onSubmit={handleContinuePayment}>
@@ -1291,6 +1155,7 @@ function App() {
                 </button>
               </div>
             )}
+            </div>
 
           </div>
 
