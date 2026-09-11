@@ -15,5 +15,12 @@ npm run dev
    `<Logo />` component in `src/App.jsx` with an `<img>` if you need the exact official artwork.
 3. WhatsApp number is configured at the top of `src/App.jsx`:
    `const WHATSAPP_NUMBER = "919074871204";`
-4. Replace the mentor/testimonial placeholders with the actual approved content.
-5. Replace the checkout modal link with the actual payment/LMS checkout URL.
+4. The existing `.env` file supplies the Razorpay public key through
+   `VITE_RAZORPAY_KEY` and the course identifier through `VITE_COURSE_ID`.
+5. The enrollment form opens Razorpay Checkout for ₹1,999 after validation and prefills the
+   customer's name, phone number, and email.
+6. Only use a Razorpay test key during testing. Never put the Razorpay secret key
+   in `.env` with a `VITE_` prefix or in frontend code. Production payments must
+   be verified server-side using Razorpay's signature verification before granting
+   course access.
+7. Replace the mentor/testimonial placeholders with the actual approved content.

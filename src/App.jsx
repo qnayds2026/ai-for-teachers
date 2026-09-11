@@ -29,6 +29,35 @@ const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi, I want to learn about the AI for Teachers Course. Please share the details."
 )}`;
 
+const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY;
+const razorpayAmount = 199900;
+const courseId = import.meta.env.VITE_COURSE_ID;
+
+const loadRazorpay = () =>
+  new Promise((resolve, reject) => {
+    if (window.Razorpay) {
+      resolve();
+      return;
+    }
+
+    const existingScript = document.querySelector(
+      'script[src="https://checkout.razorpay.com/v1/checkout.js"]'
+    );
+
+    if (existingScript) {
+      existingScript.addEventListener("load", resolve, { once: true });
+      existingScript.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Unable to load the payment gateway."));
+    document.body.appendChild(script);
+  });
+
 const FloatingWhatsApp = () => {
   return (
     <div className="whatsapp-container">
@@ -164,27 +193,75 @@ function App() {
     email: "",
   });
   const [paymentStarted, setPaymentStarted] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
 
   const handleEnrollmentChange = (event) => {
     const { name, value } = event.target;
     setFormData((current) => ({ ...current, [name]: value }));
   };
 
-  const handleContinuePayment = (event) => {
+  const handleContinuePayment = async (event) => {
     event.preventDefault();
 
     if (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()) {
       return;
     }
 
+    setPaymentError("");
     setPaymentStarted(true);
 
-    // Connect your Razorpay/payment gateway here.
-    // Example: open your payment checkout after the form is validated.
+    try {
+      if (!razorpayKeyId) {
+        throw new Error("Payment is not configured yet. Please try again later.");
+      }
+
+      await loadRazorpay();
+
+      const checkout = new window.Razorpay({
+        key: razorpayKeyId,
+        amount: razorpayAmount,
+        currency: "INR",
+        name: "QNAYDS Academy",
+        description: "AI for Teachers Course",
+        prefill: {
+          name: formData.fullName.trim(),
+          email: formData.email.trim(),
+          contact: formData.phone.trim(),
+        },
+        notes: {
+          course: "AI for Teachers",
+          courseId: courseId || "",
+        },
+        theme: {
+          color: "#108dcc",
+        },
+        handler: (response) => {
+          setPaymentStarted(false);
+          setShowModal(false);
+          console.info("Razorpay payment completed", response.razorpay_payment_id);
+        },
+        modal: {
+          ondismiss: () => setPaymentStarted(false),
+        },
+      });
+
+      checkout.on("payment.failed", (response) => {
+        setPaymentStarted(false);
+        setPaymentError(
+          response.error?.description || "Payment failed. Please try again."
+        );
+      });
+
+      checkout.open();
+    } catch (error) {
+      setPaymentStarted(false);
+      setPaymentError(error.message || "Unable to start payment. Please try again.");
+    }
   };
 
   const openEnrollment = () => {
     setPaymentStarted(false);
+    setPaymentError("");
     setShowModal(true);
   };
 
@@ -1085,6 +1162,12 @@ function App() {
 
             {!paymentStarted ? (
               <form className="enrollment-form" onSubmit={handleContinuePayment}>
+                {paymentError && (
+                  <p className="payment-error" role="alert">
+                    {paymentError}
+                  </p>
+                )}
+
                 <label>
                   Full Name
                   <input
@@ -1138,12 +1221,11 @@ function App() {
               </form>
             ) : (
               <div className="payment-ready">
-                <Check size={42} />
-                <h3>Ready for Payment</h3>
+                <Clock size={42} />
+                <h3>Opening secure checkout...</h3>
                 <p>
-                  Your enrollment details are saved. Connect your payment
-                  gateway in <strong>handleContinuePayment()</strong> to open
-                  the actual checkout.
+                  Please wait while Razorpay opens. Your payment details are
+                  entered securely in the checkout window.
                 </p>
 
                 <button
@@ -1151,7 +1233,7 @@ function App() {
                   className="payment-button"
                   onClick={() => setPaymentStarted(false)}
                 >
-                  Back to Form
+                  Cancel
                 </button>
               </div>
             )}
