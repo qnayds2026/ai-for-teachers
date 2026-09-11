@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import PaymentSuccess from "./pages/PaymentSuccess";
 import logo from "../QNAYDS_LOGO.png";
-
-const API_URL = import.meta.env.VITE_API_URL;
-const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY;
 
 import {
   Check,
@@ -33,6 +29,59 @@ const WHATSAPP_NUMBER = "919074871204";
 const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi, I want to learn about the AI for Teachers Course. Please share the details."
 )}`;
+
+const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY;
+const apiUrl = import.meta.env.VITE_API_URL;
+const courseId = String(import.meta.env.VITE_COURSE_ID || "").trim();
+
+const fetchCourse = async () => {
+  if (!apiUrl || !courseId) {
+    throw new Error("Course payment is not configured yet. Please try again later.");
+  }
+
+  const response = await fetch(`${apiUrl}/courses/${courseId}`);
+
+  if (!response.ok) {
+    throw new Error("Unable to load the course price. Please try again later.");
+  }
+
+  const course = await response.json();
+  const priceInRupees = Number(course.price);
+
+  if (!Number.isFinite(priceInRupees) || priceInRupees < 0) {
+    throw new Error("The course price is invalid. Please try again later.");
+  }
+
+  return {
+    priceInRupees,
+    amountInPaise: Math.round(priceInRupees * 100),
+  };
+};
+
+const loadRazorpay = () =>
+  new Promise((resolve, reject) => {
+    if (window.Razorpay) {
+      resolve();
+      return;
+    }
+
+    const existingScript = document.querySelector(
+      'script[src="https://checkout.razorpay.com/v1/checkout.js"]'
+    );
+
+    if (existingScript) {
+      existingScript.addEventListener("load", resolve, { once: true });
+      existingScript.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Unable to load the payment gateway."));
+    document.body.appendChild(script);
+  });
 
 const FloatingWhatsApp = () => {
   return (
@@ -160,23 +209,6 @@ const faqs = [
    APP
 ===================================================== */
 
-const loadRazorpay = () => {
-  return new Promise((resolve) => {
-    if (window.Razorpay) {
-      resolve(true);
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-
-    document.body.appendChild(script);
-  });
-};
-
 function App() {
   const [openFaq, setOpenFaq] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -186,138 +218,77 @@ function App() {
     email: "",
   });
   const [paymentStarted, setPaymentStarted] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
 
   const handleEnrollmentChange = (event) => {
     const { name, value } = event.target;
     setFormData((current) => ({ ...current, [name]: value }));
   };
 
- const handleContinuePayment = async (event) => {
-  event.preventDefault();
+  const handleContinuePayment = async (event) => {
+    event.preventDefault();
 
-  if (
-    !formData.fullName.trim() ||
-    !formData.phone.trim() ||
-    !formData.email.trim()
-  ) {
-    alert("Please fill all details");
-    return;
-  }
-
-  try {
-    const razorpayLoaded = await loadRazorpay();
-
-    if (!razorpayLoaded) {
-      alert("Razorpay failed to load. Please try again.");
+    if (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()) {
       return;
     }
 
-    if (!RAZORPAY_KEY) {
-      alert("Razorpay key is missing.");
-      return;
-    }
+    setPaymentError("");
+    setPaymentStarted(true);
 
-    // Create Razorpay order
-    const response = await fetch(`${API_URL}/landing/create-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    body: JSON.stringify({
-    name: formData.fullName,
-    phone: formData.phone,
-    email: formData.email,
-    courseId: import.meta.env.VITE_COURSE_ID,
-  }),
-    });
+    try {
+      if (!razorpayKeyId) {
+        throw new Error("Payment is not configured yet. Please try again later.");
+      }
 
-    const result = await response.json();
-     console.log(
-    "CREATE ORDER RESPONSE:",
-    JSON.stringify(result, null, 2)
-   );
+      const { amountInPaise } = await fetchCourse();
 
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Failed to create payment order");
-    }
+      await loadRazorpay();
 
-    const orderId = result.data?.order?.id;
-    const amount = result.data?.order?.amount;
-
-    if (!orderId) {
-      throw new Error("Order ID was not received from server");
-    }
-
-    const options = {
-      key: RAZORPAY_KEY,
-      amount: amount,
-      currency: "INR",
-      name: "QNAYDS Academy",
-      description: "AI for Teachers Course",
-      order_id: orderId,
-
-      prefill: {
-        name: formData.fullName,
-        email: formData.email,
-        contact: formData.phone,
-      },
-
-      handler: async function (payment) {
-        try {
-          const verifyResponse = await fetch(
-            `${API_URL}/payments/verify`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_order_id: payment.razorpay_order_id,
-                razorpay_payment_id: payment.razorpay_payment_id,
-                razorpay_signature: payment.razorpay_signature,
-              }),
-            }
-          );
-
-          const verifyResult = await verifyResponse.json();
-
-          if (!verifyResponse.ok || !verifyResult.success) {
-            throw new Error(
-              verifyResult.message || "Payment verification failed"
-            );
-          }
-
-         setPaymentSuccess(true);
-         setShowModal(false);
-         setPaymentStarted(false);
-        } catch (error) {
-          console.error("Payment verification error:", error);
-          alert("Payment verification failed. Please contact support.");
-        }
-      },
-
-      modal: {
-        ondismiss: function () {
-          console.log("Razorpay checkout closed");
+      const checkout = new window.Razorpay({
+        key: razorpayKeyId,
+        amount: amountInPaise,
+        currency: "INR",
+        name: "QNAYDS Academy",
+        description: "AI for Teachers Course",
+        prefill: {
+          name: formData.fullName.trim(),
+          email: formData.email.trim(),
+          contact: formData.phone.trim(),
         },
-      },
+        notes: {
+          course: "AI for Teachers",
+          course_id: courseId,
+        },
+        theme: {
+          color: "#108dcc",
+        },
+        handler: (response) => {
+          setPaymentStarted(false);
+          setShowModal(false);
+          console.info("Razorpay payment completed", response.razorpay_payment_id);
+        },
+        modal: {
+          ondismiss: () => setPaymentStarted(false),
+        },
+      });
 
-      theme: {
-        color: "#3399cc",
-      },
-    };
+      checkout.on("payment.failed", (response) => {
+        setPaymentStarted(false);
+        setPaymentError(
+          response.error?.description || "Payment failed. Please try again."
+        );
+      });
 
-    const razorpay = new window.Razorpay(options);
-    razorpay.open();
-  } catch (error) {
-    console.error("Payment error:", error);
-    alert(error.message || "Something went wrong. Please try again.");
-  }
-};
+      checkout.open();
+    } catch (error) {
+      setPaymentStarted(false);
+      setPaymentError(error.message || "Unable to start payment. Please try again.");
+    }
+  };
 
   const openEnrollment = () => {
     setPaymentStarted(false);
+    setPaymentError("");
     setShowModal(true);
   };
 
@@ -327,16 +298,255 @@ function App() {
     });
   };
 
- if (paymentSuccess) {
   return (
-    <PaymentSuccess
-      onBack={() => setPaymentSuccess(false)}
-    />
-  );
-}
+    <>
+      <style>{`
+        /* =====================================================
+           HERO OFFER BOX
+        ===================================================== */
+        .hero-offer-box {
+          width: min(100%, 760px);
+          margin: 28px auto 24px;
+          padding: 26px 30px 24px;
+          box-sizing: border-box;
+          text-align: center;
+          background: rgba(255, 255, 255, .98);
+          border: 1.5px solid #cfe0f4;
+          border-radius: 20px;
+          box-shadow: 0 16px 38px rgba(20, 52, 90, .12);
+        }
+        .hero-offer-label {
+          display: block;
+          margin-bottom: 7px;
+          color: #536b88;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: .8px;
+          text-transform: uppercase;
+        }
+        .hero-offer-price {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 14px;
+          margin-bottom: 6px;
+        }
+        .hero-offer-price del {
+          color: #8a94a6;
+          font-size: 21px;
+          font-weight: 600;
+        }
+        .hero-offer-price strong {
+          color: #1677d2;
+          font-size: 44px;
+          line-height: 1;
+          font-weight: 900;
+        }
+        .hero-offer-note {
+          display: block;
+          margin-bottom: 18px;
+          color: #60738d;
+          font-size: 13px;
+        }
+        .hero-offer-actions {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .hero-offer-actions .primary-button,
+        .hero-offer-actions .secondary-button {
+          width: 100%;
+          min-height: 58px;
+          box-sizing: border-box;
+        }
+        .hero-offer-checks {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 12px 30px;
+          margin-top: 17px;
+          color: #536b88;
+          font-size: 14px;
+          font-weight: 700;
+        }
+        .hero-offer-checks span {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .hero-offer-checks svg {
+          color: #1596d1;
+        }
 
-  return (
-    <div className="page">
+
+        /* =====================================================
+           MODULES PRICE CARD
+        ===================================================== */
+        .modules-price-card {
+          width: min(100%, 760px);
+          margin: 34px auto 0;
+          padding: 26px 30px 28px;
+          box-sizing: border-box;
+          text-align: center;
+          background: #ffffff;
+          border: 1.5px solid #cfe0f4;
+          border-radius: 20px;
+          box-shadow: 0 16px 38px rgba(20, 52, 90, .12);
+        }
+        .modules-price-label {
+          display: block;
+          margin-bottom: 7px;
+          color: #536b88;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: .8px;
+          text-transform: uppercase;
+        }
+        .modules-price-values {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 14px;
+          margin-bottom: 7px;
+        }
+        .modules-price-values del {
+          color: #8a94a6;
+          font-size: 21px;
+          font-weight: 600;
+        }
+        .modules-price-values strong {
+          color: #1677d2;
+          font-size: 44px;
+          line-height: 1;
+          font-weight: 900;
+        }
+        .modules-price-note {
+          display: block;
+          margin-bottom: 20px;
+          color: #60738d;
+          font-size: 13px;
+        }
+        .modules-price-button {
+          width: 100%;
+          max-width: 380px;
+          min-height: 58px;
+          border: 0;
+          border-radius: 13px;
+          background: #1596d1;
+          color: #fff;
+          font-size: 19px;
+          font-weight: 800;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          box-shadow: 0 10px 25px rgba(21,150,209,.28);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .modules-price-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px rgba(21,150,209,.36);
+        }
+        .modules-price-features {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px 28px;
+          margin-top: 17px;
+          color: #536b88;
+          font-size: 14px;
+          font-weight: 700;
+        }
+        .modules-price-features span {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .modules-price-features svg { color: #1596d1; }
+
+        /* =====================================================
+           FINAL CTA OFFER BOX
+        ===================================================== */
+        .final-offer-box {
+          width: min(100%, 720px);
+          margin: 28px auto 0;
+          padding: 28px 30px 30px;
+          box-sizing: border-box;
+          text-align: center;
+          background: rgba(255, 255, 255, .08);
+          border: 1px solid rgba(255, 255, 255, .20);
+          border-radius: 20px;
+          box-shadow: 0 18px 45px rgba(0, 0, 0, .16);
+          backdrop-filter: blur(6px);
+        }
+        .final-offer-price {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 6px;
+        }
+        .final-offer-price del {
+          color: rgba(255,255,255,.55);
+          font-size: 21px;
+          font-weight: 600;
+        }
+        .final-offer-price strong {
+          color: #fff;
+          font-size: 46px;
+          line-height: 1;
+          font-weight: 900;
+        }
+        .final-offer-note {
+          display: block;
+          margin-bottom: 20px;
+          color: rgba(255,255,255,.86);
+          font-size: 14px;
+        }
+        .final-offer-button {
+          width: 100%;
+          max-width: 380px;
+          min-height: 60px;
+          border: 0;
+          border-radius: 13px;
+          background: #1596d1;
+          color: #fff;
+          font-size: 19px;
+          font-weight: 800;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          box-shadow: 0 10px 25px rgba(21,150,209,.28);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .final-offer-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px rgba(21,150,209,.36);
+        }
+        @media (max-width: 600px) {
+          .hero-offer-box {
+            padding: 22px 16px 20px;
+            border-radius: 17px;
+          }
+          .hero-offer-price strong { font-size: 38px; }
+          .hero-offer-price del { font-size: 18px; }
+          .hero-offer-actions { grid-template-columns: 1fr; }
+          .hero-offer-actions .primary-button,
+          .hero-offer-actions .secondary-button { min-height: 54px; }
+          .hero-offer-checks { font-size: 12px; gap: 9px 18px; }
+          .final-offer-box {
+            padding: 24px 16px 25px;
+            border-radius: 17px;
+          }
+          .final-offer-price strong { font-size: 40px; }
+          .final-offer-price del { font-size: 18px; }
+          .final-offer-button { font-size: 17px; min-height: 56px; }
+        }
+      `}</style>
+      <div className="page">
 
       {/* =================================================
           HERO
@@ -349,11 +559,14 @@ function App() {
 
         <div className="container hero-content">
 
-          <img
-            src={logo}
-            alt="QNAYDS Academy Logo"
-            className="main-logo"
-          />
+          {/* QNAYDS LOGO */}
+       <div className="modal-logo-wrapper">
+       <img
+          src={logo}
+          alt="QNAYDS"
+          className="modal-logo"
+         />
+        </div>
 
           <div className="academy-label">
             QNAYDS ACADEMY
@@ -377,36 +590,49 @@ function App() {
             AI എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് പഠിക്കാം.
           </p>
 
-          <div className="hero-buttons">
+          <div className="hero-offer-box">
 
-            <button
-              className="primary-button"
-              onClick={openEnrollment}
-            >
-              ഇപ്പോൾ Join ചെയ്യാം
-              <ArrowRight size={18} />
-            </button>
+            <span className="hero-offer-label">Course Fee</span>
 
-            <button
-              className="secondary-button"
-              onClick={scrollToSyllabus}
-            >
-              Syllabus കാണാം
-            </button>
+            <div className="hero-offer-price">
+              <del>₹5,000</del>
+              <strong>₹1,999</strong>
+            </div>
 
-          </div>
+            <span className="hero-offer-note">One-time payment</span>
 
-          <div className="hero-checks">
+            <div className="hero-offer-actions">
 
-            <span>
-              <Check size={17} />
-              Teacher Focused
-            </span>
+              <button
+                type="button"
+                className="primary-button"
+                onClick={openEnrollment}
+              >
+                ഇപ്പോൾ Join ചെയ്യാം
+                <ArrowRight size={18} />
+              </button>
 
-            <span>
-              <Check size={17} />
-              Practical Learning
-            </span>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={scrollToSyllabus}
+              >
+                Syllabus കാണാം
+              </button>
+
+            </div>
+
+            <div className="hero-offer-checks">
+              <span>
+                <Check size={17} />
+                Teacher Focused
+              </span>
+
+              <span>
+                <Check size={17} />
+                Practical Learning
+              </span>
+            </div>
 
           </div>
 
@@ -558,9 +784,6 @@ function App() {
             type="button"
             className="section-join-button"
             onClick={openEnrollment}
-            style={{
-              marginTop: "30px",
-            }}
           >
             ഇപ്പോൾ Join ചെയ്യാം
             <ArrowRight size={18} />
@@ -636,15 +859,41 @@ function App() {
 
           </div>
 
-          <div className="section-cta-row">
+
+          {/* =================================================
+              PRICE CARD AFTER MODULES
+          ================================================= */}
+
+          <div className="modules-price-card">
+
+            <span className="modules-price-label">
+              AI FOR TEACHERS
+            </span>
+
+            <div className="modules-price-values">
+              <del>₹5,000</del>
+              <strong>₹1,999</strong>
+            </div>
+
+            <span className="modules-price-note">
+              One-time payment • Course access
+            </span>
+
             <button
               type="button"
-              className="section-join-button"
+              className="modules-price-button"
               onClick={openEnrollment}
             >
               ഇപ്പോൾ Join ചെയ്യാം
-              <ArrowRight size={18} />
+              <ArrowRight size={19} />
             </button>
+
+            <div className="modules-price-features">
+              <span><Check size={16} /> Teacher Focused</span>
+              <span><Check size={16} /> Practical Learning</span>
+              <span><Check size={16} /> Secure Payment</span>
+            </div>
+
           </div>
 
         </div>
@@ -1069,14 +1318,25 @@ function App() {
             daily teaching work കൂടുതൽ എളുപ്പമാക്കൂ.
           </p>
 
-          <button
-            type="button"
-            className="cta-button join-highlight-button"
-            onClick={openEnrollment}
-          >
-            ഇപ്പോൾ Join ചെയ്യാം
-            <ArrowRight size={19} />
-          </button>
+          <div className="final-offer-box">
+
+            <div className="final-offer-price">
+              <del>₹5,000</del>
+              <strong>₹1,999</strong>
+            </div>
+
+            <span className="final-offer-note">One-time payment • Course access</span>
+
+            <button
+              type="button"
+              className="final-offer-button"
+              onClick={openEnrollment}
+            >
+              ഇപ്പോൾ Join ചെയ്യാം
+              <ArrowRight size={19} />
+            </button>
+
+          </div>
 
         </div>
       </section>
@@ -1192,35 +1452,48 @@ function App() {
             }
           >
 
-            <button
-              className="modal-close"
-              onClick={() => setShowModal(false)}
-            >
-              <X size={21} />
-            </button>
+            <div className="enrollment-header">
+              <div>
+                <h2>Complete Your Enrollment</h2>
+                <p>Enter your details to continue securely.</p>
+              </div>
 
-            <img
-              src="/QNAYDS_LOGO.png"
-              alt="QNAYDS Academy Logo"
-              className="mx-auto mb-5 h-20 w-auto object-contain sm:h-24"
-            />
-            <h2>Complete Your Enrollment</h2>
+              <button
+                className="modal-close"
+                onClick={() => setShowModal(false)}
+                aria-label="Close"
+              >
+                <X size={22} />
+              </button>
+            </div>
 
-            <div className="enrollment-offer">
-        
-              <div className="offer-price-row">
-                <div className="offer-prices">
-                  <span className="offer-original-price">₹5,000</span>
-                  <span className="offer-current-price">₹1,999</span>
-                  <span className="offer-label">LIMITED-TIME OFFER</span>
+            <div className="enrollment-body">
+              <div className="enrollment-offer">
+                <div className="offer-course-name">
+                  AI for Teachers
                 </div>
 
-                <span className="offer-saving">Save ₹3,001</span>
+                <div className="offer-price-row">
+                  <div className="offer-prices">
+                    <span className="offer-original-price">₹5,000</span>
+                    <span className="offer-current-price">₹1,999</span>
+                    <span className="offer-label">LIMITED-TIME OFFER</span>
+                  </div>
+
+                  <span className="offer-saving">
+                    Save ₹3,001
+                  </span>
+                </div>
               </div>
-            </div>
 
             {!paymentStarted ? (
               <form className="enrollment-form" onSubmit={handleContinuePayment}>
+                {paymentError && (
+                  <p className="payment-error" role="alert">
+                    {paymentError}
+                  </p>
+                )}
+
                 <label>
                   Full Name
                   <input
@@ -1274,12 +1547,11 @@ function App() {
               </form>
             ) : (
               <div className="payment-ready">
-                <Check size={42} />
-                <h3>Ready for Payment</h3>
+                <Clock size={42} />
+                <h3>Opening secure checkout...</h3>
                 <p>
-                  Your enrollment details are saved. Connect your payment
-                  gateway in <strong>handleContinuePayment()</strong> to open
-                  the actual checkout.
+                  Please wait while Razorpay opens. Your payment details are
+                  entered securely in the checkout window.
                 </p>
 
                 <button
@@ -1287,10 +1559,11 @@ function App() {
                   className="payment-button"
                   onClick={() => setPaymentStarted(false)}
                 >
-                  Back to Form
+                  Cancel
                 </button>
               </div>
             )}
+            </div>
 
           </div>
 
@@ -1298,7 +1571,8 @@ function App() {
 
       )}
 
-    </div>
+      </div>
+    </>
   );
 }
 
