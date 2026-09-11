@@ -578,11 +578,13 @@ function App() {
           </div>
 
           <h1>
-            അധ്യാപനത്തിൽ
-            <span> AI ഉപയോഗിക്കാം</span>
+            ഇനി <span>AI</span> നിങ്ങളുടെ <span>teaching</span> എളുപ്പമാക്കും
+            {/* <span > AI ഒരു Smart കൈത്താങ്ങ്.</span> */}
             <br />
-            കൂടുതൽ Smart ആക്കാം.
+            {/* കൂടുതൽ Smart ആക്കാം. */}
           </h1>
+
+
 
           <p className="hero-description">
             Lesson Plans, Question Papers, Presentations,
@@ -658,7 +660,7 @@ function App() {
         </div>
       </section>
 
-            {/* =================================================
+      {/* =================================================
           WATCH BEFORE YOU ENROLL
       ================================================= */}
 
@@ -673,9 +675,11 @@ function App() {
             </span>
 
             <h2>
-              ഈ course നിങ്ങള്‍ക്ക്
-              <span> എങ്ങനെ സഹായിക്കും?</span>
+              ഈ course നിങ്ങൾക്ക്
+              <span> എങ്ങനെ ഉപകാരപ്പെടും?</span>
             </h2>
+
+
 
             <p>
               Enroll ചെയ്യുന്നതിന് മുമ്പ് course-നെ കുറിച്ച്
@@ -712,7 +716,6 @@ function App() {
       </section>
 
 
-  
       {/* =================================================
           INTRO
       ================================================= */}
@@ -791,6 +794,98 @@ function App() {
 
         </div>
       </section>
+
+
+
+
+      {/* =================================================
+          USE CASES
+      ================================================= */}
+
+      <section className="section usecase-section">
+
+        <div className="container">
+
+          <div className="section-heading">
+
+            <span className="section-tag">
+              REAL TEACHER USE CASES
+            </span>
+
+            <h2>
+              നിങ്ങളുടെ daily teaching work
+              <span> കൂടുതൽ എളുപ്പമാക്കാം</span>
+            </h2>
+
+          </div>
+
+          <div className="usecase-grid">
+
+            <div className="usecase-card">
+              <span>01</span>
+              <h3>Lesson Plan</h3>
+              <p>
+                ഒരു topic നൽകി structured lesson plan
+                തയ്യാറാക്കാൻ AI ഉപയോഗിക്കാം.
+              </p>
+            </div>
+
+            <div className="usecase-card">
+              <span>02</span>
+              <h3>Question Paper</h3>
+              <p>
+                MCQ, descriptive questions,
+                answer key എന്നിവ തയ്യാറാക്കാം.
+              </p>
+            </div>
+
+            <div className="usecase-card">
+              <span>03</span>
+              <h3>Worksheet</h3>
+              <p>
+                Different difficulty levels ഉള്ള
+                worksheets create ചെയ്യാം.
+              </p>
+            </div>
+
+            <div className="usecase-card">
+              <span>04</span>
+              <h3>Parent Message</h3>
+              <p>
+                Professional parent communication
+                drafts തയ്യാറാക്കാം.
+              </p>
+            </div>
+
+            <div className="usecase-card">
+              <span>05</span>
+              <h3>Presentation</h3>
+              <p>
+                Classroom-ready slides
+                വേഗത്തിൽ തയ്യാറാക്കാം.
+              </p>
+            </div>
+
+            <div className="usecase-card">
+              <span>06</span>
+              <h3>Concept Simplification</h3>
+              <p>
+                Difficult concepts students-ന്
+                എളുപ്പത്തിൽ explain ചെയ്യാം.
+              </p>
+            </div>
+
+          </div>
+
+          <div className="section-cta-row">
+            <button type="button" className="section-join-button" onClick={openEnrollment}>
+              ഇപ്പോൾ Join ചെയ്യാം <ArrowRight size={18} />
+            </button>
+          </div>
+
+        </div>
+      </section>
+
 
       {/* =================================================
           SYLLABUS
@@ -1071,93 +1166,7 @@ function App() {
         </div>
       </section>
 
-      {/* =================================================
-          USE CASES
-      ================================================= */}
 
-      <section className="section usecase-section">
-
-        <div className="container">
-
-          <div className="section-heading">
-
-            <span className="section-tag">
-              REAL TEACHER USE CASES
-            </span>
-
-            <h2>
-              നിങ്ങളുടെ daily teaching work
-              <span> കൂടുതൽ എളുപ്പമാക്കാം</span>
-            </h2>
-
-          </div>
-
-          <div className="usecase-grid">
-
-            <div className="usecase-card">
-              <span>01</span>
-              <h3>Lesson Plan</h3>
-              <p>
-                ഒരു topic നൽകി structured lesson plan
-                തയ്യാറാക്കാൻ AI ഉപയോഗിക്കാം.
-              </p>
-            </div>
-
-            <div className="usecase-card">
-              <span>02</span>
-              <h3>Question Paper</h3>
-              <p>
-                MCQ, descriptive questions,
-                answer key എന്നിവ തയ്യാറാക്കാം.
-              </p>
-            </div>
-
-            <div className="usecase-card">
-              <span>03</span>
-              <h3>Worksheet</h3>
-              <p>
-                Different difficulty levels ഉള്ള
-                worksheets create ചെയ്യാം.
-              </p>
-            </div>
-
-            <div className="usecase-card">
-              <span>04</span>
-              <h3>Parent Message</h3>
-              <p>
-                Professional parent communication
-                drafts തയ്യാറാക്കാം.
-              </p>
-            </div>
-
-            <div className="usecase-card">
-              <span>05</span>
-              <h3>Presentation</h3>
-              <p>
-                Classroom-ready slides
-                വേഗത്തിൽ തയ്യാറാക്കാം.
-              </p>
-            </div>
-
-            <div className="usecase-card">
-              <span>06</span>
-              <h3>Concept Simplification</h3>
-              <p>
-                Difficult concepts students-ന്
-                എളുപ്പത്തിൽ explain ചെയ്യാം.
-              </p>
-            </div>
-
-          </div>
-
-          <div className="section-cta-row">
-            <button type="button" className="section-join-button" onClick={openEnrollment}>
-              ഇപ്പോൾ Join ചെയ്യാം <ArrowRight size={18} />
-            </button>
-          </div>
-
-        </div>
-      </section>
 
       {/* =================================================
           SAFE AI
@@ -1251,9 +1260,8 @@ function App() {
 
               return (
                 <div
-                  className={`faq-item ${
-                    isOpen ? "active" : ""
-                  }`}
+                  className={`faq-item ${isOpen ? "active" : ""
+                    }`}
                   key={index}
                 >
 
@@ -1301,9 +1309,9 @@ function App() {
 
         <div className="container">
 
-          
 
-          
+
+
 
           <h2>
             ഇനി AI നിങ്ങളെ സഹായിക്കട്ടെ.
@@ -1372,7 +1380,7 @@ function App() {
 
           <div className="footer-logo-area">
 
-           
+
 
           </div>
 
@@ -1538,8 +1546,8 @@ function App() {
 
                   <button
                     type="button"
-                    className="cancel-button"
-                    onClick={() => setShowModal(false)}
+                    className="payment-button"
+                    onClick={() => setPaymentStarted(false)}
                   >
                     Cancel
                   </button>
