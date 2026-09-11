@@ -1759,7 +1759,7 @@ img {
   .hero h1 {
     max-width: 100%;
 
-    font-size: 42px;
+    font-size: clamp(32px, 8vw, 42px);
 
     letter-spacing: -1px;
   }
@@ -1890,7 +1890,7 @@ img {
   }
 
   .hero h1 {
-    font-size: 35px;
+    font-size: clamp(30px, 9vw, 35px);
 
     line-height: 1.18;
   }
