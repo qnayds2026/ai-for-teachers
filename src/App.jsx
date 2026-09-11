@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import logo from "./assets/QNAYDS_LOGO.png";
+import React, { useState } from "react";
+import logo from "../QNAYDS_LOGO.png";
 
 import {
   Check,
@@ -219,13 +219,6 @@ function App() {
   });
   const [paymentStarted, setPaymentStarted] = useState(false);
   const [paymentError, setPaymentError] = useState("");
-  const [coursePrice, setCoursePrice] = useState(null);
-
-  useEffect(() => {
-    fetchCourse()
-      .then(({ priceInRupees }) => setCoursePrice(priceInRupees))
-      .catch(() => setCoursePrice(null));
-  }, []);
 
   const handleEnrollmentChange = (event) => {
     const { name, value } = event.target;
@@ -306,7 +299,254 @@ function App() {
   };
 
   return (
-    <div className="page">
+    <>
+      <style>{`
+        /* =====================================================
+           HERO OFFER BOX
+        ===================================================== */
+        .hero-offer-box {
+          width: min(100%, 760px);
+          margin: 28px auto 24px;
+          padding: 26px 30px 24px;
+          box-sizing: border-box;
+          text-align: center;
+          background: rgba(255, 255, 255, .98);
+          border: 1.5px solid #cfe0f4;
+          border-radius: 20px;
+          box-shadow: 0 16px 38px rgba(20, 52, 90, .12);
+        }
+        .hero-offer-label {
+          display: block;
+          margin-bottom: 7px;
+          color: #536b88;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: .8px;
+          text-transform: uppercase;
+        }
+        .hero-offer-price {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 14px;
+          margin-bottom: 6px;
+        }
+        .hero-offer-price del {
+          color: #8a94a6;
+          font-size: 21px;
+          font-weight: 600;
+        }
+        .hero-offer-price strong {
+          color: #1677d2;
+          font-size: 44px;
+          line-height: 1;
+          font-weight: 900;
+        }
+        .hero-offer-note {
+          display: block;
+          margin-bottom: 18px;
+          color: #60738d;
+          font-size: 13px;
+        }
+        .hero-offer-actions {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .hero-offer-actions .primary-button,
+        .hero-offer-actions .secondary-button {
+          width: 100%;
+          min-height: 58px;
+          box-sizing: border-box;
+        }
+        .hero-offer-checks {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 12px 30px;
+          margin-top: 17px;
+          color: #536b88;
+          font-size: 14px;
+          font-weight: 700;
+        }
+        .hero-offer-checks span {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .hero-offer-checks svg {
+          color: #1596d1;
+        }
+
+
+        /* =====================================================
+           MODULES PRICE CARD
+        ===================================================== */
+        .modules-price-card {
+          width: min(100%, 760px);
+          margin: 34px auto 0;
+          padding: 26px 30px 28px;
+          box-sizing: border-box;
+          text-align: center;
+          background: #ffffff;
+          border: 1.5px solid #cfe0f4;
+          border-radius: 20px;
+          box-shadow: 0 16px 38px rgba(20, 52, 90, .12);
+        }
+        .modules-price-label {
+          display: block;
+          margin-bottom: 7px;
+          color: #536b88;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: .8px;
+          text-transform: uppercase;
+        }
+        .modules-price-values {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 14px;
+          margin-bottom: 7px;
+        }
+        .modules-price-values del {
+          color: #8a94a6;
+          font-size: 21px;
+          font-weight: 600;
+        }
+        .modules-price-values strong {
+          color: #1677d2;
+          font-size: 44px;
+          line-height: 1;
+          font-weight: 900;
+        }
+        .modules-price-note {
+          display: block;
+          margin-bottom: 20px;
+          color: #60738d;
+          font-size: 13px;
+        }
+        .modules-price-button {
+          width: 100%;
+          max-width: 380px;
+          min-height: 58px;
+          border: 0;
+          border-radius: 13px;
+          background: #1596d1;
+          color: #fff;
+          font-size: 19px;
+          font-weight: 800;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          box-shadow: 0 10px 25px rgba(21,150,209,.28);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .modules-price-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px rgba(21,150,209,.36);
+        }
+        .modules-price-features {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px 28px;
+          margin-top: 17px;
+          color: #536b88;
+          font-size: 14px;
+          font-weight: 700;
+        }
+        .modules-price-features span {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .modules-price-features svg { color: #1596d1; }
+
+        /* =====================================================
+           FINAL CTA OFFER BOX
+        ===================================================== */
+        .final-offer-box {
+          width: min(100%, 720px);
+          margin: 28px auto 0;
+          padding: 28px 30px 30px;
+          box-sizing: border-box;
+          text-align: center;
+          background: rgba(255, 255, 255, .08);
+          border: 1px solid rgba(255, 255, 255, .20);
+          border-radius: 20px;
+          box-shadow: 0 18px 45px rgba(0, 0, 0, .16);
+          backdrop-filter: blur(6px);
+        }
+        .final-offer-price {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 6px;
+        }
+        .final-offer-price del {
+          color: rgba(255,255,255,.55);
+          font-size: 21px;
+          font-weight: 600;
+        }
+        .final-offer-price strong {
+          color: #fff;
+          font-size: 46px;
+          line-height: 1;
+          font-weight: 900;
+        }
+        .final-offer-note {
+          display: block;
+          margin-bottom: 20px;
+          color: rgba(255,255,255,.86);
+          font-size: 14px;
+        }
+        .final-offer-button {
+          width: 100%;
+          max-width: 380px;
+          min-height: 60px;
+          border: 0;
+          border-radius: 13px;
+          background: #1596d1;
+          color: #fff;
+          font-size: 19px;
+          font-weight: 800;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          box-shadow: 0 10px 25px rgba(21,150,209,.28);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .final-offer-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px rgba(21,150,209,.36);
+        }
+        @media (max-width: 600px) {
+          .hero-offer-box {
+            padding: 22px 16px 20px;
+            border-radius: 17px;
+          }
+          .hero-offer-price strong { font-size: 38px; }
+          .hero-offer-price del { font-size: 18px; }
+          .hero-offer-actions { grid-template-columns: 1fr; }
+          .hero-offer-actions .primary-button,
+          .hero-offer-actions .secondary-button { min-height: 54px; }
+          .hero-offer-checks { font-size: 12px; gap: 9px 18px; }
+          .final-offer-box {
+            padding: 24px 16px 25px;
+            border-radius: 17px;
+          }
+          .final-offer-price strong { font-size: 40px; }
+          .final-offer-price del { font-size: 18px; }
+          .final-offer-button { font-size: 17px; min-height: 56px; }
+        }
+      `}</style>
+      <div className="page">
 
       {/* =================================================
           HERO
@@ -320,13 +560,13 @@ function App() {
         <div className="container hero-content">
 
           {/* QNAYDS LOGO */}
-          <div className="modal-logo-wrapper">
-            <img
-              src={logo}
-              alt="QNAYDS"
-              className="modal-logo"
-            />
-          </div>
+       <div className="modal-logo-wrapper">
+       <img
+          src={logo}
+          alt="QNAYDS"
+          className="modal-logo"
+         />
+        </div>
 
           <div className="academy-label">
             QNAYDS ACADEMY
@@ -352,36 +592,49 @@ function App() {
             AI എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് പഠിക്കാം.
           </p>
 
-          <div className="hero-buttons">
+          <div className="hero-offer-box">
 
-            <button
-              className="primary-button"
-              onClick={openEnrollment}
-            >
-              ഇപ്പോൾ Join ചെയ്യാം
-              <ArrowRight size={18} />
-            </button>
+            <span className="hero-offer-label">Course Fee</span>
 
-            <button
-              className="secondary-button"
-              onClick={scrollToSyllabus}
-            >
-              Syllabus കാണാം
-            </button>
+            <div className="hero-offer-price">
+              <del>₹5,000</del>
+              <strong>₹1,999</strong>
+            </div>
 
-          </div>
+            <span className="hero-offer-note">One-time payment</span>
 
-          <div className="hero-checks">
+            <div className="hero-offer-actions">
 
-            <span>
-              <Check size={17} />
-              Teacher Focused
-            </span>
+              <button
+                type="button"
+                className="primary-button"
+                onClick={openEnrollment}
+              >
+                ഇപ്പോൾ Join ചെയ്യാം
+                <ArrowRight size={18} />
+              </button>
 
-            <span>
-              <Check size={17} />
-              Practical Learning
-            </span>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={scrollToSyllabus}
+              >
+                Syllabus കാണാം
+              </button>
+
+            </div>
+
+            <div className="hero-offer-checks">
+              <span>
+                <Check size={17} />
+                Teacher Focused
+              </span>
+
+              <span>
+                <Check size={17} />
+                Practical Learning
+              </span>
+            </div>
 
           </div>
 
@@ -701,15 +954,41 @@ function App() {
 
           </div>
 
-          <div className="section-cta-row">
+
+          {/* =================================================
+              PRICE CARD AFTER MODULES
+          ================================================= */}
+
+          <div className="modules-price-card">
+
+            <span className="modules-price-label">
+              AI FOR TEACHERS
+            </span>
+
+            <div className="modules-price-values">
+              <del>₹5,000</del>
+              <strong>₹1,999</strong>
+            </div>
+
+            <span className="modules-price-note">
+              One-time payment • Course access
+            </span>
+
             <button
               type="button"
-              className="section-join-button"
+              className="modules-price-button"
               onClick={openEnrollment}
             >
               ഇപ്പോൾ Join ചെയ്യാം
-              <ArrowRight size={18} />
+              <ArrowRight size={19} />
             </button>
+
+            <div className="modules-price-features">
+              <span><Check size={16} /> Teacher Focused</span>
+              <span><Check size={16} /> Practical Learning</span>
+              <span><Check size={16} /> Secure Payment</span>
+            </div>
+
           </div>
 
         </div>
@@ -1047,14 +1326,25 @@ function App() {
             daily teaching work കൂടുതൽ എളുപ്പമാക്കൂ.
           </p>
 
-          <button
-            type="button"
-            className="cta-button join-highlight-button"
-            onClick={openEnrollment}
-          >
-            ഇപ്പോൾ Join ചെയ്യാം
-            <ArrowRight size={19} />
-          </button>
+          <div className="final-offer-box">
+
+            <div className="final-offer-price">
+              <del>₹5,000</del>
+              <strong>₹1,999</strong>
+            </div>
+
+            <span className="final-offer-note">One-time payment • Course access</span>
+
+            <button
+              type="button"
+              className="final-offer-button"
+              onClick={openEnrollment}
+            >
+              ഇപ്പോൾ Join ചെയ്യാം
+              <ArrowRight size={19} />
+            </button>
+
+          </div>
 
         </div>
       </section>
@@ -1194,87 +1484,65 @@ function App() {
                 <div className="offer-price-row">
                   <div className="offer-prices">
                     <span className="offer-original-price">₹5,000</span>
-                    <span className="offer-current-price">
-                      {coursePrice === null ? "Loading price..." : `₹${coursePrice.toLocaleString("en-IN")}`}
-                    </span>
+                    <span className="offer-current-price">₹1,999</span>
                     <span className="offer-label">LIMITED-TIME OFFER</span>
                   </div>
 
-                  {coursePrice !== null && coursePrice < 5000 && (
-                    <span className="offer-saving">
-                      Save ₹{(5000 - coursePrice).toLocaleString("en-IN")}
-                    </span>
-                  )}
+                  <span className="offer-saving">
+                    Save ₹3,001
+                  </span>
                 </div>
               </div>
 
-              {!paymentStarted ? (
-                <form className="enrollment-form" onSubmit={handleContinuePayment}>
-                  {paymentError && (
-                    <p className="payment-error" role="alert">
-                      {paymentError}
-                    </p>
-                  )}
-
-                  <label>
-                    Full Name
-                    <input
-                      type="text"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleEnrollmentChange}
-                      placeholder="Enter your full name"
-                      required
-                    />
-                  </label>
-
-                  <label>
-                    Phone Number
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleEnrollmentChange}
-                      placeholder="Enter your phone number"
-                      required
-                    />
-                  </label>
-
-                  <label>
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleEnrollmentChange}
-                      placeholder="Enter your email"
-                      required
-                    />
-                  </label>
-
-                  <div className="enrollment-actions">
-                    <button type="submit" className="payment-button">
-                      Continue to Payment
-                      <ArrowRight size={18} />
-                    </button>
-
-                    <button
-                      type="button"
-                      className="cancel-button"
-                      onClick={() => setShowModal(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              ) : (
-                <div className="payment-ready">
-                  <Clock size={42} />
-                  <h3>Opening secure checkout...</h3>
-                  <p>
-                    Please wait while Razorpay opens. Your payment details are
-                    entered securely in the checkout window.
+            {!paymentStarted ? (
+              <form className="enrollment-form" onSubmit={handleContinuePayment}>
+                {paymentError && (
+                  <p className="payment-error" role="alert">
+                    {paymentError}
                   </p>
+                )}
+
+                <label>
+                  Full Name
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleEnrollmentChange}
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Phone Number
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleEnrollmentChange}
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleEnrollmentChange}
+                    placeholder="Enter your email"
+                    required
+                  />
+                </label>
+
+                <div className="enrollment-actions">
+                  <button type="submit" className="payment-button">
+                    Continue to Payment
+                    <ArrowRight size={18} />
+                  </button>
 
                   <button
                     type="button"
@@ -1284,7 +1552,25 @@ function App() {
                     Cancel
                   </button>
                 </div>
-              )}
+              </form>
+            ) : (
+              <div className="payment-ready">
+                <Clock size={42} />
+                <h3>Opening secure checkout...</h3>
+                <p>
+                  Please wait while Razorpay opens. Your payment details are
+                  entered securely in the checkout window.
+                </p>
+
+                <button
+                  type="button"
+                  className="payment-button"
+                  onClick={() => setPaymentStarted(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
             </div>
 
           </div>
@@ -1293,7 +1579,8 @@ function App() {
 
       )}
 
-    </div>
+      </div>
+    </>
   );
 }
 
