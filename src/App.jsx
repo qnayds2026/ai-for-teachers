@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./assets/QNAYDS_LOGO.png";
 
 import {
@@ -31,8 +31,32 @@ const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
 )}`;
 
 const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY;
-const razorpayAmount = 199900;
-const courseId = import.meta.env.VITE_COURSE_ID;
+const apiUrl = import.meta.env.VITE_API_URL;
+const courseId = String(import.meta.env.VITE_COURSE_ID || "").trim();
+
+const fetchCourse = async () => {
+  if (!apiUrl || !courseId) {
+    throw new Error("Course payment is not configured yet. Please try again later.");
+  }
+
+  const response = await fetch(`${apiUrl}/courses/${courseId}`);
+
+  if (!response.ok) {
+    throw new Error("Unable to load the course price. Please try again later.");
+  }
+
+  const course = await response.json();
+  const priceInRupees = Number(course.price);
+
+  if (!Number.isFinite(priceInRupees) || priceInRupees < 0) {
+    throw new Error("The course price is invalid. Please try again later.");
+  }
+
+  return {
+    priceInRupees,
+    amountInPaise: Math.round(priceInRupees * 100),
+  };
+};
 
 const loadRazorpay = () =>
   new Promise((resolve, reject) => {
@@ -195,6 +219,13 @@ function App() {
   });
   const [paymentStarted, setPaymentStarted] = useState(false);
   const [paymentError, setPaymentError] = useState("");
+  const [coursePrice, setCoursePrice] = useState(null);
+
+  useEffect(() => {
+    fetchCourse()
+      .then(({ priceInRupees }) => setCoursePrice(priceInRupees))
+      .catch(() => setCoursePrice(null));
+  }, []);
 
   const handleEnrollmentChange = (event) => {
     const { name, value } = event.target;
@@ -216,11 +247,13 @@ function App() {
         throw new Error("Payment is not configured yet. Please try again later.");
       }
 
+      const { amountInPaise } = await fetchCourse();
+
       await loadRazorpay();
 
       const checkout = new window.Razorpay({
         key: razorpayKeyId,
-        amount: razorpayAmount,
+        amount: amountInPaise,
         currency: "INR",
         name: "QNAYDS Academy",
         description: "AI for Teachers Course",
@@ -231,7 +264,7 @@ function App() {
         },
         notes: {
           course: "AI for Teachers",
-          courseId: courseId || "",
+          course_id: courseId,
         },
         theme: {
           color: "#108dcc",
@@ -1153,11 +1186,17 @@ function App() {
                 <div className="offer-price-row">
                   <div className="offer-prices">
                     <span className="offer-original-price">₹5,000</span>
-                    <span className="offer-current-price">₹1,999</span>
+                    <span className="offer-current-price">
+                      {coursePrice === null ? "Loading price..." : `₹${coursePrice.toLocaleString("en-IN")}`}
+                    </span>
                     <span className="offer-label">LIMITED-TIME OFFER</span>
                   </div>
 
-                  <span className="offer-saving">Save ₹3,001</span>
+                  {coursePrice !== null && coursePrice < 5000 && (
+                    <span className="offer-saving">
+                      Save ₹{(5000 - coursePrice).toLocaleString("en-IN")}
+                    </span>
+                  )}
                 </div>
               </div>
 
