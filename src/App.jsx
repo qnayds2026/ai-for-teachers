@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from "./assets/QNAYDS_LOGO.png";
 
 import {
   Check,
@@ -288,7 +289,7 @@ function App() {
           {/* QNAYDS LOGO */}
        <div className="modal-logo-wrapper">
        <img
-          src="QNAYDS_LOGO.png"
+          src={logo}
           alt="QNAYDS"
           className="modal-logo"
          />
