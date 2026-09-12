@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "./assets/QNAYDS_LOGO.png";
 import teacherVideo from "./assets/Teacher using ai.mp4";
-import teacherThumbnail from "./assets/thumbnail.jpg";
+import teacherThumbnail from "./assets/thumbnail.webp";
 
 import {
   Check,
