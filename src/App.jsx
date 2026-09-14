@@ -128,7 +128,7 @@ const FloatingEnrollmentButton = ({ isVisible, onEnroll }) => {
     <button
     
       type="button"
-      className={`floating-enrollment-button bg-[#0d172d] ${
+      className={`floating-enrollment-button ${
         isVisible ? "is-visible " : ""
       }`}
       onClick={onEnroll}
@@ -136,7 +136,16 @@ const FloatingEnrollmentButton = ({ isVisible, onEnroll }) => {
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
     >
-     <div className=""><h6>ഇനി AI നിങ്ങളുടെ teaching എളുപ്പമാക്കും</h6></div> <div><p>Enroll Now</p></div>
+      <div className="floating-enrollment-copy">
+        <h6 >AI For Teachers</h6>
+
+        <p>
+          <del>₹5,000</del>
+          <strong>₹1,999</strong>
+          <span className="text-white">Enroll Now</span>
+        </p>
+      </div>
+
       <ArrowRight size={17} />
     </button>
   );
