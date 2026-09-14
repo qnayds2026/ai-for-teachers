@@ -123,7 +123,13 @@ const FloatingWhatsApp = () => {
    Appears while scrolling down and hides while scrolling up.
 ===================================================== */
 
-const FloatingEnrollmentButton = ({ isVisible, onEnroll }) => {
+const FloatingEnrollmentButton = ({
+  isVisible,
+  onEnroll,
+  offerHours,
+  offerMinutes,
+  offerSeconds,
+}) => {
   return (
     <button
     
@@ -137,13 +143,26 @@ const FloatingEnrollmentButton = ({ isVisible, onEnroll }) => {
       tabIndex={isVisible ? 0 : -1}
     >
       <div className="floating-enrollment-copy">
-        <h6 >AI For Teachers</h6>
+        <div className="floating-enrollment-main">
+          <h6>AI For Teachers</h6>
 
-        <p>
-          <del>₹5,000</del>
-          <strong>₹1,999</strong>
-          <span className="text-white">Enroll Now</span>
-        </p>
+          <p>
+            <del>₹5,000</del>
+            <strong>₹1,999</strong>
+            <span className="text-white">Enroll Now</span>
+          </p>
+        </div>
+
+        <div className="floating-enrollment-urgency">
+          <span>
+            <Clock size={13} />
+            Limited offer
+          </span>
+          <strong>20 seats left</strong>
+          <small>
+            {offerHours}:{offerMinutes}:{offerSeconds}
+          </small>
+        </div>
       </div>
 
       <ArrowRight size={17} />
@@ -256,6 +275,28 @@ const faqs = [
 function App() {
   const [openFaq, setOpenFaq] = useState(null);
 
+  const [offerEndsAt] = useState(() => {
+    const storedDeadline = window.localStorage.getItem(
+      "ai-teachers-offer-deadline-18h",
+    );
+
+    if (storedDeadline && Number(storedDeadline) > Date.now()) {
+      return Number(storedDeadline);
+    }
+
+    const newDeadline = Date.now() + 18 * 60 * 60 * 1000;
+    window.localStorage.setItem(
+      "ai-teachers-offer-deadline-18h",
+      String(newDeadline),
+    );
+
+    return newDeadline;
+  });
+
+  const [offerTimeLeft, setOfferTimeLeft] = useState(() =>
+    Math.max(0, offerEndsAt - Date.now()),
+  );
+
   const [showModal, setShowModal] = useState(false);
 
   // Controls the floating enrollment CTA based on scroll direction.
@@ -270,6 +311,23 @@ function App() {
   const [paymentStarted, setPaymentStarted] = useState(false);
 
   const [paymentError, setPaymentError] = useState("");
+
+  useEffect(() => {
+    const updateOfferTime = () => {
+      setOfferTimeLeft(Math.max(0, offerEndsAt - Date.now()));
+    };
+
+    updateOfferTime();
+
+    const timer = window.setInterval(updateOfferTime, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [offerEndsAt]);
+
+  const totalOfferSeconds = Math.floor(offerTimeLeft / 1000);
+  const offerHours = String(Math.floor(totalOfferSeconds / 3600)).padStart(2, "0");
+  const offerMinutes = String(Math.floor((totalOfferSeconds % 3600) / 60)).padStart(2, "0");
+  const offerSeconds = String(totalOfferSeconds % 60).padStart(2, "0");
 
   /* =====================================================
      SCROLL-AWARE ENROLLMENT CTA
@@ -452,6 +510,90 @@ function App() {
           border-radius: 20px;
 
           box-shadow: 0 16px 38px rgba(20, 52, 90, 0.12);
+        }
+
+        .hero-offer-urgency {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          width: min(100%, 760px);
+          margin: 34px auto 0;
+        }
+
+        .hero-offer-limit {
+          display: inline-flex;
+          align-items: center;
+          min-height: 46px;
+          padding: 0 20px;
+          border: 1px solid #f3d5ae;
+          border-radius: 999px;
+          background: #fff8ed;
+          color: #bd4b16;
+          font-size: 16px;
+          font-weight: 800;
+        }
+
+        .hero-offer-limit span {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .hero-offer-limit strong {
+          margin: 0 16px;
+          padding-left: 16px;
+          border-left: 1px solid #e8c99f;
+        }
+
+        .hero-offer-countdown {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          color: #34445a;
+          font-size: 15px;
+          font-weight: 700;
+        }
+
+        .hero-offer-time {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          color: #172235;
+          font-size: 18px;
+          font-weight: 900;
+          letter-spacing: 1px;
+        }
+
+        .hero-offer-time span {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 39px;
+          height: 38px;
+          padding: 0 5px;
+          box-sizing: border-box;
+          border-radius: 9px;
+          background: #172235;
+          color: #fff;
+        }
+
+        .hero-offer-countdown {
+          min-height: 64px;
+          padding: 0 17px;
+          border: 1px solid #cfe0f4;
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.98);
+          box-shadow: 0 8px 18px rgba(20, 52, 90, 0.1);
+        }
+
+        .hero-offer-countdown svg {
+          color: #c28b3e;
+        }
+
+        .hero-offer-countdown::first-letter {
+          font-size: 20px;
         }
 
         .hero-offer-label {
@@ -904,6 +1046,44 @@ function App() {
             gap: 9px 18px;
           }
 
+          .hero-offer-urgency {
+            margin-top: 26px;
+            gap: 9px;
+          }
+
+          .hero-offer-limit {
+            min-height: 42px;
+            padding: 0 16px;
+            font-size: 14px;
+          }
+
+          .hero-offer-countdown {
+            min-height: 58px;
+            padding: 0 13px;
+            border-radius: 15px;
+            font-size: 14px;
+          }
+
+          .hero-offer-limit strong {
+            margin: 0 10px;
+            padding-left: 10px;
+          }
+
+          .hero-offer-countdown {
+            width: 100%;
+            justify-content: center;
+            font-size: 14px;
+          }
+
+          .hero-offer-time {
+            font-size: 16px;
+          }
+
+          .hero-offer-time span {
+            min-width: 35px;
+            height: 35px;
+          }
+
           .final-offer-box {
             padding: 24px 16px 25px;
 
@@ -976,8 +1156,28 @@ function App() {
               />
             </div>
 
-            <div className="academy-label">
-              QNAYDS ACADEMY
+            <div className="hero-offer-urgency" aria-live="polite">
+
+              <div className="hero-offer-limit">
+                <span>🔥 Limited Offer</span>
+
+                <strong>Only 20 seats available</strong>
+              </div>
+
+              <div className="hero-offer-countdown">
+                <Clock size={16} />
+
+                Offer ends in
+
+                <span className="hero-offer-time" aria-label={`${offerHours} hours, ${offerMinutes} minutes, ${offerSeconds} seconds`}>
+                  <span>{offerHours}</span>
+                  :
+                  <span>{offerMinutes}</span>
+                  :
+                  <span>{offerSeconds}</span>
+                </span>
+              </div>
+
             </div>
 
             <div className="hero-badge">
@@ -1080,6 +1280,8 @@ function App() {
               </div>
 
             </div>
+
+            
 
           </div>
 
@@ -2027,6 +2229,9 @@ function App() {
         <FloatingEnrollmentButton
           isVisible={showFloatingEnrollment && !showModal}
           onEnroll={openEnrollment}
+          offerHours={offerHours}
+          offerMinutes={offerMinutes}
+          offerSeconds={offerSeconds}
         />
 
 
