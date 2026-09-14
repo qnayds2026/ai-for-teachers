@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./assets/QNAYDS_LOGO.png";
 import teacherVideo from "./assets/Teacher using ai.mp4";
 import teacherThumbnail from "./assets/thumbnail.webp";
@@ -119,6 +119,30 @@ const FloatingWhatsApp = () => {
 };
 
 /* =====================================================
+   SCROLL ENROLLMENT BUTTON
+   Appears while scrolling down and hides while scrolling up.
+===================================================== */
+
+const FloatingEnrollmentButton = ({ isVisible, onEnroll }) => {
+  return (
+    <button
+    
+      type="button"
+      className={`floating-enrollment-button bg-[#0d172d] ${
+        isVisible ? "is-visible " : ""
+      }`}
+      onClick={onEnroll}
+      aria-label="Enroll now"
+      aria-hidden={!isVisible}
+      tabIndex={isVisible ? 0 : -1}
+    >
+     <div className=""><h6>ഇനി AI നിങ്ങളുടെ teaching എളുപ്പമാക്കും</h6></div> <div><p>Enroll Now</p></div>
+      <ArrowRight size={17} />
+    </button>
+  );
+};
+
+/* =====================================================
    MODULES
 ===================================================== */
 
@@ -225,6 +249,9 @@ function App() {
 
   const [showModal, setShowModal] = useState(false);
 
+  // Controls the floating enrollment CTA based on scroll direction.
+  const [showFloatingEnrollment, setShowFloatingEnrollment] = useState(false);
+
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -234,6 +261,37 @@ function App() {
   const [paymentStarted, setPaymentStarted] = useState(false);
 
   const [paymentError, setPaymentError] = useState("");
+
+  /* =====================================================
+     SCROLL-AWARE ENROLLMENT CTA
+  ===================================================== */
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDifference = currentScrollY - lastScrollY;
+
+      if (currentScrollY < 120) {
+        setShowFloatingEnrollment(false);
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (Math.abs(scrollDifference) < 4) {
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      setShowFloatingEnrollment(scrollDifference > 0);
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   /* =====================================================
      FORM CHANGE
@@ -323,7 +381,7 @@ function App() {
 
         setPaymentError(
           response.error?.description ||
-            "Payment failed. Please try again.",
+          "Payment failed. Please try again.",
         );
       });
 
@@ -1062,10 +1120,27 @@ function App() {
 
               </video>
 
+
+
             </div>
+
 
           </div>
 
+
+          <div className=" w-screen h-20 flex items-center justify-center">
+             <button
+                  type="button"
+                  className="primary-button"
+                  onClick={openEnrollment}
+                >
+                  ഇപ്പോൾ Join ചെയ്യാം
+
+                  <ArrowRight size={18} />
+
+                </button>
+
+          </div>
         </section>
 
 
@@ -1744,9 +1819,8 @@ function App() {
                 return (
 
                   <div
-                    className={`faq-item ${
-                      isOpen ? "active" : ""
-                    }`}
+                    className={`faq-item ${isOpen ? "active" : ""
+                      }`}
                     key={index}
                   >
 
@@ -1939,6 +2013,12 @@ function App() {
         ================================================= */}
 
         <FloatingWhatsApp />
+
+        {/* Scroll down to reveal this; scroll up to hide it. */}
+        <FloatingEnrollmentButton
+          isVisible={showFloatingEnrollment && !showModal}
+          onEnroll={openEnrollment}
+        />
 
 
         {/* =================================================

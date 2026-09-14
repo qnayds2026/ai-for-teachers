@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Malayalam:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
 
 :root {
   --blue: #108dcc;
@@ -1351,6 +1352,181 @@ img {
 }
 
 /* =========================================================
+   SCROLL ENROLLMENT BUTTON
+   Hidden by default; App.jsx adds .is-visible while scrolling down.
+========================================================= */
+
+.floating-enrollment-button {
+  position: fixed;
+  isolation: isolate;
+  left: 50%;
+  bottom: 94px;
+  z-index: 9998;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: min(420px, calc(100vw - 24px));
+  min-width: 0 !important;
+  min-height: 48px;
+  padding: 11px clamp(12px, 3vw, 18px);
+  box-sizing: border-box;
+
+  text-align: center;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      110deg,
+      #108dcc 0%,
+      #108dcc 38%,
+      rgba(255, 255, 255, 0.2) 50%,
+      #108dcc 62%,
+      #087ab3 100%
+    );
+  background-size: 220% 100%;
+  color: #fff;
+
+  box-shadow:
+    0 12px 28px rgba(8, 122, 179, 0.3),
+    0 0 0 5px rgba(16, 141, 204, 0.08);
+
+  font-size: 14px;
+  font-weight: 800;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 135%) scale(0.92);
+  transition:
+    opacity 0.24s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.floating-enrollment-button > div {
+  min-width: 0;
+}
+
+.floating-enrollment-button h6,
+.floating-enrollment-button p {
+  margin: 0;
+}
+
+.floating-enrollment-button h6 {
+  font-size: clamp(10px, 2.4vw, 12px);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.floating-enrollment-button p {
+  font-size: clamp(12px, 2.8vw, 14px);
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.floating-enrollment-button svg {
+  flex: 0 0 auto;
+}
+
+.floating-enrollment-button.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+  animation: enrollment-button-shine 8s ease-in-out infinite;
+}
+
+/* Soft advertising pulse: the button stays still while the outer ring expands. */
+.floating-enrollment-button.is-visible::after {
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+
+  border: 2px solid rgba(16, 141, 204, 0.38);
+  border-radius: inherit;
+
+  content: "";
+  pointer-events: none;
+  animation: enrollment-ad-pulse 2.4s ease-out infinite;
+}
+
+/* Gently nudge the enrollment arrow toward the action. */
+.floating-enrollment-button.is-visible svg {
+  animation: enrollment-arrow-nudge 1.5s ease-in-out infinite;
+}
+
+.floating-enrollment-button:hover {
+  background: #087ab3;
+}
+
+.floating-enrollment-button:hover svg {
+  animation-play-state: paused;
+  transform: translateX(3px);
+}
+
+.floating-enrollment-button:active {
+  background: #076d9f;
+}
+
+.floating-enrollment-button:focus-visible {
+  outline: 3px solid rgba(72, 189, 240, 0.65);
+  outline-offset: 4px;
+}
+
+@keyframes enrollment-ad-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.96);
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes enrollment-arrow-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes enrollment-button-shine {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-enrollment-button.is-visible {
+    animation: none;
+  }
+
+  .floating-enrollment-button.is-visible::after {
+    animation: none;
+  }
+
+  .floating-enrollment-button.is-visible svg {
+    animation: none;
+  }
+}
+
+/* =========================================================
    WHATSAPP
 ========================================================= */
 
@@ -1866,20 +2042,34 @@ img {
 }
 
 /* =========================================================
-   BUTTON HIGHLIGHT
+   PAGE ENROLLMENT BUTTON HIGHLIGHT
+   Excludes the scroll enrollment button and modal payment controls.
 ========================================================= */
 
 .primary-button,
 .section-join-button,
-.cta-button,
-.payment-button {
-  animation: button-highlight 1.6s ease-in-out infinite;
+.modules-price-button,
+.final-offer-button {
+  background-image: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.42) 50%,
+    transparent 62%,
+    transparent 100%
+  ) !important;
+  background-size: 235% 100% !important;
+  background-position: 100% 0;
+  background-repeat: no-repeat !important;
+  animation:
+    button-highlight 3.2s ease-in-out infinite,
+    enrollment-cta-shine 4.8s ease-in-out infinite alternate;
 }
 
 .primary-button:hover,
 .section-join-button:hover,
-.cta-button:hover,
-.payment-button:hover {
+.modules-price-button:hover,
+.final-offer-button:hover {
   animation-play-state: paused;
 }
 
@@ -1898,6 +2088,25 @@ img {
     box-shadow:
       0 12px 30px rgba(16, 141, 204, 0.38),
       0 0 0 7px rgba(16, 141, 204, 0.08);
+  }
+}
+
+@keyframes enrollment-cta-shine {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-button,
+  .section-join-button,
+  .modules-price-button,
+  .final-offer-button {
+    animation: none;
   }
 }
 
@@ -2278,6 +2487,12 @@ img {
     height: 28px;
   }
 
+  /* Keep the scroll enrollment CTA clear of the WhatsApp button. */
+  .floating-enrollment-button {
+    left: 50%;
+    bottom: 82px;
+  }
+
   /* =====================================================
      ⭐ EXTRA GAP BELOW CARDS - SMALL MOBILE
   ===================================================== */
@@ -2343,6 +2558,14 @@ img {
 ========================================================= */
 
 @media (max-width: 380px) {
+  .floating-enrollment-button {
+    left: 50%;
+    bottom: 78px;
+    min-height: 44px;
+    width: calc(100vw - 16px);
+    padding: 9px 12px;
+  }
+
   .enrollment-header {
     padding: 16px 48px 14px 15px;
   }
