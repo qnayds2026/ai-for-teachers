@@ -6,7 +6,6 @@ import teacherThumbnail from "./assets/thumbnail.webp";
 import {
   Check,
   ChevronDown,
-  MessageCircle,
   BookOpen,
   Sparkles,
   ShieldCheck,
@@ -385,6 +384,30 @@ function App() {
           border-radius: 20px;
 
           box-shadow: 0 16px 38px rgba(20, 52, 90, 0.12);
+        }
+
+        .hero-offer-box,
+        .modules-price-card,
+        .final-offer-box {
+          position: relative;
+          overflow: visible;
+        }
+
+        .save-badge {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: #ff2635;
+          color: #ffffff;
+          padding: 11px 24px;
+          min-width: 155px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 800;
+          line-height: 1.2;
+          border-radius: 0 20px 0 20px;
+          box-shadow: 0 6px 16px rgba(255, 38, 53, 0.25);
+          z-index: 20;
         }
 
         .hero-offer-label {
@@ -803,6 +826,97 @@ function App() {
 
 
         /* =====================================================
+           REVIEWS
+        ===================================================== */
+
+        .reviews-section {
+          background: #f7fbff;
+        }
+
+        .reviews-section .section-heading {
+          margin-bottom: 50px;
+        }
+
+        .reviews-section .section-heading h2 span {
+          color: #108dcc;
+        }
+
+        .reviews-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          width: 100%;
+        }
+
+        .review-card {
+          background: #ffffff;
+          border: 1px solid #e4eef6;
+          border-radius: 20px;
+          padding: 28px 26px;
+          box-shadow: 0 10px 30px rgba(13, 23, 45, 0.07);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .review-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 40px rgba(13, 23, 45, 0.12);
+        }
+
+        .review-stars {
+          color: #f5b800;
+          font-size: 20px;
+          letter-spacing: 3px;
+          margin-bottom: 18px;
+        }
+
+        .review-text {
+          color: #4c5b6d;
+          font-size: 15px;
+          line-height: 1.8;
+          margin: 0 0 25px;
+        }
+
+        .review-user {
+          display: flex;
+          align-items: center;
+          gap: 13px;
+          border-top: 1px solid #edf2f6;
+          padding-top: 18px;
+        }
+
+        .review-avatar {
+          width: 44px;
+          height: 44px;
+          min-width: 44px;
+          border-radius: 50%;
+          background: #108dcc;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 17px;
+          font-weight: 700;
+        }
+
+        .review-user h4 {
+          margin: 0 0 4px;
+          color: #0d172d;
+          font-size: 15px;
+          font-weight: 700;
+        }
+
+        .review-user span {
+          color: #7a8795;
+          font-size: 12px;
+        }
+
+        @media (max-width: 1000px) {
+          .reviews-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        /* =====================================================
            MOBILE
         ===================================================== */
 
@@ -857,6 +971,27 @@ function App() {
             min-height: 56px;
           }
 
+
+          .save-badge {
+            min-width: 125px;
+            padding: 9px 15px;
+            font-size: 13px;
+            border-radius: 0 17px 0 17px;
+          }
+
+          .reviews-grid {
+            grid-template-columns: 1fr;
+            gap: 18px;
+          }
+
+          .review-card {
+            padding: 24px 20px;
+          }
+
+          .review-text {
+            font-size: 14px;
+            line-height: 1.75;
+          }
 
           /* VIDEO MOBILE GAP FIX */
 
@@ -921,19 +1056,26 @@ function App() {
 
             </div>
 
-            <h1>
-              ഇനി <span>AI</span> നിങ്ങളുടെ{" "}
-              <span>teaching</span> എളുപ്പമാക്കും
-              <br />
-            </h1>
+      <h1>
+  <span>Smart Teacher</span>
+  <br />
+  <span>ആകാൻ ആഗ്രഹമുണ്ടോ?</span>
+
+  <small>
+    എവിടെ തുടങ്ങണം എന്നറിയില്ലേ?
+  </small>
+</h1>
 
             <p className="hero-description">
-              Lesson Plans, Question Papers, Presentations,
-              Worksheets, Study Materials എന്നിവ തയ്യാറാക്കാൻ
-              AI എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് പഠിക്കാം.
-            </p>
+  Lesson Plans മുതൽ Question Papers വരെ…{" "}
+  <strong>AI ഉപയോഗിച്ച് നിങ്ങളുടെ Teaching Preparation എളുപ്പമാക്കാൻ പഠിക്കാം.</strong>
+</p>
 
             <div className="hero-offer-box">
+
+              <div className="save-badge">
+                SAVE ₹3,001
+              </div>
 
               <span className="hero-offer-label">
                 Course Fee
@@ -941,9 +1083,9 @@ function App() {
 
               <div className="hero-offer-price">
 
-                <del>₹5,000</del>
+                <del><h2>₹5,000</h2></del>
 
-                <strong>₹1,999</strong>
+                <strong><h6>₹1,999</h6></strong>
 
               </div>
 
@@ -1343,15 +1485,19 @@ function App() {
 
             <div className="modules-price-card">
 
+              <div className="save-badge">
+                SAVE ₹3,001
+              </div>
+
               <span className="modules-price-label">
                 AI FOR TEACHERS
               </span>
 
               <div className="modules-price-values">
 
-                <del>₹5,000</del>
+                <del><h2>₹5,000</h2></del>
 
-                <strong>₹1,999</strong>
+                <strong><h6>₹1,999</h6></strong>
 
               </div>
 
@@ -1713,7 +1859,171 @@ function App() {
 
         </section>
 
+{/* ================= REVIEWS SECTION ================= */}
+<section className="section reviews-section" id="reviews">
+  <div className="container">
 
+    <div className="section-heading">
+      <div className="section-tag">TEACHER REVIEWS</div>
+
+      <h2>
+        അധ്യാപകർ <span>പറയുന്നു...</span>
+      </h2>
+
+      <p>
+        AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച്
+        ഞങ്ങളുടെ learners പറയുന്നത്
+      </p>
+    </div>
+
+    <div className="reviews-grid">
+
+      {/* Review 1 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു.
+          AI tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course
+          വഴി മനസ്സിലായി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">A</div>
+
+          <div>
+            <h4>Anitha Teacher</h4>
+            <span>School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 2 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Question papers, worksheets, presentations എന്നിവ
+          തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
+          മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">R</div>
+
+          <div>
+            <h4>Rashid Teacher</h4>
+            <span>Higher Secondary Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 3 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു.
+          Course complete ചെയ്ത ശേഷം daily teaching tasks-ൽ
+          AI ഉപയോഗിക്കാൻ confidence കിട്ടി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">S</div>
+
+          <div>
+            <h4>Shahana Teacher</h4>
+            <span>Primary School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 4 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ
+          AI tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു.
+          വളരെ practical ആയ learning experience.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">N</div>
+
+          <div>
+            <h4>Naseema Teacher</h4>
+            <span>High School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 5 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
+          എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്.
+          Especially the practical sessions were useful.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">F</div>
+
+          <div>
+            <h4>Fathima Teacher</h4>
+            <span>Government School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 6 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ
+          തുടങ്ങണം എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല
+          starting point ആയി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">M</div>
+
+          <div>
+            <h4>Meera Teacher</h4>
+            <span>Private School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Review CTA */}
+    <div className="section-cta-row">
+      <button
+        className="section-join-button"
+        onClick={openEnrollment}
+      >
+        ഇപ്പോൾ Join ചെയ്യാം →
+      </button>
+    </div>
+
+  </div>
+</section>
         {/* =================================================
             FAQ
         ================================================= */}
@@ -1815,11 +2125,15 @@ function App() {
 
             <div className="final-offer-box">
 
+              <div className="save-badge">
+                SAVE ₹3,001
+              </div>
+
               <div className="final-offer-price">
 
-                <del>₹5,000</del>
+                <del><h2>₹5,000</h2></del>
 
-                <strong>₹1,999</strong>
+                <strong><h6>₹1,999</h6></strong>
 
               </div>
 
@@ -2002,11 +2316,11 @@ function App() {
                     <div className="offer-prices">
 
                       <span className="offer-original-price">
-                        ₹5,000
+                        <h2>₹5,000</h2>
                       </span>
 
                       <span className="offer-current-price">
-                        ₹1,999
+                        <h6>₹1,999</h6>
                       </span>
 
                       <span className="offer-label">
