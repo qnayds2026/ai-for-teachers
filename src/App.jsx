@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "./assets/QNAYDS_LOGO.png";
 import teacherVideo from "./assets/Teacher using ai.mp4";
 import teacherThumbnail from "./assets/thumbnail.webp";
-import mentorImage from "./assets/mentor_image.png";
+import mentorImage from "./assets/mentor_image.webp";
 
 import {
   Check,
