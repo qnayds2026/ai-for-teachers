@@ -1573,6 +1573,173 @@ function App() {
 
         </section>
 
+        {/* ================= REVIEWS SECTION ================= */}
+<section className="section reviews-section" id="reviews">
+  <div className="container">
+
+    <div className="section-heading">
+      <div className="section-tag">TEACHER REVIEWS</div>
+
+      <h2>
+        അധ്യാപകർ <span>പറയുന്നു...</span>
+      </h2>
+
+      <p>
+        AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച്
+        ഞങ്ങളുടെ learners പറയുന്നത്
+      </p>
+    </div>
+
+    <div className="reviews-grid">
+
+      {/* Review 1 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു.
+          AI tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course
+          വഴി മനസ്സിലായി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">A</div>
+
+          <div>
+            <h4>Anitha Teacher</h4>
+            <span>School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 2 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Question papers, worksheets, presentations എന്നിവ
+          തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
+          മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">R</div>
+
+          <div>
+            <h4>Rashid Teacher</h4>
+            <span>Higher Secondary Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 3 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു.
+          Course complete ചെയ്ത ശേഷം daily teaching tasks-ൽ
+          AI ഉപയോഗിക്കാൻ confidence കിട്ടി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">S</div>
+
+          <div>
+            <h4>Shahana Teacher</h4>
+            <span>Primary School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 4 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ
+          AI tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു.
+          വളരെ practical ആയ learning experience.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">N</div>
+
+          <div>
+            <h4>Naseema Teacher</h4>
+            <span>High School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 5 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
+          എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്.
+          Especially the practical sessions were useful.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">F</div>
+
+          <div>
+            <h4>Fathima Teacher</h4>
+            <span>Government School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 6 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ
+          തുടങ്ങണം എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല
+          starting point ആയി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">M</div>
+
+          <div>
+            <h4>Meera Teacher</h4>
+            <span>Private School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Review CTA */}
+    <div className="section-cta-row">
+      <button
+        className="section-join-button"
+        onClick={openEnrollment}
+      >
+        ഇപ്പോൾ Join ചെയ്യാം →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
 
         {/* =================================================
             USE CASES
@@ -2134,171 +2301,7 @@ function App() {
 
         </section>
 
-{/* ================= REVIEWS SECTION ================= */}
-<section className="section reviews-section" id="reviews">
-  <div className="container">
 
-    <div className="section-heading">
-      <div className="section-tag">TEACHER REVIEWS</div>
-
-      <h2>
-        അധ്യാപകർ <span>പറയുന്നു...</span>
-      </h2>
-
-      <p>
-        AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച്
-        ഞങ്ങളുടെ learners പറയുന്നത്
-      </p>
-    </div>
-
-    <div className="reviews-grid">
-
-      {/* Review 1 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു.
-          AI tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course
-          വഴി മനസ്സിലായി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">A</div>
-
-          <div>
-            <h4>Anitha Teacher</h4>
-            <span>School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 2 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Question papers, worksheets, presentations എന്നിവ
-          തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
-          മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">R</div>
-
-          <div>
-            <h4>Rashid Teacher</h4>
-            <span>Higher Secondary Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 3 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു.
-          Course complete ചെയ്ത ശേഷം daily teaching tasks-ൽ
-          AI ഉപയോഗിക്കാൻ confidence കിട്ടി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">S</div>
-
-          <div>
-            <h4>Shahana Teacher</h4>
-            <span>Primary School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 4 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ
-          AI tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു.
-          വളരെ practical ആയ learning experience.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">N</div>
-
-          <div>
-            <h4>Naseema Teacher</h4>
-            <span>High School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 5 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
-          എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്.
-          Especially the practical sessions were useful.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">F</div>
-
-          <div>
-            <h4>Fathima Teacher</h4>
-            <span>Government School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 6 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ
-          തുടങ്ങണം എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല
-          starting point ആയി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">M</div>
-
-          <div>
-            <h4>Meera Teacher</h4>
-            <span>Private School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    {/* Review CTA */}
-    <div className="section-cta-row">
-      <button
-        className="section-join-button"
-        onClick={openEnrollment}
-      >
-        ഇപ്പോൾ Join ചെയ്യാം →
-      </button>
-    </div>
-
-  </div>
-</section>
         {/* =================================================
             FAQ
         ================================================= */}
