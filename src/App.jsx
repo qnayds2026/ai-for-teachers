@@ -259,6 +259,11 @@ const faqs = [
     answer:
       "ChatGPT, Canva, Gamma, Google tools തുടങ്ങിയ teacher productivity tools practical ആയി പരിചയപ്പെടും.",
   },
+   {
+    question: "ഈ കോഴ്സ് പഠിക്കാൻ ലാപ്ടോപ്പ് നിർബന്ധമാണോ?",
+    answer:
+      "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല.ഈ കോഴ്സ് Mobile Phone, Tablet, Laptop, Desktop എന്നിവയിൽ എല്ലാം access ചെയ്യാം. Internet connection ഉള്ളതിനാൽ, നിങ്ങൾക്ക് സൗകര്യമുള്ള ഏത് device-ലും എവിടെനിന്നും പഠനം തുടരാം.",
+  },
   {
     question: "Course-ൽ എന്തൊക്കെയാണ് ലഭിക്കുന്നത്?",
     answer:
