@@ -146,8 +146,8 @@ const FloatingEnrollmentButton = ({
           <h6>AI For Teachers</h6>
 
           <p>
-            <del>₹5,000</del>
-            <strong>₹1,999</strong>
+            <del><h2>₹5,000</h2></del>
+            <strong><h6>₹1,999</h6></strong>
             <span className="text-white">Enroll Now</span>
           </p>
         </div>
@@ -1341,69 +1341,7 @@ function App() {
   <strong>AI ഉപയോഗിച്ച് നിങ്ങളുടെ Teaching Preparation എളുപ്പമാക്കാൻ പഠിക്കാം.</strong>
 </p>
 
-            <div className="hero-offer-box">
-
-              <div className="save-badge">
-                SAVE ₹3,001
-              </div>
-
-              <span className="hero-offer-label">
-                Course Fee
-              </span>
-
-              <div className="hero-offer-price">
-
-                <del><h2>₹5,000</h2></del>
-
-                <strong><h6>₹1,999</h6></strong>
-
-              </div>
-
-              <span className="hero-offer-note">
-                One-time payment
-              </span>
-
-              <div className="hero-offer-actions">
-
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={openEnrollment}
-                >
-                  ഇപ്പോൾ Join ചെയ്യാം
-
-                  <ArrowRight size={18} />
-
-                </button>
-
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={scrollToSyllabus}
-                >
-                  Syllabus കാണാം
-                </button>
-
-              </div>
-
-              <div className="hero-offer-checks">
-
-                <span>
-                  <Check size={17} />
-
-                  Teacher Focused
-                </span>
-
-                <span>
-                  <Check size={17} />
-
-                  Practical Learning
-                </span>
-
-              </div>
-
-            </div>
-
+            
             <div className="hero-stats">
 
               <div>
@@ -1475,17 +1413,37 @@ function App() {
                 Your browser does not support the video tag.
 
               </video>
-
-
-
             </div>
-
-
           </div>
+        </section>
 
+          <div className="hero-offer-box">
 
-          <div className=" w-screen h-20 flex items-center justify-center">
-             <button
+              <div className="save-badge">
+                SAVE ₹3,001
+              </div>
+
+              <span className="hero-offer-label">
+                Course Fee
+              </span>
+
+              <div className="hero-offer-price">
+              <del style={{ fontSize: "34px", fontWeight: "700" }}>
+              ₹5,000
+              </del>
+
+              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+              ₹1,999
+              </strong>
+              </div>
+
+              <span className="hero-offer-note">
+                One-time payment
+              </span>
+
+              <div className="hero-offer-actions">
+
+                <button
                   type="button"
                   className="primary-button"
                   onClick={openEnrollment}
@@ -1496,9 +1454,33 @@ function App() {
 
                 </button>
 
-          </div>
-        </section>
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={scrollToSyllabus}
+                >
+                  Syllabus കാണാം
+                </button>
 
+              </div>
+
+              <div className="hero-offer-checks">
+
+                <span>
+                  <Check size={17} />
+
+                  Teacher Focused
+                </span>
+
+                <span>
+                  <Check size={17} />
+
+                  Practical Learning
+                </span>
+
+              </div>
+
+            </div>
 
         {/* =================================================
             INTRO
@@ -1573,20 +1555,190 @@ function App() {
 
             </div>
 
-            <button
-              type="button"
-              className="section-join-button"
-              onClick={openEnrollment}
-            >
-              ഇപ്പോൾ Join ചെയ്യാം
-
-              <ArrowRight size={18} />
-
-            </button>
+            <div
+  className="w-full flex items-center justify-center"
+  style={{ marginTop: "30px", marginBottom: "50px" }}
+>
+  <button
+    type="button"
+    className="primary-button"
+    onClick={openEnrollment}
+  >
+    ഇപ്പോൾ Join ചെയ്യാം
+    <ArrowRight size={18} />
+  </button>
+</div>
 
           </div>
 
         </section>
+
+        {/* ================= REVIEWS SECTION ================= */}
+<section className="section reviews-section" id="reviews">
+  <div className="container">
+
+    <div className="section-heading">
+      <div className="section-tag">TEACHER REVIEWS</div>
+
+      <h2>
+        അധ്യാപകർ <span>പറയുന്നു...</span>
+      </h2>
+
+      <p>
+        AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച്
+        ഞങ്ങളുടെ learners പറയുന്നത്
+      </p>
+    </div>
+
+    <div className="reviews-grid">
+
+      {/* Review 1 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു.
+          AI tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course
+          വഴി മനസ്സിലായി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">A</div>
+
+          <div>
+            <h4>Anitha Teacher</h4>
+            <span>School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 2 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Question papers, worksheets, presentations എന്നിവ
+          തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
+          മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">R</div>
+
+          <div>
+            <h4>Rashid Teacher</h4>
+            <span>Higher Secondary Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 3 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു.
+          Course complete ചെയ്ത ശേഷം daily teaching tasks-ൽ
+          AI ഉപയോഗിക്കാൻ confidence കിട്ടി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">S</div>
+
+          <div>
+            <h4>Shahana Teacher</h4>
+            <span>Primary School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 4 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ
+          AI tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു.
+          വളരെ practical ആയ learning experience.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">N</div>
+
+          <div>
+            <h4>Naseema Teacher</h4>
+            <span>High School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 5 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
+          എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്.
+          Especially the practical sessions were useful.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">F</div>
+
+          <div>
+            <h4>Fathima Teacher</h4>
+            <span>Government School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Review 6 */}
+      <div className="review-card">
+        <div className="review-stars">
+          ★★★★★
+        </div>
+
+        <p className="review-text">
+          “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ
+          തുടങ്ങണം എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല
+          starting point ആയി.”
+        </p>
+
+        <div className="review-user">
+          <div className="review-avatar">M</div>
+
+          <div>
+            <h4>Meera Teacher</h4>
+            <span>Private School Teacher</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Review CTA */}
+    <div className="section-cta-row">
+      <button
+        className="section-join-button"
+        onClick={openEnrollment}
+      >
+        ഇപ്പോൾ Join ചെയ്യാം →
+      </button>
+    </div>
+
+  </div>
+</section>
+
 
 
         {/* =================================================
@@ -1782,14 +1934,15 @@ function App() {
                 AI FOR TEACHERS
               </span>
 
-              <div className="modules-price-values">
+              <div className="hero-offer-price">
+              <del style={{ fontSize: "34px", fontWeight: "700" }}>
+              ₹5,000
+              </del>
 
-                <del><h2>₹5,000</h2></del>
-
-                <strong><h6>₹1,999</h6></strong>
-
+              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+              ₹1,999
+              </strong>
               </div>
-
               <span className="modules-price-note">
                 One-time payment • Course access
               </span>
@@ -2148,171 +2301,7 @@ function App() {
 
         </section>
 
-{/* ================= REVIEWS SECTION ================= */}
-<section className="section reviews-section" id="reviews">
-  <div className="container">
 
-    <div className="section-heading">
-      <div className="section-tag">TEACHER REVIEWS</div>
-
-      <h2>
-        അധ്യാപകർ <span>പറയുന്നു...</span>
-      </h2>
-
-      <p>
-        AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച്
-        ഞങ്ങളുടെ learners പറയുന്നത്
-      </p>
-    </div>
-
-    <div className="reviews-grid">
-
-      {/* Review 1 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു.
-          AI tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course
-          വഴി മനസ്സിലായി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">A</div>
-
-          <div>
-            <h4>Anitha Teacher</h4>
-            <span>School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 2 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Question papers, worksheets, presentations എന്നിവ
-          തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
-          മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">R</div>
-
-          <div>
-            <h4>Rashid Teacher</h4>
-            <span>Higher Secondary Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 3 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു.
-          Course complete ചെയ്ത ശേഷം daily teaching tasks-ൽ
-          AI ഉപയോഗിക്കാൻ confidence കിട്ടി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">S</div>
-
-          <div>
-            <h4>Shahana Teacher</h4>
-            <span>Primary School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 4 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ
-          AI tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു.
-          വളരെ practical ആയ learning experience.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">N</div>
-
-          <div>
-            <h4>Naseema Teacher</h4>
-            <span>High School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 5 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
-          എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്.
-          Especially the practical sessions were useful.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">F</div>
-
-          <div>
-            <h4>Fathima Teacher</h4>
-            <span>Government School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 6 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ
-          തുടങ്ങണം എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല
-          starting point ആയി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">M</div>
-
-          <div>
-            <h4>Meera Teacher</h4>
-            <span>Private School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    {/* Review CTA */}
-    <div className="section-cta-row">
-      <button
-        className="section-join-button"
-        onClick={openEnrollment}
-      >
-        ഇപ്പോൾ Join ചെയ്യാം →
-      </button>
-    </div>
-
-  </div>
-</section>
         {/* =================================================
             FAQ
         ================================================= */}
@@ -2417,12 +2406,14 @@ function App() {
                 SAVE ₹3,001
               </div>
 
-              <div className="final-offer-price">
+              <div className="hero-offer-price">
+              <del style={{ fontSize: "34px", fontWeight: "700" }}>
+              ₹5,000
+              </del>
 
-                <del><h2>₹5,000</h2></del>
-
-                <strong><h6>₹1,999</h6></strong>
-
+              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+              ₹1,999
+              </strong>
               </div>
 
               <span className="final-offer-note">
