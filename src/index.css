@@ -2939,3 +2939,31 @@ a:focus-visible {
     line-height: 1.75;
   }
 }
+/* =========================================================
+   COURSE FEE PRICE
+========================================================= */
+
+.hero-offer-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  margin: 10px 0;
+}
+
+.hero-offer-price del {
+  font-family: "Inter", sans-serif;
+  font-size: 90px;
+  font-weight: 900;
+  line-height: 1;
+  color: #7a8795;
+  text-decoration-thickness: 4px;
+}
+
+.hero-offer-price strong {
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  font-weight: 1000;
+  line-height: 1;
+  color: var(--blue);
+}

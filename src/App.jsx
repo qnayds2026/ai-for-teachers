@@ -146,8 +146,8 @@ const FloatingEnrollmentButton = ({
           <h6>AI For Teachers</h6>
 
           <p>
-            <del>₹5,000</del>
-            <strong>₹1,999</strong>
+            <del><h2>₹5,000</h2></del>
+            <strong><h6>₹1,999</h6></strong>
             <span className="text-white">Enroll Now</span>
           </p>
         </div>
@@ -1341,69 +1341,7 @@ function App() {
   <strong>AI ഉപയോഗിച്ച് നിങ്ങളുടെ Teaching Preparation എളുപ്പമാക്കാൻ പഠിക്കാം.</strong>
 </p>
 
-            <div className="hero-offer-box">
-
-              <div className="save-badge">
-                SAVE ₹3,001
-              </div>
-
-              <span className="hero-offer-label">
-                Course Fee
-              </span>
-
-              <div className="hero-offer-price">
-
-                <del><h2>₹5,000</h2></del>
-
-                <strong><h6>₹1,999</h6></strong>
-
-              </div>
-
-              <span className="hero-offer-note">
-                One-time payment
-              </span>
-
-              <div className="hero-offer-actions">
-
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={openEnrollment}
-                >
-                  ഇപ്പോൾ Join ചെയ്യാം
-
-                  <ArrowRight size={18} />
-
-                </button>
-
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={scrollToSyllabus}
-                >
-                  Syllabus കാണാം
-                </button>
-
-              </div>
-
-              <div className="hero-offer-checks">
-
-                <span>
-                  <Check size={17} />
-
-                  Teacher Focused
-                </span>
-
-                <span>
-                  <Check size={17} />
-
-                  Practical Learning
-                </span>
-
-              </div>
-
-            </div>
-
+            
             <div className="hero-stats">
 
               <div>
@@ -1475,17 +1413,37 @@ function App() {
                 Your browser does not support the video tag.
 
               </video>
-
-
-
             </div>
-
-
           </div>
+        </section>
 
+          <div className="hero-offer-box">
 
-          <div className=" w-screen h-20 flex items-center justify-center">
-             <button
+              <div className="save-badge">
+                SAVE ₹3,001
+              </div>
+
+              <span className="hero-offer-label">
+                Course Fee
+              </span>
+
+              <div className="hero-offer-price">
+              <del style={{ fontSize: "34px", fontWeight: "700" }}>
+              ₹5,000
+              </del>
+
+              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+              ₹1,999
+              </strong>
+              </div>
+
+              <span className="hero-offer-note">
+                One-time payment
+              </span>
+
+              <div className="hero-offer-actions">
+
+                <button
                   type="button"
                   className="primary-button"
                   onClick={openEnrollment}
@@ -1496,9 +1454,33 @@ function App() {
 
                 </button>
 
-          </div>
-        </section>
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={scrollToSyllabus}
+                >
+                  Syllabus കാണാം
+                </button>
 
+              </div>
+
+              <div className="hero-offer-checks">
+
+                <span>
+                  <Check size={17} />
+
+                  Teacher Focused
+                </span>
+
+                <span>
+                  <Check size={17} />
+
+                  Practical Learning
+                </span>
+
+              </div>
+
+            </div>
 
         {/* =================================================
             INTRO
@@ -1573,16 +1555,19 @@ function App() {
 
             </div>
 
-            <button
-              type="button"
-              className="section-join-button"
-              onClick={openEnrollment}
-            >
-              ഇപ്പോൾ Join ചെയ്യാം
-
-              <ArrowRight size={18} />
-
-            </button>
+            <div
+  className="w-full flex items-center justify-center"
+  style={{ marginTop: "30px", marginBottom: "50px" }}
+>
+  <button
+    type="button"
+    className="primary-button"
+    onClick={openEnrollment}
+  >
+    ഇപ്പോൾ Join ചെയ്യാം
+    <ArrowRight size={18} />
+  </button>
+</div>
 
           </div>
 
@@ -1782,14 +1767,15 @@ function App() {
                 AI FOR TEACHERS
               </span>
 
-              <div className="modules-price-values">
+              <div className="hero-offer-price">
+              <del style={{ fontSize: "34px", fontWeight: "700" }}>
+              ₹5,000
+              </del>
 
-                <del><h2>₹5,000</h2></del>
-
-                <strong><h6>₹1,999</h6></strong>
-
+              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+              ₹1,999
+              </strong>
               </div>
-
               <span className="modules-price-note">
                 One-time payment • Course access
               </span>
@@ -2417,12 +2403,14 @@ function App() {
                 SAVE ₹3,001
               </div>
 
-              <div className="final-offer-price">
+              <div className="hero-offer-price">
+              <del style={{ fontSize: "34px", fontWeight: "700" }}>
+              ₹5,000
+              </del>
 
-                <del><h2>₹5,000</h2></del>
-
-                <strong><h6>₹1,999</h6></strong>
-
+              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+              ₹1,999
+              </strong>
               </div>
 
               <span className="final-offer-note">
