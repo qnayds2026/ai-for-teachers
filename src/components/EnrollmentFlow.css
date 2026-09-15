@@ -1,0 +1,331 @@
+/* =========================================================
+   COMPACT & SIMPLE ENROLLMENT FLOW
+   Matches Page Design System:
+   --navy: #0d172d;
+   --blue: #108dcc;
+   --blue-dark: #087ab3;
+   --blue-light: #48bdf0;
+   --light-blue: #eef8fd;
+   --border: #dce8f0;
+   --text: #203b59;
+   --muted: #6c7d91;
+========================================================= */
+
+.simple-enroll-flow {
+  padding: 55px 0 50px;
+  background: #fbfdff;
+  border-top: 1px solid var(--border, #dce8f0);
+  border-bottom: 1px solid var(--border, #dce8f0);
+}
+
+/* Header */
+.simple-flow-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+
+.simple-flow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Inter", sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--blue, #108dcc);
+  background: #ffffff;
+  border: 1px solid #d3e7f4;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.simple-flow-header h2 {
+  font-family: "Noto Sans Malayalam", "Inter", sans-serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  color: var(--navy, #0d172d);
+  line-height: 1.3;
+  margin: 0 0 6px;
+}
+
+.simple-flow-header h2 span {
+  color: var(--blue, #108dcc);
+}
+
+.simple-flow-header p {
+  font-size: 14px;
+  color: var(--muted, #6c7d91);
+  margin: 0;
+}
+
+/* 3-Step Row */
+.simple-steps-row {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 14px;
+  max-width: 1040px;
+  margin: 0 auto 30px;
+}
+
+.simple-step-box {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid var(--border, #dce8f0);
+  border-radius: 16px;
+  padding: 20px 18px 18px;
+  box-shadow: 0 4px 16px rgba(13, 23, 45, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.simple-step-box:hover {
+  transform: translateY(-3px);
+  border-color: #badcf2;
+  box-shadow: 0 10px 24px rgba(16, 141, 204, 0.09);
+}
+
+.simple-step-box.is-complete {
+  background: linear-gradient(180deg, #ffffff 0%, #f4faff 100%);
+  border-color: #bee3f8;
+}
+
+/* Number & Icon */
+.step-badge-circle {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--light-blue, #eef8fd);
+  border: 1px solid #d4ebf9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-badge-circle span {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--blue, #108dcc);
+}
+
+.step-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: var(--light-blue, #eef8fd);
+  color: var(--blue, #108dcc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.is-complete .step-icon-wrap {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+.step-eng-sub {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue, #108dcc);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 3px;
+}
+
+.step-title {
+  font-family: "Noto Sans Malayalam", sans-serif;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--navy, #0d172d);
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
+
+.step-desc {
+  font-family: "Noto Sans Malayalam", sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text, #203b59);
+  margin: 0;
+}
+
+/* Connecting Arrow */
+.simple-step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9cb8ce;
+  flex-shrink: 0;
+}
+
+/* Footer & Actions */
+.simple-flow-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 12px 18px;
+  background: #ffffff;
+  border: 1px solid var(--border, #dce8f0);
+  border-radius: 12px;
+}
+
+.simple-flow-pills {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.simple-flow-pills span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text, #203b59);
+}
+
+.simple-flow-pills svg {
+  color: var(--blue, #108dcc);
+}
+
+.simple-flow-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.simple-enroll-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--blue, #108dcc);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: "Noto Sans Malayalam", "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.simple-enroll-btn:hover {
+  background: var(--blue-dark, #087ab3);
+  transform: translateY(-1px);
+}
+
+.simple-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: #15803d;
+  font-family: "Noto Sans Malayalam", "Inter", sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.simple-whatsapp-link:hover {
+  background: #dcfce7;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 860px) {
+  .simple-steps-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .simple-step-arrow {
+    display: none;
+  }
+
+  .simple-step-box {
+    padding: 16px 16px 14px;
+  }
+
+  .simple-flow-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .simple-flow-pills {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .simple-flow-actions {
+    justify-content: center;
+  }
+
+  .simple-enroll-btn,
+  .simple-whatsapp-link {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .simple-enroll-flow {
+    padding: 42px 0 38px;
+  }
+
+  .simple-flow-header h2 {
+    font-size: 20px;
+  }
+
+  .simple-step-box {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    column-gap: 12px;
+    align-items: start;
+    padding: 14px;
+  }
+
+  .step-icon-wrap {
+    margin-bottom: 0;
+  }
+
+  .step-badge-circle {
+    top: 10px;
+    right: 10px;
+  }
+
+  .simple-flow-actions {
+    flex-direction: column;
+  }
+
+  .simple-enroll-btn,
+  .simple-whatsapp-link {
+    width: 100%;
+  }
+}

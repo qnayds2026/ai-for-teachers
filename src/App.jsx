@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "./assets/QNAYDS_LOGO.png";
 import teacherVideo from "./assets/Teacher using ai.mp4";
 import teacherThumbnail from "./assets/thumbnail.webp";
+import mentorImage from "./assets/mentor_image.png";
 
 import {
   Check,
@@ -17,12 +18,12 @@ import {
   Clock,
   Users,
   X,
-  BriefcaseBusiness,
   Award,
+  BriefcaseBusiness,
 } from "lucide-react";
 
 import { FaWhatsapp } from "react-icons/fa6";
-import mentorImage from "./assets/mentor_image.png";
+import EnrollmentFlow from "./components/EnrollmentFlow";
 
 /* =====================================================
    WHATSAPP
@@ -1039,426 +1040,6 @@ function App() {
           margin-top: 0 !important;
         }
 
-     
-/* =====================================================
-   MENTOR SECTION
-===================================================== */
-
-.mentor-section {
-  background: #f7fbff;
-}
-
-/* Main layout */
-.mentor-profile {
-  display: grid;
-  grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
-  gap: clamp(30px, 4vw, 56px);
-  align-items: start;
-}
-
-/* =====================================================
-   MENTOR INTRO
-===================================================== */
-
-.mentor-intro {
-  position: sticky;
-  top: 30px;
-
-  padding: clamp(20px, 2.5vw, 28px);
-
-  background: #fff;
-  border: 1px solid #e2edf4;
-  border-radius: 18px;
-
-  box-shadow: 0 10px 28px rgba(13, 23, 45, 0.055);
-}
-
-.mentor-image {
-  display: block;
-
-  width: 100%;
-  aspect-ratio: 1 / 1.08;
-
-  object-fit: cover;
-  object-position: center top;
-
-  border-radius: 13px;
-  background: #eaf7fd;
-}
-
-.mentor-info {
-  padding-top: 20px;
-}
-
-.mentor-intro h3 {
-  margin: 0 0 5px;
-
-  color: var(--navy);
-  font-size: clamp(22px, 2vw, 27px);
-  line-height: 1.25;
-}
-
-.mentor-role {
-  display: block;
-
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.55;
-}
-
-.mentor-founder {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-
-  margin-top: 18px;
-  padding-top: 16px;
-
-  border-top: 1px solid var(--border);
-
-  color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.6;
-}
-
-.mentor-founder svg {
-  flex: 0 0 auto;
-  margin-top: 3px;
-  color: var(--blue);
-}
-
-.mentor-founder strong {
-  color: var(--navy);
-}
-
-/* =====================================================
-   DETAILS
-===================================================== */
-
-.mentor-details {
-  display: grid;
-  gap: 28px;
-  min-width: 0;
-}
-
-.mentor-highlights {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
-.mentor-highlight {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  min-height: 72px;
-  padding: 15px 17px;
-  border: 1px solid #e5edf4;
-  border-radius: 11px;
-  background: #f8fafc;
-}
-
-.mentor-highlight svg {
-  flex: 0 0 auto;
-  color: var(--blue);
-}
-
-.mentor-highlight:nth-child(1) svg,
-.mentor-highlight:nth-child(3) svg {
-  color: #e9a313;
-}
-
-.mentor-highlight strong {
-  display: block;
-  color: #34445a;
-  font-family: "Inter", sans-serif;
-  font-size: 15px;
-  line-height: 1.35;
-}
-
-.mentor-detail-block {
-  padding-bottom: 26px;
-  border-bottom: 1px solid var(--border);
-}
-
-.mentor-detail-heading {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  width: 100%;
-  margin: 0 0 17px;
-
-  color: var(--navy);
-  font-size: 20px;
-  line-height: 1.3;
-}
-
-.mentor-detail-content {
-  padding: 0;
-}
-
-.mentor-detail-heading svg {
-  flex: 0 0 auto;
-  width: 21px;
-  height: 21px;
-  color: var(--blue);
-}
-
-.mentor-detail-heading span {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.mentor-quote {
-  max-width: 820px;
-  margin: 45px auto 0;
-  padding: 25px 30px;
-  border-left: 4px solid var(--blue);
-  border-radius: 0 14px 14px 0;
-  background: #ffffff;
-  color: #455a70;
-  font-size: 18px;
-  font-style: italic;
-  line-height: 1.75;
-  text-align: center;
-  box-shadow: 0 10px 26px rgba(13, 23, 45, 0.06);
-}
-
-/* =====================================================
-   EXPERIENCE
-===================================================== */
-
-.experience-list {
-  display: grid;
-  gap: 15px;
-
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-}
-
-.experience-item {
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  gap: 11px;
-
-  align-items: start;
-}
-
-.experience-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1;
-
-  width: 30px;
-  height: 30px;
-
-  border-radius: 8px;
-
-  background: #eaf7fd;
-  color: var(--blue);
-
-  font-family: "Inter", sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.experience-item strong,
-.certification-list strong {
-  display: block;
-
-  color: var(--navy);
-  font-size: 14.5px;
-  line-height: 1.45;
-}
-
-.experience-item span,
-.certification-list span {
-  display: block;
-
-  margin-top: 3px;
-
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-/* =====================================================
-   CERTIFICATIONS
-===================================================== */
-
-.certification-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 22px;
-
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-}
-
-.certification-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-
-  min-width: 0;
-}
-
-.certification-list svg {
-  flex: 0 0 auto;
-
-  margin-top: 4px;
-
-  color: var(--blue);
-}
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 900px) {
-  .mentor-profile {
-    grid-template-columns: 280px minmax(0, 1fr);
-    gap: 28px;
-  }
-
-  .mentor-intro {
-    position: static;
-  }
-
-  .certification-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 700px) {
-  .mentor-profile {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .mentor-intro {
-    padding: 18px;
-    border-radius: 16px;
-  }
-
-  .mentor-highlights {
-    gap: 12px;
-  }
-
-  .mentor-image {
-    aspect-ratio: 1 / 0.95;
-    max-height: 420px;
-  }
-
-  .mentor-info {
-    padding-top: 17px;
-  }
-
-  .mentor-intro h3 {
-    font-size: 23px;
-  }
-
-  .mentor-detail-block {
-    padding-bottom: 23px;
-  }
-
-  .mentor-detail-heading {
-    font-size: 19px;
-    margin-bottom: 15px;
-  }
-
-  .experience-list {
-    gap: 13px;
-  }
-
-  .experience-item {
-    grid-template-columns: 28px minmax(0, 1fr);
-    gap: 10px;
-  }
-
-  .experience-number {
-    width: 28px;
-    height: 28px;
-  }
-
-  .experience-item strong,
-  .certification-list strong {
-    font-size: 14px;
-  }
-
-  .experience-item span,
-  .certification-list span {
-    font-size: 12.5px;
-  }
-
-  .certification-list {
-    gap: 13px;
-  }
-
-  .mentor-quote {
-    margin-top: 32px;
-    padding: 20px 18px;
-    font-size: 16px;
-  }
-}
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-  .mentor-intro {
-    padding: 15px;
-  }
-
-  .mentor-image {
-    border-radius: 11px;
-  }
-
-  .mentor-intro h3 {
-    font-size: 21px;
-  }
-
-  .mentor-founder {
-    font-size: 13px;
-  }
-
-  .mentor-detail-heading {
-    font-size: 18px;
-  }
-
-  .mentor-highlights {
-    grid-template-columns: 1fr;
-  }
-
-  .mentor-highlight {
-    min-height: 62px;
-  }
-
-  .experience-item {
-    grid-template-columns: 26px minmax(0, 1fr);
-    gap: 9px;
-  }
-
-  .experience-number {
-    width: 26px;
-    height: 26px;
-    font-size: 10px;
-  }
-}
 
         /* =====================================================
            REVIEWS
@@ -1655,28 +1236,6 @@ function App() {
           .reviews-grid {
             grid-template-columns: 1fr;
             gap: 18px;
-          }
-
-          .mentor-profile {
-            grid-template-columns: 1fr;
-            gap: 35px;
-          }
-
-          .mentor-intro {
-            position: static;
-            padding: 22px;
-          }
-
-          .mentor-image {
-            max-height: 440px;
-          }
-
-          .mentor-intro h3 {
-            font-size: 24px;
-          }
-
-          .certification-list {
-            grid-template-columns: 1fr;
           }
 
           .review-card {
@@ -2034,108 +1593,121 @@ function App() {
         </section>
 
 
-{/* =================================================
-    MENTOR
-================================================= */}
+        {/* =================================================
+            MENTOR
+        ================================================= */}
 
-<section className="section mentor-section">
-  <div className="container">
+        <section className="section mentor-section">
 
-    <div className="section-heading">
-      <span className="section-tag">MEET YOUR MENTOR</span>
+          <div className="container">
 
-      <h2>
-        Practical experience.
-        <span> Teacher-focused guidance.</span>
-      </h2>
+            <div className="section-heading">
 
-      <p>
-        AI tools പഠിപ്പിക്കുന്നതിൽ മാത്രം അല്ല, അവയെ real teaching work-ൽ
-        എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് mentor-ന്റെ focus.
-      </p>
-    </div>
+              <span className="section-tag">
+                MEET YOUR MENTOR
+              </span>
 
-    <div className="mentor-profile">
+              <h2>
+                Practical experience.
+                <span> Teacher-focused guidance.</span>
+              </h2>
 
-      {/* Mentor profile */}
-      <aside className="mentor-intro">
-        <img
-          src={mentorImage}
-          alt="AI for Teachers mentor"
-          className="mentor-image"
-        />
+              <p>
+                AI tools പഠിപ്പിക്കുന്നതിൽ മാത്രം അല്ല, അവയെ real teaching work-ൽ
+                എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് mentor-ന്റെ focus.
+              </p>
 
-        <div className="mentor-info">
-          <h3>AI for Teachers Mentor</h3>
+            </div>
 
-          <span className="mentor-role">
-            AI Integration Lead & Program Coordinator
-          </span>
+            <div className="mentor-profile">
 
-          <div className="mentor-founder">
-            <Award size={18} />
+              <aside className="mentor-intro">
 
-            <span>
-              Certified in <strong>AI Prompt Engineering</strong> through the
-              One Million Prompters Initiative by Dubai Future Foundation.
-            </span>
+                <img
+                  src={mentorImage}
+                  alt="AI for Teachers mentor"
+                  className="mentor-image"
+                />
+
+                <div className="mentor-info">
+
+                  <h3>AI for Teachers Mentor</h3>
+
+                  <span className="mentor-role">
+                    AI Integration Lead & Program Coordinator
+                  </span>
+
+                  <div className="mentor-credential">
+                    <Award size={16} />
+
+                    <span>
+                      Certified in <strong>AI Prompt Engineering</strong> through
+                      the One Million Prompters Initiative by Dubai Future
+                      Foundation.
+                    </span>
+                  </div>
+
+                </div>
+
+              </aside>
+
+              <div className="mentor-details">
+
+                <div className="mentor-highlights">
+
+                  <div className="mentor-highlight">
+                    <Award size={23} />
+                    <strong>C-TET And K-TET Certified</strong>
+                  </div>
+
+                  <div className="mentor-highlight">
+                    <BriefcaseBusiness size={23} />
+                    <strong>AI Integration Lead</strong>
+                  </div>
+
+                  <div className="mentor-highlight">
+                    <Users size={23} />
+                    <strong>AI Integration & Prompt Engineering</strong>
+                  </div>
+
+                  <div className="mentor-highlight">
+                    <Clock size={23} />
+                    <strong>7 Years of Experience</strong>
+                  </div>
+
+                </div>
+
+                <blockquote className="mentor-quote">
+                  “As an AI Integration Lead, educator, and prompt-engineering
+                  trainer, I help teachers turn AI into practical classroom
+                  support, from lesson plans and question papers to
+                  presentations and learning materials. My goal is simple:
+                  make every teacher more confident, creative, and productive
+                  with AI.”
+                </blockquote>
+
+              </div>
+
+            </div>
+
+            <div className="section-cta-row">
+
+              <button
+                type="button"
+                className="section-join-button"
+                onClick={openEnrollment}
+              >
+                ഇപ്പോൾ Join ചെയ്യാം
+
+                <ArrowRight size={18} />
+
+              </button>
+
+            </div>
+
           </div>
-        </div>
-      </aside>
 
-      {/* Mentor details */}
-      <div className="mentor-details">
-
-        <div className="mentor-highlights">
-
-          <div className="mentor-highlight">
-            <Award size={23} />
-            <strong>C-TET And K-TET Certified</strong>
-          </div>
-
-          <div className="mentor-highlight">
-            <ShieldCheck size={23} />
-            <strong>AI Integration Lead</strong>
-          </div>
-
-          <div className="mentor-highlight">
-            <Users size={23} />
-            <strong>AI Integration & Prompt Engineering</strong>
-          </div>
-
-          <div className="mentor-highlight">
-            <BriefcaseBusiness size={23} />
-            <strong>7 Years of Experience</strong>
-          </div>
-
-        </div>
-
-        <blockquote className="mentor-quote">
-          “As an AI Integration Lead, educator, and prompt-engineering trainer,
-          I help teachers turn AI into practical classroom support, from lesson
-          plans and question papers to presentations and learning materials.
-          My goal is simple: make every teacher more confident, creative, and
-          productive with AI.”
-        </blockquote>
-
-      </div>
-    </div>
-
-    <div className="section-cta-row">
-      <button
-        type="button"
-        className="section-join-button"
-        onClick={openEnrollment}
-      >
-        ഇപ്പോൾ Join ചെയ്യാം
-        <ArrowRight size={18} />
-      </button>
-    </div>
-
-  </div>
-</section>
-
-
+        </section>
 
 
         {/* =================================================
@@ -2936,6 +2508,13 @@ function App() {
 
         </section>
 
+{/* ========================= ============================
+                ENROLLEMENT FLOW
+============================================= */}
+        <EnrollmentFlow
+          onEnroll={openEnrollment}
+          whatsappUrl={whatsappUrl}
+        />
 
         {/* =================================================
             FINAL CTA
