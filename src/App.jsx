@@ -24,6 +24,8 @@ import {
 
 import { FaWhatsapp } from "react-icons/fa6";
 import EnrollmentFlow from "./components/EnrollmentFlow";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import "./pages/PaymentSuccess.css";
 
 /* =====================================================
    WHATSAPP
@@ -40,10 +42,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const courseId = String(import.meta.env.VITE_COURSE_ID || "").trim();
 
 const trackMetaEvent = (eventName, params = {}) => {
-  if (
-    typeof window !== "undefined" &&
-    typeof window.fbq === "function"
-  ) {
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
     window.fbq("track", eventName, params);
   }
 };
@@ -51,32 +50,6 @@ const trackMetaEvent = (eventName, params = {}) => {
 /* =====================================================
    PAYMENT
 ===================================================== */
-
-const fetchCourse = async () => {
-  if (!apiUrl || !courseId) {
-    throw new Error(
-      "Course payment is not configured yet. Please try again later.",
-    );
-  }
-
-  const response = await fetch(`${apiUrl}/courses/${courseId}`);
-
-  if (!response.ok) {
-    throw new Error("Unable to load the course price. Please try again later.");
-  }
-
-  const course = await response.json();
-  const priceInRupees = Number(course.price);
-
-  if (!Number.isFinite(priceInRupees) || priceInRupees < 0) {
-    throw new Error("The course price is invalid. Please try again later.");
-  }
-
-  return {
-    priceInRupees,
-    amountInPaise: Math.round(priceInRupees * 100),
-  };
-};
 
 const loadRazorpay = () =>
   new Promise((resolve, reject) => {
@@ -144,11 +117,8 @@ const FloatingEnrollmentButton = ({
 }) => {
   return (
     <button
-    
       type="button"
-      className={`floating-enrollment-button ${
-        isVisible ? "is-visible " : ""
-      }`}
+      className={`floating-enrollment-button ${isVisible ? "is-visible " : ""}`}
       onClick={onEnroll}
       aria-label="Enroll now"
       aria-hidden={!isVisible}
@@ -159,8 +129,12 @@ const FloatingEnrollmentButton = ({
           <h6>AI For Teachers</h6>
 
           <p>
-            <del><h2>₹5,000</h2></del>
-            <strong><h6>₹1,999</h6></strong>
+            <del>
+              <h2>₹5,000</h2>
+            </del>
+            <strong>
+              <h6>₹1,999</h6>
+            </strong>
             <span className="text-white">Enroll Now</span>
           </p>
         </div>
@@ -268,7 +242,7 @@ const faqs = [
     answer:
       "ChatGPT, Canva, Gamma, Google tools തുടങ്ങിയ teacher productivity tools practical ആയി പരിചയപ്പെടും.",
   },
-   {
+  {
     question: "ഈ കോഴ്സ് പഠിക്കാൻ ലാപ്ടോപ്പ് നിർബന്ധമാണോ?",
     answer:
       "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല.ഈ കോഴ്സ് Mobile Phone, Tablet, Laptop, Desktop എന്നിവയിൽ എല്ലാം access ചെയ്യാം. Internet connection ഉള്ളതിനാൽ, നിങ്ങൾക്ക് സൗകര്യമുള്ള ഏത് device-ലും എവിടെനിന്നും പഠനം തുടരാം.",
@@ -329,6 +303,7 @@ function App() {
   const [paymentStarted, setPaymentStarted] = useState(false);
 
   const [paymentError, setPaymentError] = useState("");
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   useEffect(() => {
     if (hasTrackedViewContent.current) {
@@ -358,8 +333,13 @@ function App() {
   }, [offerEndsAt]);
 
   const totalOfferSeconds = Math.floor(offerTimeLeft / 1000);
-  const offerHours = String(Math.floor(totalOfferSeconds / 3600)).padStart(2, "0");
-  const offerMinutes = String(Math.floor((totalOfferSeconds % 3600) / 60)).padStart(2, "0");
+  const offerHours = String(Math.floor(totalOfferSeconds / 3600)).padStart(
+    2,
+    "0",
+  );
+  const offerMinutes = String(
+    Math.floor((totalOfferSeconds % 3600) / 60),
+  ).padStart(2, "0");
   const offerSeconds = String(totalOfferSeconds % 60).padStart(2, "0");
 
   /* =====================================================
@@ -439,22 +419,66 @@ function App() {
         );
       }
 
-      const { priceInRupees, amountInPaise } = await fetchCourse();
+      if (!apiUrl || !courseId) {
+        throw new Error(
+          "Unable to create your payment order. Please try again.",
+        );
+      }
+
+      let orderData;
+
+      try {
+        const orderResponse = await fetch(`${apiUrl}/landing/create-order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.fullName.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+            courseId,
+          }),
+        });
+
+        if (!orderResponse.ok) {
+          throw new Error(
+            "Unable to create your payment order. Please try again.",
+          );
+        }
+
+        const responseBody = await orderResponse.json();
+        orderData = responseBody.data;
+
+        if (!orderData?.order || !orderData?.student || !orderData?.course) {
+          throw new Error(
+            "Unable to create your payment order. Please try again.",
+          );
+        }
+      } catch (error) {
+        throw new Error(
+          error.message ===
+            "Unable to create your payment order. Please try again."
+            ? error.message
+            : "Unable to create your payment order. Please try again.",
+        );
+      }
 
       await loadRazorpay();
 
       const checkout = new window.Razorpay({
         key: razorpayKeyId,
-        amount: amountInPaise,
-        currency: "INR",
+        amount: orderData.order.amount,
+        currency: orderData.order.currency,
 
         name: "QNAYDS Academy",
 
-        description: "AI for Teachers Course",
+        description: orderData.course.title,
+        order_id: orderData.order.id,
 
         prefill: {
-          name: formData.fullName.trim(),
-          email: formData.email.trim(),
+          name: orderData.student.name,
+          email: orderData.student.email,
           contact: formData.phone.trim(),
         },
 
@@ -476,7 +500,11 @@ function App() {
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(response),
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                }),
               },
             );
 
@@ -491,17 +519,18 @@ function App() {
               content_category: "Education",
               content_ids: [courseId],
               content_type: "product",
-              value: priceInRupees,
-              currency: "INR",
+              value: orderData.order.amount / 100,
+              currency: orderData.order.currency || "INR",
+              transaction_id: response.razorpay_payment_id,
             });
 
             setPaymentStarted(false);
             setShowModal(false);
+            setPaymentSuccess(true);
           } catch (error) {
             setPaymentStarted(false);
             setPaymentError(
-              error.message ||
-                "Payment verification failed. Please contact support.",
+              "Payment verification failed. Please contact support.",
             );
           }
         },
@@ -515,8 +544,7 @@ function App() {
         setPaymentStarted(false);
 
         setPaymentError(
-          response.error?.description ||
-          "Payment failed. Please try again.",
+          response.error?.description || "Payment failed. Please try again.",
         );
       });
 
@@ -525,8 +553,8 @@ function App() {
         content_category: "Education",
         content_ids: [courseId],
         content_type: "product",
-        value: priceInRupees,
-        currency: "INR",
+        value: orderData.order.amount / 100,
+        currency: orderData.order.currency || "INR",
       });
 
       checkout.open();
@@ -547,6 +575,7 @@ function App() {
     setPaymentStarted(false);
 
     setPaymentError("");
+    setPaymentSuccess(false);
 
     setShowModal(true);
   };
@@ -1351,29 +1380,21 @@ function App() {
       `}</style>
 
       <div className="page">
-
         {/* =================================================
             HERO
         ================================================= */}
 
         <section className="hero">
-
           <div className="hero-glow glow-one"></div>
 
           <div className="hero-glow glow-two"></div>
 
           <div className="container hero-content">
-
             <div className="modal-logo-wrapper">
-              <img
-                src={logo}
-                alt="QNAYDS"
-                className="modal-logo"
-              />
+              <img src={logo} alt="QNAYDS" className="modal-logo" />
             </div>
 
             <div className="hero-offer-urgency" aria-live="polite">
-
               <div className="hero-offer-limit">
                 <span>🔥 Limited Offer</span>
 
@@ -1382,46 +1403,39 @@ function App() {
 
               <div className="hero-offer-countdown">
                 <Clock size={16} />
-
                 Offer ends in
-
-                <span className="hero-offer-time" aria-label={`${offerHours} hours, ${offerMinutes} minutes, ${offerSeconds} seconds`}>
-                  <span>{offerHours}</span>
-                  :
-                  <span>{offerMinutes}</span>
-                  :
+                <span
+                  className="hero-offer-time"
+                  aria-label={`${offerHours} hours, ${offerMinutes} minutes, ${offerSeconds} seconds`}
+                >
+                  <span>{offerHours}</span>:<span>{offerMinutes}</span>:
                   <span>{offerSeconds}</span>
                 </span>
               </div>
-
             </div>
 
             <div className="hero-badge">
-
               <Sparkles size={16} />
-
               അധ്യാപകർക്കായി പ്രത്യേകമായി തയ്യാറാക്കിയത്
-
             </div>
 
-      <h1>
-  <span>Smart Teacher</span>
-  <br />
-  <span>ആകാൻ ആഗ്രഹമുണ്ടോ?</span>
+            <h1>
+              <span>Smart Teacher</span>
+              <br />
+              <span>ആകാൻ ആഗ്രഹമുണ്ടോ?</span>
 
-  <small>
-    എവിടെ തുടങ്ങണം എന്നറിയില്ലേ?
-  </small>
-</h1>
+              <small>എവിടെ തുടങ്ങണം എന്നറിയില്ലേ?</small>
+            </h1>
 
             <p className="hero-description">
-  Lesson Plans മുതൽ Question Papers വരെ…{" "}
-  <strong>AI ഉപയോഗിച്ച് നിങ്ങളുടെ Teaching Preparation എളുപ്പമാക്കാൻ പഠിക്കാം.</strong>
-</p>
+              Lesson Plans മുതൽ Question Papers വരെ…{" "}
+              <strong>
+                AI ഉപയോഗിച്ച് നിങ്ങളുടെ Teaching Preparation എളുപ്പമാക്കാൻ
+                പഠിക്കാം.
+              </strong>
+            </p>
 
-            
             <div className="hero-stats">
-
               <div>
                 <strong>07</strong>
 
@@ -1439,29 +1453,18 @@ function App() {
 
                 <span>Teacher Focus</span>
               </div>
-
             </div>
-
-            
-
           </div>
-
         </section>
-
 
         {/* =================================================
             WATCH BEFORE YOU ENROLL
         ================================================= */}
 
         <section className="section video-section video-section-tight">
-
           <div className="container narrow">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                WATCH BEFORE YOU ENROLL
-              </span>
+              <span className="section-tag">WATCH BEFORE YOU ENROLL</span>
 
               <h2>
                 ഈ course നിങ്ങൾക്ക്
@@ -1469,108 +1472,79 @@ function App() {
               </h2>
 
               <p>
-                Enroll ചെയ്യുന്നതിന് മുമ്പ് course-നെ കുറിച്ച്
-                ഒരു ചെറിയ introduction കാണാം.
+                Enroll ചെയ്യുന്നതിന് മുമ്പ് course-നെ കുറിച്ച് ഒരു ചെറിയ
+                introduction കാണാം.
               </p>
-
             </div>
 
             <div className="course-video">
-
               <video
                 controls
                 playsInline
                 preload="metadata"
                 poster={teacherThumbnail}
               >
-                <source
-                  src={teacherVideo}
-                  type="video/mp4"
-                />
-
+                <source src={teacherVideo} type="video/mp4" />
                 Your browser does not support the video tag.
-
               </video>
             </div>
           </div>
         </section>
 
-          <div className="hero-offer-box">
+        <div className="hero-offer-box">
+          <div className="save-badge">SAVE ₹3,001</div>
 
-              <div className="save-badge">
-                SAVE ₹3,001
-              </div>
+          <span className="hero-offer-label">Course Fee</span>
 
-              <span className="hero-offer-label">
-                Course Fee
-              </span>
+          <div className="hero-offer-price">
+            <del style={{ fontSize: "34px", fontWeight: "700" }}>₹5,000</del>
 
-              <div className="hero-offer-price">
-              <del style={{ fontSize: "34px", fontWeight: "700" }}>
-              ₹5,000
-              </del>
-
-              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+            <strong style={{ fontSize: "22px", fontWeight: "800" }}>
               ₹1,999
-              </strong>
-              </div>
+            </strong>
+          </div>
 
-              <span className="hero-offer-note">
-                One-time payment
-              </span>
+          <span className="hero-offer-note">One-time payment</span>
 
-              <div className="hero-offer-actions">
+          <div className="hero-offer-actions">
+            <button
+              type="button"
+              className="primary-button"
+              onClick={openEnrollment}
+            >
+              ഇപ്പോൾ Join ചെയ്യാം
+              <ArrowRight size={18} />
+            </button>
 
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={openEnrollment}
-                >
-                  ഇപ്പോൾ Join ചെയ്യാം
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={scrollToSyllabus}
+            >
+              Syllabus കാണാം
+            </button>
+          </div>
 
-                  <ArrowRight size={18} />
+          <div className="hero-offer-checks">
+            <span>
+              <Check size={17} />
+              Teacher Focused
+            </span>
 
-                </button>
-
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={scrollToSyllabus}
-                >
-                  Syllabus കാണാം
-                </button>
-
-              </div>
-
-              <div className="hero-offer-checks">
-
-                <span>
-                  <Check size={17} />
-
-                  Teacher Focused
-                </span>
-
-                <span>
-                  <Check size={17} />
-
-                  Practical Learning
-                </span>
-
-              </div>
-
-            </div>
+            <span>
+              <Check size={17} />
+              Practical Learning
+            </span>
+          </div>
+        </div>
 
         {/* =================================================
             INTRO
         ================================================= */}
 
         <section className="section intro-section">
-
           <div className="container narrow">
-
-            <span className="section-tag">
-              AI FOR TEACHERS
-            </span>
+            <span className="section-tag">AI FOR TEACHERS</span>
 
             <h2>
               അധ്യാപകരുടെ സമയം
@@ -1578,260 +1552,215 @@ function App() {
             </h2>
 
             <p className="section-description">
-              Lesson plan തയ്യാറാക്കുന്നത് മുതൽ question paper,
-              worksheet, presentation, notice, parent message
-              എന്നിവ തയ്യാറാക്കുന്നത് വരെ അധ്യാപകർ ദിവസവും
-              നിരവധി repetitive tasks ചെയ്യുന്നു.
+              Lesson plan തയ്യാറാക്കുന്നത് മുതൽ question paper, worksheet,
+              presentation, notice, parent message എന്നിവ തയ്യാറാക്കുന്നത് വരെ
+              അധ്യാപകർ ദിവസവും നിരവധി repetitive tasks ചെയ്യുന്നു.
             </p>
 
             <div className="intro-grid">
-
               <div className="info-card">
-
                 <Clock size={28} />
 
-                <h3>
-                  സമയം ലാഭിക്കാം
-                </h3>
+                <h3>സമയം ലാഭിക്കാം</h3>
 
                 <p>
-                  ആവർത്തിച്ച് ചെയ്യേണ്ട teaching tasks
-                  വേഗത്തിൽ പൂർത്തിയാക്കാം.
+                  ആവർത്തിച്ച് ചെയ്യേണ്ട teaching tasks വേഗത്തിൽ പൂർത്തിയാക്കാം.
                 </p>
-
               </div>
 
               <div className="info-card">
-
                 <Sparkles size={28} />
 
-                <h3>
-                  Smart ആയി Create ചെയ്യാം
-                </h3>
+                <h3>Smart ആയി Create ചെയ്യാം</h3>
 
                 <p>
-                  AI ഉപയോഗിച്ച് teaching resources
-                  കൂടുതൽ വേഗത്തിൽ തയ്യാറാക്കാം.
+                  AI ഉപയോഗിച്ച് teaching resources കൂടുതൽ വേഗത്തിൽ തയ്യാറാക്കാം.
                 </p>
-
               </div>
 
               <div className="info-card">
-
                 <Users size={28} />
 
-                <h3>
-                  Teacher remains in control
-                </h3>
+                <h3>Teacher remains in control</h3>
 
                 <p>
-                  AI സഹായിക്കും. Final decision
-                  എപ്പോഴും teacher-ന്റേതായിരിക്കും.
+                  AI സഹായിക്കും. Final decision എപ്പോഴും
+                  teacher-ന്റേതായിരിക്കും.
                 </p>
-
               </div>
-
             </div>
 
             <div
-  className="w-full flex items-center justify-center"
-  style={{ marginTop: "30px", marginBottom: "50px" }}
->
-  <button
-    type="button"
-    className="primary-button"
-    onClick={openEnrollment}
-  >
-    ഇപ്പോൾ Join ചെയ്യാം
-    <ArrowRight size={18} />
-  </button>
-</div>
-
+              className="w-full flex items-center justify-center"
+              style={{ marginTop: "30px", marginBottom: "50px" }}
+            >
+              <button
+                type="button"
+                className="primary-button"
+                onClick={openEnrollment}
+              >
+                ഇപ്പോൾ Join ചെയ്യാം
+                <ArrowRight size={18} />
+              </button>
+            </div>
           </div>
-
         </section>
 
         {/* ================= REVIEWS SECTION ================= */}
-<section className="section reviews-section" id="reviews">
-  <div className="container">
+        <section className="section reviews-section" id="reviews">
+          <div className="container">
+            <div className="section-heading">
+              <div className="section-tag">TEACHER REVIEWS</div>
 
-    <div className="section-heading">
-      <div className="section-tag">TEACHER REVIEWS</div>
+              <h2>
+                അധ്യാപകർ <span>പറയുന്നു...</span>
+              </h2>
 
-      <h2>
-        അധ്യാപകർ <span>പറയുന്നു...</span>
-      </h2>
+              <p>
+                AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച് ഞങ്ങളുടെ
+                learners പറയുന്നത്
+              </p>
+            </div>
 
-      <p>
-        AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച്
-        ഞങ്ങളുടെ learners പറയുന്നത്
-      </p>
-    </div>
+            <div className="reviews-grid">
+              {/* Review 1 */}
+              <div className="review-card">
+                <div className="review-stars">★★★★★</div>
 
-    <div className="reviews-grid">
+                <p className="review-text">
+                  “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു. AI
+                  tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course വഴി
+                  മനസ്സിലായി.”
+                </p>
 
-      {/* Review 1 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
+                <div className="review-user">
+                  <div className="review-avatar">A</div>
 
-        <p className="review-text">
-          “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു.
-          AI tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course
-          വഴി മനസ്സിലായി.”
-        </p>
+                  <div>
+                    <h4>Anitha Teacher</h4>
+                    <span>School Teacher</span>
+                  </div>
+                </div>
+              </div>
 
-        <div className="review-user">
-          <div className="review-avatar">A</div>
+              {/* Review 2 */}
+              <div className="review-card">
+                <div className="review-stars">★★★★★</div>
 
-          <div>
-            <h4>Anitha Teacher</h4>
-            <span>School Teacher</span>
+                <p className="review-text">
+                  “Question papers, worksheets, presentations എന്നിവ
+                  തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
+                  മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
+                </p>
+
+                <div className="review-user">
+                  <div className="review-avatar">R</div>
+
+                  <div>
+                    <h4>Rashid Teacher</h4>
+                    <span>Higher Secondary Teacher</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review 3 */}
+              <div className="review-card">
+                <div className="review-stars">★★★★★</div>
+
+                <p className="review-text">
+                  “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു. Course
+                  complete ചെയ്ത ശേഷം daily teaching tasks-ൽ AI ഉപയോഗിക്കാൻ
+                  confidence കിട്ടി.”
+                </p>
+
+                <div className="review-user">
+                  <div className="review-avatar">S</div>
+
+                  <div>
+                    <h4>Shahana Teacher</h4>
+                    <span>Primary School Teacher</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review 4 */}
+              <div className="review-card">
+                <div className="review-stars">★★★★★</div>
+
+                <p className="review-text">
+                  “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ AI
+                  tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു. വളരെ
+                  practical ആയ learning experience.”
+                </p>
+
+                <div className="review-user">
+                  <div className="review-avatar">N</div>
+
+                  <div>
+                    <h4>Naseema Teacher</h4>
+                    <span>High School Teacher</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review 5 */}
+              <div className="review-card">
+                <div className="review-stars">★★★★★</div>
+
+                <p className="review-text">
+                  “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
+                  എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്. Especially the
+                  practical sessions were useful.”
+                </p>
+
+                <div className="review-user">
+                  <div className="review-avatar">F</div>
+
+                  <div>
+                    <h4>Fathima Teacher</h4>
+                    <span>Government School Teacher</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review 6 */}
+              <div className="review-card">
+                <div className="review-stars">★★★★★</div>
+
+                <p className="review-text">
+                  “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ തുടങ്ങണം
+                  എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല starting point
+                  ആയി.”
+                </p>
+
+                <div className="review-user">
+                  <div className="review-avatar">M</div>
+
+                  <div>
+                    <h4>Meera Teacher</h4>
+                    <span>Private School Teacher</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review CTA */}
+            <div className="section-cta-row">
+              <button className="section-join-button" onClick={openEnrollment}>
+                ഇപ്പോൾ Join ചെയ്യാം →
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Review 2 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Question papers, worksheets, presentations എന്നിവ
-          തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
-          മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">R</div>
-
-          <div>
-            <h4>Rashid Teacher</h4>
-            <span>Higher Secondary Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 3 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു.
-          Course complete ചെയ്ത ശേഷം daily teaching tasks-ൽ
-          AI ഉപയോഗിക്കാൻ confidence കിട്ടി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">S</div>
-
-          <div>
-            <h4>Shahana Teacher</h4>
-            <span>Primary School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 4 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Presentations and teaching materials തയ്യാറാക്കുന്നതിൽ
-          AI tools വളരെ helpful ആണെന്ന് ഈ course വഴി പഠിച്ചു.
-          വളരെ practical ആയ learning experience.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">N</div>
-
-          <div>
-            <h4>Naseema Teacher</h4>
-            <span>High School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 5 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
-          എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്.
-          Especially the practical sessions were useful.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">F</div>
-
-          <div>
-            <h4>Fathima Teacher</h4>
-            <span>Government School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Review 6 */}
-      <div className="review-card">
-        <div className="review-stars">
-          ★★★★★
-        </div>
-
-        <p className="review-text">
-          “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ
-          തുടങ്ങണം എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല
-          starting point ആയി.”
-        </p>
-
-        <div className="review-user">
-          <div className="review-avatar">M</div>
-
-          <div>
-            <h4>Meera Teacher</h4>
-            <span>Private School Teacher</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    {/* Review CTA */}
-    <div className="section-cta-row">
-      <button
-        className="section-join-button"
-        onClick={openEnrollment}
-      >
-        ഇപ്പോൾ Join ചെയ്യാം →
-      </button>
-    </div>
-
-  </div>
-</section>
-
-
+        </section>
 
         {/* =================================================
             MENTOR
         ================================================= */}
 
         <section className="section mentor-section">
-
           <div className="container">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                MEET YOUR MENTOR
-              </span>
+              <span className="section-tag">MEET YOUR MENTOR</span>
 
               <h2>
                 Practical experience.
@@ -1839,16 +1768,13 @@ function App() {
               </h2>
 
               <p>
-                AI tools പഠിപ്പിക്കുന്നതിൽ മാത്രം അല്ല, അവയെ real teaching work-ൽ
-                എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് mentor-ന്റെ focus.
+                AI tools പഠിപ്പിക്കുന്നതിൽ മാത്രം അല്ല, അവയെ real teaching
+                work-ൽ എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് mentor-ന്റെ focus.
               </p>
-
             </div>
 
             <div className="mentor-profile">
-
               <aside className="mentor-intro">
-
                 <img
                   src={mentorImage}
                   alt="AI for Teachers mentor"
@@ -1856,7 +1782,6 @@ function App() {
                 />
 
                 <div className="mentor-info">
-
                   <h3>AI for Teachers Mentor</h3>
 
                   <span className="mentor-role">
@@ -1867,20 +1792,16 @@ function App() {
                     <Award size={16} />
 
                     <span>
-                      Certified in <strong>AI Prompt Engineering</strong> through
-                      the One Million Prompters Initiative by Dubai Future
-                      Foundation.
+                      Certified in <strong>AI Prompt Engineering</strong>{" "}
+                      through the One Million Prompters Initiative by Dubai
+                      Future Foundation.
                     </span>
                   </div>
-
                 </div>
-
               </aside>
 
               <div className="mentor-details">
-
                 <div className="mentor-highlights">
-
                   <div className="mentor-highlight">
                     <Award size={23} />
                     <strong>C-TET And K-TET Certified</strong>
@@ -1900,73 +1821,56 @@ function App() {
                     <Clock size={23} />
                     <strong>7 Years of Experience</strong>
                   </div>
-
                 </div>
 
                 <blockquote className="mentor-quote">
                   “As an AI Integration Lead, educator, and prompt-engineering
                   trainer, I help teachers turn AI into practical classroom
                   support, from lesson plans and question papers to
-                  presentations and learning materials. My goal is simple:
-                  make every teacher more confident, creative, and productive
-                  with AI.”
+                  presentations and learning materials. My goal is simple: make
+                  every teacher more confident, creative, and productive with
+                  AI.”
                 </blockquote>
-
               </div>
-
             </div>
 
             <div className="section-cta-row">
-
               <button
                 type="button"
                 className="section-join-button"
                 onClick={openEnrollment}
               >
                 ഇപ്പോൾ Join ചെയ്യാം
-
                 <ArrowRight size={18} />
-
               </button>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             USE CASES
         ================================================= */}
 
         <section className="section usecase-section">
-
           <div className="container">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                REAL TEACHER USE CASES
-              </span>
+              <span className="section-tag">REAL TEACHER USE CASES</span>
 
               <h2>
                 നിങ്ങളുടെ daily teaching work
                 <span> കൂടുതൽ എളുപ്പമാക്കാം</span>
               </h2>
-
             </div>
 
             <div className="usecase-grid">
-
               <div className="usecase-card">
                 <span>01</span>
 
                 <h3>Lesson Plan</h3>
 
                 <p>
-                  ഒരു topic നൽകി structured lesson plan
-                  തയ്യാറാക്കാൻ AI ഉപയോഗിക്കാം.
+                  ഒരു topic നൽകി structured lesson plan തയ്യാറാക്കാൻ AI
+                  ഉപയോഗിക്കാം.
                 </p>
               </div>
 
@@ -1976,8 +1880,7 @@ function App() {
                 <h3>Question Paper</h3>
 
                 <p>
-                  MCQ, descriptive questions, answer key
-                  എന്നിവ തയ്യാറാക്കാം.
+                  MCQ, descriptive questions, answer key എന്നിവ തയ്യാറാക്കാം.
                 </p>
               </div>
 
@@ -1987,8 +1890,7 @@ function App() {
                 <h3>Worksheet</h3>
 
                 <p>
-                  Different difficulty levels ഉള്ള
-                  worksheets create ചെയ്യാം.
+                  Different difficulty levels ഉള്ള worksheets create ചെയ്യാം.
                 </p>
               </div>
 
@@ -1997,10 +1899,7 @@ function App() {
 
                 <h3>Parent Message</h3>
 
-                <p>
-                  Professional parent communication
-                  drafts തയ്യാറാക്കാം.
-                </p>
+                <p>Professional parent communication drafts തയ്യാറാക്കാം.</p>
               </div>
 
               <div className="usecase-card">
@@ -2008,10 +1907,7 @@ function App() {
 
                 <h3>Presentation</h3>
 
-                <p>
-                  Classroom-ready slides വേഗത്തിൽ
-                  തയ്യാറാക്കാം.
-                </p>
+                <p>Classroom-ready slides വേഗത്തിൽ തയ്യാറാക്കാം.</p>
               </div>
 
               <div className="usecase-card">
@@ -2020,49 +1916,32 @@ function App() {
                 <h3>Concept Simplification</h3>
 
                 <p>
-                  Difficult concepts students-ന്
-                  എളുപ്പത്തിൽ explain ചെയ്യാം.
+                  Difficult concepts students-ന് എളുപ്പത്തിൽ explain ചെയ്യാം.
                 </p>
               </div>
-
             </div>
 
             <div className="section-cta-row">
-
               <button
                 type="button"
                 className="section-join-button"
                 onClick={openEnrollment}
               >
                 ഇപ്പോൾ Join ചെയ്യാം
-
                 <ArrowRight size={18} />
-
               </button>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             SYLLABUS
         ================================================= */}
 
-        <section
-          className="section syllabus-section"
-          id="syllabus"
-        >
-
+        <section className="section syllabus-section" id="syllabus">
           <div className="container">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                COURSE SYLLABUS
-              </span>
+              <span className="section-tag">COURSE SYLLABUS</span>
 
               <h2>
                 7 Modules.
@@ -2070,73 +1949,48 @@ function App() {
               </h2>
 
               <p>
-                ഒരു അധ്യാപകന് classroom-ലും daily work-ലും
-                AI ഉപയോഗിക്കാൻ ആവശ്യമായ പ്രധാന skills.
+                ഒരു അധ്യാപകന് classroom-ലും daily work-ലും AI ഉപയോഗിക്കാൻ
+                ആവശ്യമായ പ്രധാന skills.
               </p>
-
             </div>
 
             <div className="module-grid">
-
               {modules.map((module) => {
-
                 const Icon = module.icon;
 
                 return (
-                  <article
-                    className="module-card"
-                    key={module.number}
-                  >
-
+                  <article className="module-card" key={module.number}>
                     <div className="module-top">
-
-                      <div className="module-number">
-                        {module.number}
-                      </div>
+                      <div className="module-number">{module.number}</div>
 
                       <div className="module-icon">
-
                         <Icon size={23} />
-
                       </div>
-
                     </div>
 
-                    <h3>
-                      {module.title}
-                    </h3>
+                    <h3>{module.title}</h3>
 
-                    <p className="module-subtitle">
-                      {module.subtitle}
-                    </p>
-
+                    <p className="module-subtitle">{module.subtitle}</p>
                   </article>
                 );
               })}
-
             </div>
-
 
             {/* PRICE CARD */}
 
             <div className="modules-price-card">
+              <div className="save-badge">SAVE ₹3,001</div>
 
-              <div className="save-badge">
-                SAVE ₹3,001
-              </div>
-
-              <span className="modules-price-label">
-                AI FOR TEACHERS
-              </span>
+              <span className="modules-price-label">AI FOR TEACHERS</span>
 
               <div className="hero-offer-price">
-              <del style={{ fontSize: "34px", fontWeight: "700" }}>
-              ₹5,000
-              </del>
+                <del style={{ fontSize: "34px", fontWeight: "700" }}>
+                  ₹5,000
+                </del>
 
-              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
-              ₹1,999
-              </strong>
+                <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+                  ₹1,999
+                </strong>
               </div>
               <span className="modules-price-note">
                 One-time payment • Course access
@@ -2148,13 +2002,10 @@ function App() {
                 onClick={openEnrollment}
               >
                 ഇപ്പോൾ Join ചെയ്യാം
-
                 <ArrowRight size={19} />
-
               </button>
 
               <div className="modules-price-features">
-
                 <span>
                   <Check size={16} />
                   Teacher Focused
@@ -2169,29 +2020,19 @@ function App() {
                   <Check size={16} />
                   Secure Payment
                 </span>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             WORKFLOW
         ================================================= */}
 
         <section className="section workflow-section">
-
           <div className="container">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                HOW AI HELPS
-              </span>
+              <span className="section-tag">HOW AI HELPS</span>
 
               <h2>
                 AI Assists.
@@ -2199,258 +2040,168 @@ function App() {
               </h2>
 
               <p>
-                AI ഒരു assistant ആണ്. Teaching decision,
-                verification, classroom application എന്നിവ
-                teacher തന്നെ നിയന്ത്രിക്കും.
+                AI ഒരു assistant ആണ്. Teaching decision, verification, classroom
+                application എന്നിവ teacher തന്നെ നിയന്ത്രിക്കും.
               </p>
-
             </div>
 
             <div className="workflow">
-
               <div className="workflow-step">
-
                 <span>01</span>
 
                 <h3>Teaching Need</h3>
 
-                <p>
-                  എന്താണ് വേണ്ടതെന്ന് തീരുമാനിക്കുക
-                </p>
-
+                <p>എന്താണ് വേണ്ടതെന്ന് തീരുമാനിക്കുക</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
 
               <div className="workflow-step">
-
                 <span>02</span>
 
                 <h3>Ask AI</h3>
 
-                <p>
-                  ശരിയായ prompt നൽകുക
-                </p>
-
+                <p>ശരിയായ prompt നൽകുക</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
 
               <div className="workflow-step">
-
                 <span>03</span>
 
                 <h3>Generate</h3>
 
-                <p>
-                  AI content തയ്യാറാക്കുന്നു
-                </p>
-
+                <p>AI content തയ്യാറാക്കുന്നു</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
 
               <div className="workflow-step">
-
                 <span>04</span>
 
                 <h3>Verify</h3>
 
-                <p>
-                  Teacher content പരിശോധിക്കുന്നു
-                </p>
-
+                <p>Teacher content പരിശോധിക്കുന്നു</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
 
               <div className="workflow-step">
-
                 <span>05</span>
 
                 <h3>Classroom Ready</h3>
 
-                <p>
-                  Final resource classroom-ൽ ഉപയോഗിക്കുക
-                </p>
-
+                <p>Final resource classroom-ൽ ഉപയോഗിക്കുക</p>
               </div>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             CREATIONS
         ================================================= */}
 
         <section className="section creations-section">
-
           <div className="container">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                WHAT YOU CAN CREATE
-              </span>
+              <span className="section-tag">WHAT YOU CAN CREATE</span>
 
               <h2>
                 AI ഉപയോഗിച്ച്
                 <span> എന്തൊക്കെ തയ്യാറാക്കാം?</span>
               </h2>
-
             </div>
 
             <div className="creation-grid">
-
               {creations.map((item, index) => (
-
-                <div
-                  className="creation-item"
-                  key={index}
-                >
-
+                <div className="creation-item" key={index}>
                   <Check size={19} />
 
-                  <span>
-                    {item}
-                  </span>
-
+                  <span>{item}</span>
                 </div>
-
               ))}
-
             </div>
 
             <div className="section-cta-row">
-
               <button
                 type="button"
                 className="section-join-button"
                 onClick={openEnrollment}
               >
                 ഇപ്പോൾ Join ചെയ്യാം
-
                 <ArrowRight size={18} />
-
               </button>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             TOOLS
         ================================================= */}
 
         <section className="section tools-section">
-
           <div className="container narrow">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                AI TOOLS
-              </span>
+              <span className="section-tag">AI TOOLS</span>
 
               <h2>
                 Teachers ഉപയോഗിക്കുന്ന
                 <span> പ്രധാന AI Tools</span>
               </h2>
-
             </div>
 
             <div className="tools">
-
               <div className="tool-card">
-
                 <strong>ChatGPT</strong>
 
-                <span>
-                  AI Assistant
-                </span>
-
+                <span>AI Assistant</span>
               </div>
 
               <div className="tool-card">
-
                 <strong>Canva</strong>
 
-                <span>
-                  Design & Presentations
-                </span>
-
+                <span>Design & Presentations</span>
               </div>
 
               <div className="tool-card">
-
                 <strong>Gamma</strong>
 
-                <span>
-                  AI Presentations
-                </span>
-
+                <span>AI Presentations</span>
               </div>
 
               <div className="tool-card">
-
                 <strong>Google Tools</strong>
 
-                <span>
-                  Teacher Productivity
-                </span>
-
+                <span>Teacher Productivity</span>
               </div>
-
             </div>
 
             <div className="section-cta-row">
-
               <button
                 type="button"
                 className="section-join-button"
                 onClick={openEnrollment}
               >
                 ഇപ്പോൾ Join ചെയ്യാം
-
                 <ArrowRight size={18} />
-
               </button>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             SAFE AI
         ================================================= */}
 
         <section className="section safe-section">
-
           <div className="container">
-
             <div className="safe-box">
-
               <div className="safe-icon">
-
                 <ShieldCheck size={38} />
-
               </div>
 
               <div>
-
-                <span className="section-tag">
-                  SAFE & RESPONSIBLE AI
-                </span>
+                <span className="section-tag">SAFE & RESPONSIBLE AI</span>
 
                 <h2>
                   AI ഉപയോഗിക്കുമ്പോൾ
@@ -2458,14 +2209,12 @@ function App() {
                 </h2>
 
                 <p>
-                  AI-generated content verify ചെയ്യുക,
-                  student data protect ചെയ്യുക, privacy പാലിക്കുക,
-                  academic integrity നിലനിർത്തുക എന്നിവ course-ന്റെ
-                  പ്രധാന ഭാഗമാണ്.
+                  AI-generated content verify ചെയ്യുക, student data protect
+                  ചെയ്യുക, privacy പാലിക്കുക, academic integrity നിലനിർത്തുക
+                  എന്നിവ course-ന്റെ പ്രധാന ഭാഗമാണ്.
                 </p>
 
                 <div className="safe-list">
-
                   <span>
                     <Check size={16} />
                     Fact Checking
@@ -2485,137 +2234,89 @@ function App() {
                     <Check size={16} />
                     Academic Integrity
                   </span>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             FAQ
         ================================================= */}
 
         <section className="section faq-section">
-
           <div className="container faq-container">
-
             <div className="section-heading">
-
-              <span className="section-tag">
-                FAQ
-              </span>
+              <span className="section-tag">FAQ</span>
 
               <h2>
                 Frequently Asked
                 <span> Questions</span>
               </h2>
-
             </div>
 
             <div className="faq-list">
-
               {faqs.map((faq, index) => {
-
                 const isOpen = openFaq === index;
 
                 return (
-
                   <div
-                    className={`faq-item ${isOpen ? "active" : ""
-                      }`}
+                    className={`faq-item ${isOpen ? "active" : ""}`}
                     key={index}
                   >
-
                     <button
                       type="button"
-                      onClick={() =>
-                        setOpenFaq(
-                          isOpen ? null : index
-                        )
-                      }
+                      onClick={() => setOpenFaq(isOpen ? null : index)}
                     >
-
-                      <span>
-                        {faq.question}
-                      </span>
+                      <span>{faq.question}</span>
 
                       <ChevronDown
                         size={20}
-                        className={
-                          isOpen ? "rotate" : ""
-                        }
+                        className={isOpen ? "rotate" : ""}
                       />
-
                     </button>
 
-                    {isOpen && (
-                      <div className="faq-answer">
-                        {faq.answer}
-                      </div>
-                    )}
-
+                    {isOpen && <div className="faq-answer">{faq.answer}</div>}
                   </div>
-
                 );
               })}
-
             </div>
-
           </div>
-
         </section>
 
-{/* ========================= ============================
+        {/* ========================= ============================
                 ENROLLEMENT FLOW
 ============================================= */}
-        <EnrollmentFlow
-          onEnroll={openEnrollment}
-          whatsappUrl={whatsappUrl}
-        />
+        <EnrollmentFlow onEnroll={openEnrollment} whatsappUrl={whatsappUrl} />
 
         {/* =================================================
             FINAL CTA
         ================================================= */}
 
         <section className="final-cta">
-
           <div className="container">
-
             <h2>
               ഇനി AI നിങ്ങളെ സഹായിക്കട്ടെ.
               <br />
-
-              <span>
-                Teaching കൂടുതൽ Smart ആക്കാം.
-              </span>
-
+              <span>Teaching കൂടുതൽ Smart ആക്കാം.</span>
             </h2>
 
             <p>
-              Practical AI skills പഠിച്ച് നിങ്ങളുടെ daily
-              teaching work കൂടുതൽ എളുപ്പമാക്കൂ.
+              Practical AI skills പഠിച്ച് നിങ്ങളുടെ daily teaching work കൂടുതൽ
+              എളുപ്പമാക്കൂ.
             </p>
 
             <div className="final-offer-box">
-
-              <div className="save-badge">
-                SAVE ₹3,001
-              </div>
+              <div className="save-badge">SAVE ₹3,001</div>
 
               <div className="hero-offer-price">
-              <del style={{ fontSize: "34px", fontWeight: "700" }}>
-              ₹5,000
-              </del>
+                <del style={{ fontSize: "34px", fontWeight: "700" }}>
+                  ₹5,000
+                </del>
 
-              <strong style={{ fontSize: "22px", fontWeight: "800" }}>
-              ₹1,999
-              </strong>
+                <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+                  ₹1,999
+                </strong>
               </div>
 
               <span className="final-offer-note">
@@ -2628,106 +2329,65 @@ function App() {
                 onClick={openEnrollment}
               >
                 ഇപ്പോൾ Join ചെയ്യാം
-
                 <ArrowRight size={19} />
-
               </button>
-
             </div>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             FOOTER INTRO
         ================================================= */}
 
         <section className="footer-intro">
-
           <div className="container">
-
-            <h2>
-              Created by QNAYDS Academy
-            </h2>
+            <h2>Created by QNAYDS Academy</h2>
 
             <p>
-              Helping teachers build practical AI skills
-              for smarter teaching and better productivity.
+              Helping teachers build practical AI skills for smarter teaching
+              and better productivity.
             </p>
-
           </div>
-
         </section>
-
 
         {/* =================================================
             FOOTER
         ================================================= */}
 
         <footer className="footer">
-
           <div className="container footer-content">
-
             <div className="footer-logo-area"></div>
 
             <div className="footer-help">
+              <strong>Need Help?</strong>
 
-              <strong>
-                Need Help?
-              </strong>
-
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">
                 <FaWhatsapp size={21} />
-
                 WhatsApp Us
-
               </a>
-
             </div>
 
             <p className="copyright">
-              © 2026 QNAYDS ACADEMY.
-              All rights reserved.
+              © 2026 QNAYDS ACADEMY. All rights reserved.
             </p>
 
             <div className="footer-links">
+              <a href="#terms">Terms & Conditions</a>
 
-              <a href="#terms">
-                Terms & Conditions
-              </a>
+              <a href="#privacy">Privacy Policy</a>
 
-              <a href="#privacy">
-                Privacy Policy
-              </a>
+              <a href="#refund">Refund Policy</a>
 
-              <a href="#refund">
-                Refund Policy
-              </a>
-
-              <a href="#contact">
-                Contact
-              </a>
-
+              <a href="#contact">Contact</a>
             </div>
 
             <p className="footer-notice">
-              This is a digital recorded course with instant access.
-              Once access is provided, refunds cannot be issued.
-              If you have any questions, please contact us on WhatsApp
-              before enrolling.
+              This is a digital recorded course with instant access. Once access
+              is provided, refunds cannot be issued. If you have any questions,
+              please contact us on WhatsApp before enrolling.
             </p>
-
           </div>
-
         </footer>
-
 
         {/* =================================================
             FLOATING WHATSAPP
@@ -2744,67 +2404,43 @@ function App() {
           offerSeconds={offerSeconds}
         />
 
+        {paymentSuccess && (
+          <PaymentSuccess onBack={() => setPaymentSuccess(false)} />
+        )}
 
         {/* =================================================
             JOIN MODAL
         ================================================= */}
 
         {showModal && (
-
-          <div
-            className="modal-overlay"
-            onClick={() => setShowModal(false)}
-          >
-
+          <div className="modal-overlay" onClick={() => setShowModal(false)}>
             <div
               className="join-modal"
-              onClick={(event) =>
-                event.stopPropagation()
-              }
+              onClick={(event) => event.stopPropagation()}
             >
-
               <div className="enrollment-header">
-
                 <div>
+                  <h2>Complete Your Enrollment</h2>
 
-                  <h2>
-                    Complete Your Enrollment
-                  </h2>
-
-                  <p>
-                    Enter your details to continue securely.
-                  </p>
-
+                  <p>Enter your details to continue securely.</p>
                 </div>
 
                 <button
                   type="button"
                   className="modal-close"
-                  onClick={() =>
-                    setShowModal(false)
-                  }
+                  onClick={() => setShowModal(false)}
                   aria-label="Close"
                 >
-
                   <X size={22} />
-
                 </button>
-
               </div>
 
-
               <div className="enrollment-body">
-
                 <div className="enrollment-offer">
-
-                  <div className="offer-course-name">
-                    AI for Teachers
-                  </div>
+                  <div className="offer-course-name">AI for Teachers</div>
 
                   <div className="offer-price-row">
-
                     <div className="offer-prices">
-
                       <span className="offer-original-price">
                         <h2>₹5,000</h2>
                       </span>
@@ -2813,160 +2449,99 @@ function App() {
                         <h6>₹1,999</h6>
                       </span>
 
-                      <span className="offer-label">
-                        LIMITED-TIME OFFER
-                      </span>
-
+                      <span className="offer-label">LIMITED-TIME OFFER</span>
                     </div>
 
-                    <span className="offer-saving">
-                      Save ₹3,001
-                    </span>
-
+                    <span className="offer-saving">Save ₹3,001</span>
                   </div>
-
                 </div>
 
-
                 {!paymentStarted ? (
-
                   <form
                     className="enrollment-form"
                     onSubmit={handleContinuePayment}
                   >
-
                     {paymentError && (
-
-                      <p
-                        className="payment-error"
-                        role="alert"
-                      >
+                      <p className="payment-error" role="alert">
                         {paymentError}
                       </p>
-
                     )}
 
-
                     <label>
-
                       Full Name
-
                       <input
                         type="text"
                         name="fullName"
                         value={formData.fullName}
-                        onChange={
-                          handleEnrollmentChange
-                        }
+                        onChange={handleEnrollmentChange}
                         placeholder="Enter your full name"
                         required
                       />
-
                     </label>
 
-
                     <label>
-
                       Phone Number
-
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
-                        onChange={
-                          handleEnrollmentChange
-                        }
+                        onChange={handleEnrollmentChange}
                         placeholder="Enter your phone number"
                         required
                       />
-
                     </label>
 
-
                     <label>
-
                       Email
-
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
-                        onChange={
-                          handleEnrollmentChange
-                        }
+                        onChange={handleEnrollmentChange}
                         placeholder="Enter your email"
                         required
                       />
-
                     </label>
 
-
                     <div className="enrollment-actions">
-
-                      <button
-                        type="submit"
-                        className="payment-button"
-                      >
-
+                      <button type="submit" className="payment-button">
                         Continue to Payment
-
                         <ArrowRight size={18} />
-
                       </button>
-
 
                       <button
                         type="button"
                         className="payment-button"
-                        onClick={() =>
-                          setShowModal(false)
-                        }
+                        onClick={() => setShowModal(false)}
                       >
                         Cancel
                       </button>
-
                     </div>
-
                   </form>
-
                 ) : (
-
                   <div className="payment-ready">
-
                     <Clock size={42} />
 
-                    <h3>
-                      Opening secure checkout...
-                    </h3>
+                    <h3>Opening secure checkout...</h3>
 
                     <p>
-                      Please wait while Razorpay opens.
-                      Your payment details are entered
-                      securely in the checkout window.
+                      Please wait while Razorpay opens. Your payment details are
+                      entered securely in the checkout window.
                     </p>
 
                     <button
                       type="button"
                       className="payment-button"
-                      onClick={() =>
-                        setPaymentStarted(false)
-                      }
+                      onClick={() => setPaymentStarted(false)}
                     >
                       Cancel
                     </button>
-
                   </div>
-
                 )}
-
               </div>
-
             </div>
-
           </div>
-
         )}
-
       </div>
     </>
   );
