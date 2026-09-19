@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "./assets/QNAYDS_LOGO.png";
 import teacherVideo from "./assets/Teacher using ai.mp4";
 import teacherThumbnail from "./assets/thumbnail.webp";
@@ -38,6 +38,15 @@ const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
 const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY;
 const apiUrl = import.meta.env.VITE_API_URL;
 const courseId = String(import.meta.env.VITE_COURSE_ID || "").trim();
+
+const trackMetaEvent = (eventName, params = {}) => {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.fbq === "function"
+  ) {
+    window.fbq("track", eventName, params);
+  }
+};
 
 /* =====================================================
    PAYMENT
@@ -282,6 +291,7 @@ const faqs = [
 
 function App() {
   const [openFaq, setOpenFaq] = useState(null);
+  const hasTrackedViewContent = useRef(false);
 
   const [offerEndsAt] = useState(() => {
     const storedDeadline = window.localStorage.getItem(
@@ -319,6 +329,21 @@ function App() {
   const [paymentStarted, setPaymentStarted] = useState(false);
 
   const [paymentError, setPaymentError] = useState("");
+
+  useEffect(() => {
+    if (hasTrackedViewContent.current) {
+      return;
+    }
+
+    hasTrackedViewContent.current = true;
+
+    trackMetaEvent("ViewContent", {
+      content_name: "AI for Teachers Course",
+      content_category: "Education",
+      content_ids: [courseId],
+      content_type: "product",
+    });
+  }, []);
 
   useEffect(() => {
     const updateOfferTime = () => {
@@ -396,6 +421,13 @@ function App() {
       return;
     }
 
+    trackMetaEvent("Lead", {
+      content_name: "AI for Teachers Course",
+      content_category: "Education",
+      content_ids: [courseId],
+      content_type: "product",
+    });
+
     setPaymentError("");
 
     setPaymentStarted(true);
@@ -407,7 +439,7 @@ function App() {
         );
       }
 
-      const { amountInPaise } = await fetchCourse();
+      const { priceInRupees, amountInPaise } = await fetchCourse();
 
       await loadRazorpay();
 
@@ -435,15 +467,43 @@ function App() {
           color: "#108dcc",
         },
 
-        handler: (response) => {
-          setPaymentStarted(false);
+        handler: async (response) => {
+          try {
+            const verificationResponse = await fetch(
+              `${apiUrl}/payments/verify`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(response),
+              },
+            );
 
-          setShowModal(false);
+            if (!verificationResponse.ok) {
+              throw new Error(
+                "Payment verification failed. Please contact support.",
+              );
+            }
 
-          console.info(
-            "Razorpay payment completed",
-            response.razorpay_payment_id,
-          );
+            trackMetaEvent("Purchase", {
+              content_name: "AI for Teachers Course",
+              content_category: "Education",
+              content_ids: [courseId],
+              content_type: "product",
+              value: priceInRupees,
+              currency: "INR",
+            });
+
+            setPaymentStarted(false);
+            setShowModal(false);
+          } catch (error) {
+            setPaymentStarted(false);
+            setPaymentError(
+              error.message ||
+                "Payment verification failed. Please contact support.",
+            );
+          }
         },
 
         modal: {
@@ -458,6 +518,15 @@ function App() {
           response.error?.description ||
           "Payment failed. Please try again.",
         );
+      });
+
+      trackMetaEvent("InitiateCheckout", {
+        content_name: "AI for Teachers Course",
+        content_category: "Education",
+        content_ids: [courseId],
+        content_type: "product",
+        value: priceInRupees,
+        currency: "INR",
       });
 
       checkout.open();
