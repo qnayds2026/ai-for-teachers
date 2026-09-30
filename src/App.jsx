@@ -24,8 +24,12 @@ import {
 
 import { FaWhatsapp } from "react-icons/fa6";
 import EnrollmentFlow from "./components/EnrollmentFlow";
+<<<<<<< Updated upstream
 import PaymentSuccess from "./pages/PaymentSuccess";
 import "./pages/PaymentSuccess.css";
+=======
+import PaymentSuccess from "./pages/PaymentSuccess.jsx";
+>>>>>>> Stashed changes
 
 /* =====================================================
    WHATSAPP
@@ -50,6 +54,91 @@ const trackMetaEvent = (eventName, params = {}) => {
 /* =====================================================
    PAYMENT
 ===================================================== */
+<<<<<<< Updated upstream
+=======
+const createRazorpayOrder = async ({ name, phone, email }) => {
+  if (!apiUrl || !courseId) {
+    throw new Error(
+      "Payment configuration is missing. Please try again later.",
+    );
+  }
+
+  const response = await fetch(
+    `${apiUrl}/landing/create-order`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        phone,
+        email,
+        courseId,
+      }),
+    },
+  );
+
+  let data = {};
+
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      data?.message ||
+        data?.error ||
+        "Unable to create payment order. Please try again.",
+    );
+  }
+
+  const order =
+    data?.order ||
+    data?.data?.order ||
+    data?.result?.order ||
+    data?.result?.data?.order ||
+    data;
+
+  const orderId =
+    order?.id ||
+    order?.order_id ||
+    data?.orderId ||
+    data?.order_id ||
+    data?.result?.data?.order?.id;
+
+  const amountInPaise = Number(
+    order?.amount ??
+      data?.amount ??
+      data?.data?.amount ??
+      data?.result?.amount ??
+      data?.result?.data?.amount,
+  );
+
+  if (!orderId) {
+    console.error("Create order response:", data);
+
+    throw new Error(
+      "Payment order was not created correctly. Please contact support.",
+    );
+  }
+
+  if (!Number.isFinite(amountInPaise) || amountInPaise <= 0) {
+    console.error("Invalid order amount:", data);
+
+    throw new Error(
+      "Invalid payment amount received from server. Please contact support.",
+    );
+  }
+
+  return {
+    orderId,
+    amountInPaise,
+  };
+};
+>>>>>>> Stashed changes
 
 const loadRazorpay = () =>
   new Promise((resolve, reject) => {
@@ -80,7 +169,6 @@ const loadRazorpay = () =>
 
     document.body.appendChild(script);
   });
-
 /* =====================================================
    FLOATING WHATSAPP
 ===================================================== */
@@ -129,12 +217,17 @@ const FloatingEnrollmentButton = ({
           <h6>AI For Teachers</h6>
 
           <p>
+<<<<<<< Updated upstream
             <del>
               <h2>₹5,000</h2>
             </del>
             <strong>
               <h6>₹1,999</h6>
             </strong>
+=======
+            <del>₹5,000</del>
+            <strong>₹1,999</strong>
+>>>>>>> Stashed changes
             <span className="text-white">Enroll Now</span>
           </p>
         </div>
@@ -305,6 +398,8 @@ function App() {
   const [paymentError, setPaymentError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
+
   useEffect(() => {
     if (hasTrackedViewContent.current) {
       return;
@@ -390,35 +485,334 @@ function App() {
      PAYMENT
   ===================================================== */
 
-  const handleContinuePayment = async (event) => {
-    event.preventDefault();
+ const handleContinuePayment = async (event) => {
+  event.preventDefault();
 
-    if (
-      !formData.fullName.trim() ||
-      !formData.phone.trim() ||
-      !formData.email.trim()
-    ) {
-      return;
+  if (
+    !formData.fullName.trim() ||
+    !formData.phone.trim() ||
+    !formData.email.trim()
+  ) {
+    setPaymentError(
+      "Please enter your name, phone number and email.",
+    );
+    return;
+  }
+
+  trackMetaEvent("Lead", {
+    content_name: "AI for Teachers Course",
+    content_category: "Education",
+    content_ids: [courseId],
+    content_type: "product",
+  });
+
+  setPaymentError("");
+  setPaymentStarted(true);
+
+  try {
+    /* =====================================================
+       CHECK PAYMENT CONFIGURATION
+    ===================================================== */
+
+    if (!razorpayKeyId) {
+      throw new Error(
+        "Payment is not configured yet. Please try again later.",
+      );
     }
 
-    trackMetaEvent("Lead", {
+    if (!apiUrl) {
+      throw new Error(
+        "API URL is not configured. Please try again later.",
+      );
+    }
+
+    if (!courseId) {
+      throw new Error(
+        "Course ID is not configured. Please try again later.",
+      );
+    }
+
+    /* =====================================================
+       STEP 1: CREATE RAZORPAY ORDER
+    ===================================================== */
+
+    const { orderId, amountInPaise } =
+      await createRazorpayOrder({
+        name: formData.fullName.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+      });
+
+    console.log("Razorpay order created:", {
+      orderId,
+      amountInPaise,
+      amountInRupees: amountInPaise / 100,
+    });
+
+    /* =====================================================
+       STEP 2: CHECK COURSE AMOUNT
+
+       ₹1,999 = 199900 paise
+    ===================================================== */
+
+    const EXPECTED_AMOUNT_IN_PAISE = 100;
+
+    if (amountInPaise !== EXPECTED_AMOUNT_IN_PAISE) {
+      console.error("Incorrect Razorpay order amount:", {
+        orderId,
+        receivedAmount: amountInPaise,
+        expectedAmount: EXPECTED_AMOUNT_IN_PAISE,
+      });
+
+      throw new Error(
+        `Incorrect payment amount received from server. Expected ₹1,999 but received ₹${(
+          amountInPaise / 100
+        ).toFixed(2)}. Please contact support.`,
+      );
+    }
+
+    const priceInRupees = amountInPaise / 100;
+
+    /* =====================================================
+       STEP 3: LOAD RAZORPAY
+    ===================================================== */
+
+    await loadRazorpay();
+
+    if (!window.Razorpay) {
+      throw new Error(
+        "Razorpay Checkout could not be loaded. Please try again.",
+      );
+    }
+
+    /* =====================================================
+       STEP 4: OPEN RAZORPAY CHECKOUT
+    ===================================================== */
+
+    const checkout = new window.Razorpay({
+      key: razorpayKeyId,
+
+      order_id: orderId,
+
+      amount: amountInPaise,
+
+      currency: "INR",
+
+      name: "QNAYDS Academy",
+
+      description: "AI for Teachers Course",
+
+      prefill: {
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        contact: formData.phone.trim(),
+      },
+
+      notes: {
+        course: "AI for Teachers",
+        course_id: courseId,
+      },
+
+      theme: {
+        color: "#108dcc",
+      },
+
+      /* ===================================================
+         PAYMENT SUCCESS
+      =================================================== */
+
+      handler: async (response) => {
+        console.log(
+          "Razorpay payment response:",
+          response,
+        );
+
+        try {
+          /* =================================================
+             CHECK RAZORPAY RESPONSE
+          ================================================= */
+
+          if (!response?.razorpay_payment_id) {
+            throw new Error(
+              "Payment ID was not received from Razorpay.",
+            );
+          }
+
+          if (!response?.razorpay_order_id) {
+            throw new Error(
+              "Order ID was not received from Razorpay.",
+            );
+          }
+
+          if (!response?.razorpay_signature) {
+            throw new Error(
+              "Payment signature was not received from Razorpay.",
+            );
+          }
+
+          /* =================================================
+             STEP 5: VERIFY PAYMENT ON BACKEND
+          ================================================= */
+
+          const verificationResponse = await fetch(
+            `${apiUrl}/payments/verify`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+              },
+
+              body: JSON.stringify({
+                razorpay_payment_id:
+                  response.razorpay_payment_id,
+
+                razorpay_order_id:
+                  response.razorpay_order_id,
+
+                razorpay_signature:
+                  response.razorpay_signature,
+              }),
+            },
+          );
+
+          let verificationData = {};
+
+          try {
+            verificationData =
+              await verificationResponse.json();
+          } catch {
+            verificationData = {};
+          }
+
+          console.log(
+            "Payment verification response:",
+            verificationData,
+          );
+
+          /* =================================================
+             CHECK VERIFICATION RESPONSE
+          ================================================= */
+
+          if (!verificationResponse.ok) {
+            throw new Error(
+              verificationData?.message ||
+                verificationData?.error ||
+                "Payment verification failed. Please contact support.",
+            );
+          }
+
+          if (
+            verificationData?.success === false ||
+            verificationData?.verified === false
+          ) {
+            throw new Error(
+              verificationData?.message ||
+                "Payment verification failed. Please contact support.",
+            );
+          }
+
+          /* =================================================
+             STEP 6: PURCHASE TRACKING
+          ================================================= */
+
+          trackMetaEvent("Purchase", {
+            content_name: "AI for Teachers Course",
+            content_category: "Education",
+            content_ids: [courseId],
+            content_type: "product",
+            value: priceInRupees,
+            currency: "INR",
+          });
+
+          /* =================================================
+             STEP 7: SHOW SUCCESS PAGE
+          ================================================= */
+
+          setPaymentStarted(false);
+          setPaymentError("");
+          setShowModal(false);
+          setShowPaymentSuccess(true);
+        } catch (error) {
+          console.error(
+            "Payment verification error:",
+            error,
+          );
+
+          setPaymentStarted(false);
+
+          setPaymentError(
+            error?.message ||
+              "Payment verification failed. Please contact support.",
+          );
+        }
+      },
+
+      /* =====================================================
+         PAYMENT MODAL CLOSED
+      ===================================================== */
+
+      modal: {
+        ondismiss: () => {
+          setPaymentStarted(false);
+        },
+      },
+    });
+
+    /* =====================================================
+       PAYMENT FAILED
+    ===================================================== */
+
+    checkout.on("payment.failed", (response) => {
+      console.error(
+        "Razorpay payment failed:",
+        JSON.stringify(response, null, 2),
+      );
+
+      console.error("Razorpay error details:", {
+        code: response?.error?.code,
+        description: response?.error?.description,
+        reason: response?.error?.reason,
+        source: response?.error?.source,
+        step: response?.error?.step,
+        metadata: response?.error?.metadata,
+      });
+
+      setPaymentStarted(false);
+
+      setPaymentError(
+        response?.error?.description ||
+          "Payment failed. Please try again.",
+      );
+    });
+
+    /* =====================================================
+       INITIATE CHECKOUT TRACKING
+    ===================================================== */
+
+    trackMetaEvent("InitiateCheckout", {
       content_name: "AI for Teachers Course",
       content_category: "Education",
       content_ids: [courseId],
       content_type: "product",
+      value: priceInRupees,
+      currency: "INR",
     });
 
-    setPaymentError("");
+    /* =====================================================
+       OPEN RAZORPAY
+    ===================================================== */
 
-    setPaymentStarted(true);
+    checkout.open();
+  } catch (error) {
+    console.error(
+      "Payment initialization error:",
+      error,
+    );
 
-    try {
-      if (!razorpayKeyId) {
-        throw new Error(
-          "Payment is not configured yet. Please try again later.",
-        );
-      }
+    setPaymentStarted(false);
 
+<<<<<<< Updated upstream
       if (!apiUrl || !courseId) {
         throw new Error(
           "Unable to create your payment order. Please try again.",
@@ -566,6 +960,14 @@ function App() {
       );
     }
   };
+=======
+    setPaymentError(
+      error?.message ||
+        "Unable to start payment. Please try again.",
+    );
+  }
+};
+>>>>>>> Stashed changes
 
   /* =====================================================
      OPEN ENROLLMENT
@@ -573,10 +975,13 @@ function App() {
 
   const openEnrollment = () => {
     setPaymentStarted(false);
-
     setPaymentError("");
+<<<<<<< Updated upstream
     setPaymentSuccess(false);
 
+=======
+    setShowPaymentSuccess(false);
+>>>>>>> Stashed changes
     setShowModal(true);
   };
 
@@ -2388,6 +2793,16 @@ function App() {
             </p>
           </div>
         </footer>
+
+        {/* =================================================
+            PAYMENT SUCCESS
+        ================================================= */}
+
+        {showPaymentSuccess && (
+          <PaymentSuccess
+            onBack={() => setShowPaymentSuccess(false)}
+          />
+        )}
 
         {/* =================================================
             FLOATING WHATSAPP
