@@ -1591,11 +1591,89 @@ function App() {
             line-height: 1.75;
           }
 
+          /* FIRST SCREEN MOBILE OPTIMIZATION (Section 2: Fits on phone without scrolling) */
+          .hero {
+            padding: 30px 0 35px !important;
+            min-height: auto !important;
+          }
+
+          .modal-logo {
+            width: 88px !important;
+            margin: 0 auto 10px !important;
+          }
+
+          .hero-slim-banner {
+            font-size: 12px;
+            padding: 5px 12px;
+            margin: 0 auto 12px;
+            gap: 5px;
+          }
+
+          .hero-slim-banner .banner-timer {
+            padding: 2px 6px;
+            font-size: 12px;
+          }
+
+          .hero-badge {
+            font-size: 11.5px !important;
+            padding: 5px 12px !important;
+            margin-bottom: 12px !important;
+          }
+
+          .hero-title-main {
+            font-size: 23px !important;
+            line-height: 1.32 !important;
+          }
+
+          .hero-title-main small {
+            font-size: 18px !important;
+            margin-top: 6px !important;
+          }
+
+          .hero-description {
+            font-size: 13.5px !important;
+            line-height: 1.5 !important;
+            margin: 10px auto 0 !important;
+          }
+
+          .hero-cta-container {
+            margin-top: 16px !important;
+            gap: 8px !important;
+          }
+
+          .hero-main-button {
+            width: 100% !important;
+            max-width: 310px !important;
+            padding: 13px 20px !important;
+            font-size: 16px !important;
+          }
+
+          .hero-facts-line {
+            font-size: 12px !important;
+            gap: 5px !important;
+          }
+
+          .hero-stats {
+            margin: 18px auto 0 !important;
+          }
+
+          .hero-stats div {
+            min-width: unset !important;
+            padding: 8px 12px !important;
+          }
+
+          .hero-stats strong {
+            font-size: 17px !important;
+          }
+
+          .hero-stats span {
+            font-size: 10.5px !important;
+          }
+
           /* VIDEO MOBILE GAP FIX */
 
           .video-section-tight {
-            padding-top: 45px !important;
-
+            padding-top: 35px !important;
             padding-bottom: 10px !important;
           }
 
@@ -1605,11 +1683,8 @@ function App() {
 
           .video-section-tight .course-video video {
             width: 100%;
-
             height: auto;
-
             max-height: 78vh;
-
             border-radius: 14px;
           }
 
