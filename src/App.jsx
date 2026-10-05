@@ -161,43 +161,43 @@ const modules = [
   {
     number: "01",
     title: "ഡിജിറ്റൽ & AI അടിസ്ഥാനങ്ങൾ",
-    subtitle: "Digital & AI Basics",
+    subtitle: "കമ്പ്യൂട്ടറും AI-യും ക്ലാസ്റൂമിൽ",
     icon: Brain,
   },
   {
     number: "02",
     title: "AI ടൂളുകൾ ഉപയോഗിച്ച് തുടങ്ങാം",
-    subtitle: "Getting Started with AI Tools",
+    subtitle: "ChatGPT, Canva, Gamma തുടക്കം",
     icon: Sparkles,
   },
   {
     number: "03",
-    title: "ടീച്ചിംഗ് മാനുവലുകളും ലെസൺ പ്ലാനുകളും",
-    subtitle: "Teaching Manuals & Lesson Plans",
+    title: "ടീച്ചിംഗ് മാനുവലുകളും ലെസൺ പ്ലാനുകളും തയ്യാറാക്കാം",
+    subtitle: "ഘടനാപരമായ പാഠ്യപദ്ധതി തയ്യാറാക്കൽ",
     icon: BookOpen,
   },
   {
     number: "04",
     title: "ചോദ്യപേപ്പറുകൾ എളുപ്പത്തിൽ തയ്യാറാക്കാം",
-    subtitle: "Question Papers with AI",
+    subtitle: "MCQ-കളും ഉത്തരസൂചികകളും",
     icon: ClipboardList,
   },
   {
     number: "05",
     title: "പ്രസന്റേഷനുകൾ വേഗത്തിൽ ഉണ്ടാക്കാം",
-    subtitle: "Presentations with AI",
+    subtitle: "സ്മാർട്ട് സ്ലൈഡുകളും വിഷ്വലുകളും",
     icon: Presentation,
   },
   {
     number: "06",
     title: "ദൈനംദിന അധ്യാപന ജോലികൾക്ക് AI",
-    subtitle: "Daily Teacher Productivity",
+    subtitle: "വർക്ക്ഷീറ്റുകൾ & രക്ഷിതാക്കൾക്കുള്ള സന്ദേശങ്ങൾ",
     icon: FileText,
   },
   {
     number: "07",
     title: "സുരക്ഷിതവും ഉത്തരവാദിത്തമുള്ളതുമായ AI ഉപയോഗം",
-    subtitle: "Safe & Ethical AI Usage",
+    subtitle: "സ്വകാര്യതയും ധാർമ്മിക ഉപയോഗവും",
     icon: ShieldCheck,
   },
 ];
@@ -225,9 +225,29 @@ const creations = [
 
 const faqs = [
   {
-    question: "ഈ കോഴ്സ് ആർക്കൊക്കെ പഠിക്കാം?",
+    question: "1. ഈ കോഴ്സ് ആർക്കൊക്കെ പഠിക്കാം?",
     answer:
       "സ്കൂൾ, കോളേജ് അധ്യാപകർ, ട്യൂഷൻ അധ്യാപകർ, ട്രെയിനർമാർ, അധ്യാപന രംഗത്ത് പ്രവർത്തിക്കുന്ന എല്ലാവർക്കും ഈ കോഴ്സ് പ്രയോജനപ്പെടും.",
+  },
+  {
+    question: "2. AI പഠിക്കാൻ കോഡിംഗ് അറിയണമോ?",
+    answer:
+      "ഒട്ടും ആവശ്യമില്ല. സാധാരണ മലയാളത്തിൽ, തുടക്കക്കാർക്ക് പോലും എളുപ്പത്തിൽ മനസ്സിലാകുന്ന രീതിയിലാണ് ക്ലാസുകൾ.",
+  },
+  {
+    question: "3. കോഴ്സിൽ ഏതെല്ലാം ടൂളുകൾ പഠിക്കും?",
+    answer:
+      "ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയ പ്രമുഖ അധ്യാപക പ്രൊഡക്റ്റിവിറ്റി AI ടൂളുകൾ practical ആയി ഉപയോഗിക്കാൻ പഠിക്കും.",
+  },
+  {
+    question: "4. ലാപ്‌ടോപ്പ് നിർബന്ധമാണോ, അതോ ഫോണിൽ പഠിക്കാമോ?",
+    answer:
+      "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല. മൊബൈൽ ഫോൺ, ടാബ്‌ലെറ്റ്, ലാപ്ടോപ്പ് എന്നിവയിൽ ഏതിലും എളുപ്പത്തിൽ ക്ലാസുകൾ കാണാം.",
+  },
+  {
+    question: "5. കോഴ്സിൽ എന്തെല്ലാം ലഭിക്കും?",
+    answer:
+      "7 പ്രാക്ടിക്കൽ മൊഡ്യൂളുകൾ, ലെസൺ പ്ലാൻ & ചോദ്യപേപ്പർ മാതൃകകൾ, ലൈഫ് ടൈം ആക്സസ്, കോഴ്സ് സർട്ടിഫിക്കറ്റ്, സംശയങ്ങൾക്ക് WhatsApp സപ്പോർട്ട് എന്നിവ ലഭിക്കും.",
   },
   {
     question: "ക്ലാസുകൾ ലൈവ് ആണോ, റെക്കോർഡ് ചെയ്തതാണോ?",
@@ -235,19 +255,14 @@ const faqs = [
       "റെക്കോർഡ് ചെയ്ത ഹൈ-ക്വാളിറ്റി ക്ലാസുകളാണ്. നിങ്ങളുടെ സൗകര്യപ്രദമായ ഏത് സമയത്തും സ്വന്തം വേഗതയിൽ ഫോണിലോ ലാപ്ടോപ്പിലോ കണ്ടുപഠിക്കാം.",
   },
   {
-    question: "കോഴ്സ് ആക്സസ് എത്ര കാലം ലഭിക്കും?",
+    question: "കോഴ്സ് എത്ര മണിക്കൂർ ഉണ്ട്?",
+    answer:
+      "ആകെ 6+ മണിക്കൂർ ദൈർഘ്യമുള്ള സമഗ്രവും പ്രായോഗികവുമായ ക്ലാസുകളാണ് കോഴ്സിലുള്ളത്.",
+  },
+  {
+    question: "ആക്സസ് എത്ര കാലം ലഭിക്കും?",
     answer:
       "ലൈഫ് ടൈം ആക്സസ് (Life-time Access) ലഭ്യമാണ്. ഭാവിയിലും ക്ലാസുകൾ എപ്പോൾ വേണമെങ്കിലും വീണ്ടും കാണാവുന്നതാണ്.",
-  },
-  {
-    question: "AI പഠിക്കാൻ കോഡിംഗ് അല്ലെങ്കിൽ ടെക്നിക്കൽ അറിവ് വേണമോ?",
-    answer:
-      "ഒട്ടും ആവശ്യമില്ല. സാധാരണ മലയാളത്തിൽ, തുടക്കക്കാർക്ക് പോലും എളുപ്പത്തിൽ മനസ്സിലാകുന്ന രീതിയിലാണ് ക്ലാസുകൾ.",
-  },
-  {
-    question: "ലാപ്‌ടോപ്പ് നിർബന്ധമാണോ, അതോ ഫോണിൽ പഠിക്കാമോ?",
-    answer:
-      "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല. മൊബൈൽ ഫോൺ, ടാബ്‌ലെറ്റ്, ലാപ്ടോപ്പ് എന്നിവയിൽ ഏതിലും എളുപ്പത്തിൽ ക്ലാസുകൾ കാണാം.",
   },
   {
     question: "സർട്ടിഫിക്കറ്റ് ലഭിക്കുമോ?",
@@ -255,7 +270,7 @@ const faqs = [
       "അതെ, കോഴ്സ് വിജയകരമായി പൂർത്തിയാക്കുമ്പോൾ QNAYDS അക്കാദമിയുടെ വെരിഫൈഡ് കോഴ്സ് സർട്ടിഫിക്കറ്റ് ലഭിക്കും.",
   },
   {
-    question: "പഠിപ്പിക്കുന്ന AI ടൂളുകൾ സൗജന്യമാണോ?",
+    question: "AI ടൂളുകൾ സൗജന്യമാണോ?",
     answer:
       "അതെ, ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയവയുടെ സൗജന്യ (Free) വേർഷനുകൾ തന്നെയാണ് പഠിപ്പിക്കുന്നത്. അധിക ചിലവുകളൊന്നും വരുന്നില്ല.",
   },
@@ -1949,7 +1964,7 @@ function App() {
         ================================================= */}
 
         <div className="hero-offer-box" id="pricing">
-          <div className="save-badge">SAVE ₹3,001</div>
+          <div className="save-badge">₹3,001 ലാഭം</div>
 
           <span className="hero-offer-label">കോഴ്സ് ഫീസ് (പരിമിതകാല ഓഫർ)</span>
 
@@ -1992,7 +2007,7 @@ function App() {
               <li>
                 <Check size={16} />
                 <span>
-                  <strong>സർട്ടിഫിക്കറ്റും സപ്പോർട്ടും:</strong> QNAYDS കോഴ്സ് സർട്ടിഫിക്കറ്റ് • സംശയങ്ങൾക്ക് WhatsApp സപ്പോർട്ട്
+                  <strong>സർട്ടിഫിക്കറ്റും സപ്പോർട്ടും:</strong> കോഴ്സ് സർട്ടിഫിക്കറ്റ് • WhatsApp സപ്പോർട്ട്
                 </span>
               </li>
             </ul>
@@ -2429,7 +2444,7 @@ function App() {
             {/* Review CTA */}
             <div className="section-cta-row">
               <button className="section-join-button" onClick={openEnrollment}>
-                ₹1,999-ന് ഇപ്പോൾ ചേരൂ →
+                ₹1,999-ന് ഇപ്പോൾ ചേരൂ
               </button>
             </div>
           </div>
@@ -2474,9 +2489,7 @@ function App() {
                     <Award size={16} />
 
                     <span>
-                      Certified in <strong>AI Prompt Engineering</strong>{" "}
-                      through the One Million Prompters Initiative by Dubai
-                      Future Foundation.
+                      <strong>പ്രോംപ്റ്റ് എൻജിനീയറിങ്ങിൽ സർട്ടിഫൈഡ്</strong> (Dubai Future Foundation)
                     </span>
                   </div>
                 </div>
@@ -2506,11 +2519,7 @@ function App() {
                 </div>
 
                 <blockquote className="mentor-quote">
-                  “ഒരു AI ഇന്റഗ്രേഷൻ ലീഡും അധ്യാപകനുമെന്ന നിലയിൽ, ലെസൺ
-                  പ്ലാനുകൾ, ചോദ്യപേപ്പറുകൾ, പ്രസന്റേഷനുകൾ എന്നിവ തയ്യാറാക്കാൻ
-                  അധ്യാപകരെ AI പ്രായോഗികമായി സഹായിക്കുകയാണ് എന്റെ ലക്ഷ്യം. ഓരോ
-                  അധ്യാപകനും AI-യിലൂടെ കൂടുതൽ ആത്മവിശ്വാസവും സമയലാഭവും നേടാൻ ഞാൻ
-                  ഒപ്പമുണ്ട്.”
+                  “സാങ്കേതികവിദ്യ അധ്യാപകരെ മാറ്റിസ്ഥാപിക്കാനല്ല, മറിച്ച് അധ്യാപകരുടെ അധ്വാനം കുറയ്ക്കാനും കൂടുതൽ മിടുക്കോടെ പഠിപ്പിക്കാനും സഹായിക്കാനാണ് AI. ഓരോ അധ്യാപകനും AI-യിലൂടെ കൂടുതൽ ആത്മവിശ്വാസവും സമയലാഭവും നേടാൻ ഞാൻ ഒപ്പമുണ്ട്.”
                 </blockquote>
               </div>
             </div>
@@ -2796,7 +2805,7 @@ function App() {
             </p>
 
             <div className="final-offer-box">
-              <div className="save-badge">SAVE ₹3,001</div>
+              <div className="save-badge">₹3,001 ലാഭം</div>
 
               <div className="hero-offer-price">
                 <del style={{ fontSize: "34px", fontWeight: "700" }}>
@@ -2809,7 +2818,7 @@ function App() {
               </div>
 
               <span className="final-offer-note">
-                ഒറ്റത്തവണ പേയ്മെന്റ് • കോഴ്സ് ആക്സസ് • ₹3,001 ലാഭം
+                ഒറ്റത്തവണ പേയ്മെന്റ് • കോഴ്സ് ആക്സസ്
               </span>
 
               <button
@@ -2909,9 +2918,9 @@ function App() {
             >
               <div className="enrollment-header">
                 <div>
-                  <h2>Complete Your Enrollment</h2>
+                  <h2>എൻറോൾമെന്റ് പൂർത്തിയാക്കൂ</h2>
 
-                  <p>Enter your details to continue securely.</p>
+                  <p>തുടരുന്നതിനായി നിങ്ങളുടെ വിവരങ്ങൾ നൽകുക.</p>
                 </div>
 
                 <button
@@ -2926,7 +2935,7 @@ function App() {
 
               <div className="enrollment-body">
                 <div className="enrollment-offer">
-                  <div className="offer-course-name">AI for Teachers</div>
+                  <div className="offer-course-name">അധ്യാപകർക്കുള്ള AI കോഴ്സ്</div>
 
                   <div className="offer-price-row">
                     <div className="offer-prices">
@@ -2938,10 +2947,10 @@ function App() {
                         <h6>₹1,999</h6>
                       </span>
 
-                      <span className="offer-label">LIMITED-TIME OFFER</span>
+                      <span className="offer-label">പരിമിതകാല ഓഫർ</span>
                     </div>
 
-                    <span className="offer-saving">Save ₹3,001</span>
+                    <span className="offer-saving">₹3,001 ലാഭം</span>
                   </div>
                 </div>
 
@@ -2957,44 +2966,44 @@ function App() {
                     )}
 
                     <label>
-                      Full Name
+                      പൂർണ്ണമായ പേര് (Full Name)
                       <input
                         type="text"
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleEnrollmentChange}
-                        placeholder="Enter your full name"
+                        placeholder="നിങ്ങളുടെ പേര് നൽകുക"
                         required
                       />
                     </label>
 
                     <label>
-                      Phone Number
+                      ഫോൺ നമ്പർ (WhatsApp Number)
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleEnrollmentChange}
-                        placeholder="Enter your phone number"
+                        placeholder="നിങ്ങളുടെ ഫോൺ നമ്പർ"
                         required
                       />
                     </label>
 
                     <label>
-                      Email
+                      ഇമെയിൽ വിലാസം (Email)
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleEnrollmentChange}
-                        placeholder="Enter your email"
+                        placeholder="നിങ്ങളുടെ ഇമെയിൽ നൽകുക"
                         required
                       />
                     </label>
 
                     <div className="enrollment-actions">
                       <button type="submit" className="payment-button">
-                        Continue to Payment
+                        പേയ്‌മെന്റിലേക്ക് തുടരുക (₹1,999)
                         <ArrowRight size={18} />
                       </button>
 
@@ -3003,7 +3012,7 @@ function App() {
                         className="payment-button"
                         onClick={() => setShowModal(false)}
                       >
-                        Cancel
+                        റദ്ദാക്കുക
                       </button>
                     </div>
                   </form>
@@ -3011,11 +3020,10 @@ function App() {
                   <div className="payment-ready">
                     <Clock size={42} />
 
-                    <h3>Opening secure checkout...</h3>
+                    <h3>സുരക്ഷിത പേയ്‌മെന്റ് വിൻഡോ തുറക്കുന്നു...</h3>
 
                     <p>
-                      Please wait while Razorpay opens. Your payment details are
-                      entered securely in the checkout window.
+                      ദയവായി കാത്തിരിക്കുക. നിങ്ങളുടെ വിവരങ്ങൾ പൂർണ്ണമായും സുരക്ഷിതമാണ്.
                     </p>
 
                     <button
@@ -3023,7 +3031,7 @@ function App() {
                       className="payment-button"
                       onClick={() => setPaymentStarted(false)}
                     >
-                      Cancel
+                      റദ്ദാക്കുക
                     </button>
                   </div>
                 )}

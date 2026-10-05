@@ -89,6 +89,12 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
             <span>
               <ShieldCheck size={14} /> സുരക്ഷിത പേയ്‌മെന്റ്
             </span>
+            <span>
+              <Sparkles size={14} /> ഇപ്പോൾ ചേരാം
+            </span>
+            <span>
+              <FaWhatsapp size={14} /> സംശയങ്ങൾ ചോദിക്കാം
+            </span>
           </div>
 
           <div className="simple-flow-actions">
