@@ -272,6 +272,7 @@ const faqs = [
 
 function App() {
   const [openFaq, setOpenFaq] = useState(0);
+  const [activeSample, setActiveSample] = useState("lesson");
   const hasTrackedViewContent = useRef(false);
 
   const [offerEndsAt] = useState(() => {
@@ -837,6 +838,133 @@ function App() {
           padding: 10px 18px;
           border-radius: 10px;
           display: inline-block;
+        }
+
+        /* =====================================================
+           AI SAMPLE SHOWCASE (Task 4 - Section C: Real Sample made with AI)
+        ===================================================== */
+
+        .ai-sample-showcase {
+          margin-top: 45px;
+          background: #ffffff;
+          border: 1.5px solid #cfe0f4;
+          border-radius: 18px;
+          padding: 30px;
+          box-shadow: 0 12px 30px rgba(16, 141, 204, 0.08);
+          text-align: left;
+        }
+
+        .ai-sample-header {
+          text-align: center;
+          margin-bottom: 24px;
+        }
+
+        .ai-sample-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 14px;
+          border-radius: 50px;
+          background: #eaf7fd;
+          color: var(--blue-dark);
+          font-size: 13px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .ai-sample-header h3 {
+          font-size: clamp(20px, 2.5vw, 26px);
+          color: var(--navy);
+          font-weight: 800;
+          margin-bottom: 8px;
+        }
+
+        .ai-sample-header p {
+          color: var(--muted);
+          font-size: 15px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .ai-sample-tabs {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          margin-top: 18px;
+          flex-wrap: wrap;
+        }
+
+        .ai-sample-tab {
+          padding: 10px 20px;
+          border-radius: 10px;
+          border: 1.5px solid #dce8f0;
+          background: #f8fbfe;
+          color: #3b5773;
+          font-size: 14.5px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .ai-sample-tab.active {
+          background: var(--blue);
+          color: #fff;
+          border-color: var(--blue);
+          box-shadow: 0 4px 14px rgba(16, 141, 204, 0.25);
+        }
+
+        .ai-sample-content {
+          background: #fdfefe;
+          border: 1px solid #e2eff8;
+          border-radius: 14px;
+          padding: 24px;
+        }
+
+        .ai-sample-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px 24px;
+          padding-bottom: 16px;
+          margin-bottom: 18px;
+          border-bottom: 1px solid #eef4f9;
+          font-size: 14px;
+          color: #435b75;
+        }
+
+        .ai-sample-body h4 {
+          font-size: 15.5px;
+          color: var(--navy);
+          font-weight: 800;
+          margin: 16px 0 8px;
+        }
+
+        .ai-sample-body ul {
+          margin: 0 0 16px 20px;
+          color: #2e4761;
+          font-size: 14.5px;
+          line-height: 1.6;
+        }
+
+        .ai-sample-step {
+          background: #f6fafe;
+          border-left: 3px solid var(--blue);
+          padding: 10px 14px;
+          margin-bottom: 8px;
+          border-radius: 0 8px 8px 0;
+          font-size: 14px;
+          color: #203b59;
+          line-height: 1.55;
+        }
+
+        .sample-answer {
+          display: block;
+          margin-top: 6px;
+          padding: 6px 12px;
+          background: #eafaf1;
+          color: #1a7f47;
+          border-radius: 6px;
+          font-size: 13.5px;
+          font-weight: 600;
         }
 
         /* =====================================================
@@ -2065,6 +2193,94 @@ function App() {
               <span className="creation-chip">
                 <Check size={14} /> രക്ഷിതാക്കളുമായുള്ള ആശയവിനിമയം
               </span>
+            </div>
+
+            {/* REAL AI SAMPLE SHOWCASE (Section 4 Checklist C: Real Sample made with AI) */}
+            <div className="ai-sample-showcase">
+              <div className="ai-sample-header">
+                <div className="ai-sample-badge">
+                  <Sparkles size={15} />
+                  <span>യഥാർത്ഥ AI മാതൃക (Live AI Samples)</span>
+                </div>
+                <h3>AI ഉപയോഗിച്ച് അധ്യാപകർ തയ്യാറാക്കിയ സാമ്പിളുകൾ കാണാം</h3>
+                <p>നിങ്ങൾ കോഴ്സ് പൂർത്തിയാക്കുമ്പോൾ ഇത്തരത്തിലുള്ള സാമഗ്രികൾ ഏതാനും നിമിഷങ്ങൾക്കുള്ളിൽ തയ്യാറാക്കാം</p>
+
+                <div className="ai-sample-tabs">
+                  <button
+                    type="button"
+                    className={`ai-sample-tab ${activeSample === 'lesson' ? 'active' : ''}`}
+                    onClick={() => setActiveSample('lesson')}
+                  >
+                    📝 ലെസൺ പ്ലാൻ മാതൃക (Lesson Plan)
+                  </button>
+                  <button
+                    type="button"
+                    className={`ai-sample-tab ${activeSample === 'question' ? 'active' : ''}`}
+                    onClick={() => setActiveSample('question')}
+                  >
+                    📋 ചോദ്യപേപ്പർ & ഉത്തരസൂചിക (Question Paper)
+                  </button>
+                </div>
+              </div>
+
+              {activeSample === 'lesson' ? (
+                <div className="ai-sample-content">
+                  <div className="ai-sample-meta">
+                    <span><strong>വിഷയം:</strong> ജീവശാസ്ത്രം (Biology - Class 10)</span>
+                    <span><strong>പാഠം:</strong> പാരമ്പര്യവും പരിണാമവും (Genetics)</span>
+                    <span><strong>സമയം:</strong> 45 മിനിറ്റ്</span>
+                  </div>
+                  <div className="ai-sample-body">
+                    <h4>🎯 പഠന ലക്ഷ്യങ്ങൾ (Learning Objectives):</h4>
+                    <ul>
+                      <li>DNA യുടെ ഘടനയും സ്വഭാവ സവിശേഷതകളും തിരിച്ചറിയുക.</li>
+                      <li>മാതാപിതാക്കളിൽ നിന്ന് മക്കളിലേക്ക് ഗുണങ്ങൾ കൈമാറ്റം ചെയ്യപ്പെടുന്ന രീതി വിശകലനം ചെയ്യുക.</li>
+                    </ul>
+
+                    <h4>⏱️ ക്ലാസ്സ്റൂം ഘട്ടങ്ങൾ (Classroom Workflow):</h4>
+                    <div className="ai-sample-step">
+                      <strong>01. ആമുഖം (5 മിനിറ്റ്):</strong> ദൈനംദിന ജീവിതത്തിലെ സാദൃശ്യങ്ങളെക്കുറിച്ചുള്ള ചോദ്യങ്ങളിലൂടെ താല്പര്യം ഉണർത്തൽ.
+                    </div>
+                    <div className="ai-sample-step">
+                      <strong>02. ആശയാവതരണം (20 മിനിറ്റ്):</strong> AI നിർമ്മിച്ച ഡിജിറ്റൽ ചാർട്ടുകൾ ഉപയോഗിച്ച് ജീനുകളുടെ പ്രവർത്തനം വിശദീകരിക്കൽ.
+                    </div>
+                    <div className="ai-sample-step">
+                      <strong>03. ഗ്രൂപ്പ് പ്രവർത്തനം (10 മിനിറ്റ്):</strong> വിദ്യാർത്ഥികൾ സ്വന്തം കുടുംബ ഗുണങ്ങളുടെ ലളിതമായ ഫാമിലി ട്രീ ചാർട്ട് തയ്യാറാക്കൽ.
+                    </div>
+                    <div className="ai-sample-step">
+                      <strong>04. മൂല്യനിർണ്ണയം & ഉപസംഹാരം (10 മിനിറ്റ്):</strong> 3 ദ്രുത ചോദ്യങ്ങൾ വഴി ആശയം ഉറപ്പിക്കൽ.
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="ai-sample-content">
+                  <div className="ai-sample-meta">
+                    <span><strong>പരീക്ഷ:</strong> യൂണിറ്റ് ടെസ്റ്റ് - ഭൗതികശാസ്ത്രം (Physics - Class 9)</span>
+                    <span><strong>പാഠം:</strong> ചലനവും ബലവും (Motion & Laws of Motion)</span>
+                    <span><strong>ആകെ മാർക്ക്:</strong> 20</span>
+                  </div>
+                  <div className="ai-sample-body">
+                    <h4>വിഭാഗം A: ശരിയുത്തരം തിരഞ്ഞെടുക്കുക (1 മാർക്ക് വീതം)</h4>
+                    <p style={{ margin: "6px 0", color: "#203b59" }}>
+                      <strong>ചോദ്യം 1:</strong> താഴെ പറയുന്നവയിൽ സദിശ അളവ് (Vector Quantity) ഏതാണ്?<br />
+                      (A) വേഗത &nbsp;&nbsp;(B) പ്രവേഗം &nbsp;&nbsp;(C) ദൂരം &nbsp;&nbsp;(D) സമയം
+                      <span className="sample-answer">✓ ഉത്തരം: (B) പ്രവേഗം</span>
+                    </p>
+
+                    <h4>വിഭാഗം B: ഹ്രസ്വ ഉത്തര ചോദ്യങ്ങൾ (2 മാർക്ക് വീതം)</h4>
+                    <p style={{ margin: "6px 0", color: "#203b59" }}>
+                      <strong>ചോദ്യം 2:</strong> ന്യൂട്ടന്റെ രണ്ടാം ചലനനിയമം പ്രസ്താവിച്ച് സമവാക്യം എഴുതുക.
+                      <span className="sample-answer">✓ ഉത്തരം: ഒരു വസ്തുവിന്റെ സംവേഗ വ്യതിയാന നിരക്ക് അതിന്മേൽ പ്രയോഗിക്കുന്ന അസന്തുലിത ബാഹ്യബലത്തിന് നേർ അനുപാതത്തിലായിരിക്കും (F = ma).</span>
+                    </p>
+
+                    <h4>വിഭാഗം C: കണക്കുകൂട്ടൽ & വിശദീകരണം (4 മാർക്ക്)</h4>
+                    <p style={{ margin: "6px 0", color: "#203b59" }}>
+                      <strong>ചോദ്യം 3:</strong> 1000 kg പിണ്ഡമുള്ള ഒരു വാഹനം 20 m/s വേഗതയിൽ സഞ്ചരിക്കുന്നു. 5 സെക്കൻഡിനുള്ളിൽ വാഹനം നിശ്ചലാവസ്ഥയിലെത്താൻ ആവശ്യമായ ബലം കണക്കാക്കുക.
+                      <span className="sample-answer">✓ ഉത്തരസൂചിക: u = 20 m/s, v = 0, t = 5 s → a = (0 - 20) / 5 = -4 m/s² → F = m × a = 1000 × (-4) = -4000 N (മന്ദീകരണ ബലം).</span>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
