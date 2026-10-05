@@ -58,9 +58,8 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
             return (
               <React.Fragment key={step.num}>
                 <div
-                  className={`simple-step-box ${
-                    step.isLast ? "is-complete" : ""
-                  }`}
+                  className={`simple-step-box ${step.isLast ? "is-complete" : ""
+                    }`}
                 >
                   <div className="step-badge-circle">
                     <span>{step.num}</span>
