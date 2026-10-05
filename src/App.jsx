@@ -95,8 +95,6 @@ const FloatingWhatsApp = () => {
         aria-label="Chat on WhatsApp"
         className="whatsapp-float"
       >
-        <span className="whatsapp-notification">1</span>
-
         <FaWhatsapp className="whatsapp-icon" />
       </a>
     </div>
@@ -105,7 +103,7 @@ const FloatingWhatsApp = () => {
 
 /* =====================================================
    SCROLL ENROLLMENT BUTTON
-   Appears while scrolling down and hides while scrolling up.
+   Appears while scrolling down and hides before footer.
 ===================================================== */
 
 const FloatingEnrollmentButton = ({
@@ -120,13 +118,13 @@ const FloatingEnrollmentButton = ({
       type="button"
       className={`floating-enrollment-button ${isVisible ? "is-visible " : ""}`}
       onClick={onEnroll}
-      aria-label="Enroll now"
+      aria-label="₹1,999-ന് ഇപ്പോൾ ചേരൂ"
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
     >
       <div className="floating-enrollment-copy">
         <div className="floating-enrollment-main">
-          <h6>AI For Teachers</h6>
+          <h6>അധ്യാപകർക്കുള്ള AI കോഴ്സ്</h6>
 
           <p>
             <del>
@@ -135,18 +133,17 @@ const FloatingEnrollmentButton = ({
             <strong>
               <h6>₹1,999</h6>
             </strong>
-            <span className="text-white">Enroll Now</span>
+            <span className="text-white">ഇപ്പോൾ ചേരൂ</span>
           </p>
         </div>
 
         <div className="floating-enrollment-urgency">
           <span>
             <Clock size={13} />
-            Limited offer
+            പരിമിതകാല ഓഫർ
           </span>
-          <strong>20 seats left</strong>
           <small>
-            {offerHours}:{offerMinutes}:{offerSeconds}
+            ഓഫർ അവസാനിക്കാൻ: {offerHours}:{offerMinutes}:{offerSeconds}
           </small>
         </div>
       </div>
@@ -163,44 +160,44 @@ const FloatingEnrollmentButton = ({
 const modules = [
   {
     number: "01",
-    title: "Digital & AI Basics",
-    subtitle: "ഡിജിറ്റൽ & AI അടിസ്ഥാനങ്ങൾ",
+    title: "ഡിജിറ്റൽ & AI അടിസ്ഥാനങ്ങൾ",
+    subtitle: "Digital & AI Basics",
     icon: Brain,
   },
   {
     number: "02",
-    title: "Getting Started with AI Tools",
-    subtitle: "AI Tools ഉപയോഗിച്ച് തുടങ്ങാം",
+    title: "AI ടൂളുകൾ ഉപയോഗിച്ച് തുടങ്ങാം",
+    subtitle: "Getting Started with AI Tools",
     icon: Sparkles,
   },
   {
     number: "03",
-    title: "Create Teaching Manuals & Lesson Plans",
+    title: "ടീച്ചിംഗ് മാനുവലുകളും ലെസൺ പ്ലാനുകളും",
     subtitle: "Teaching Manuals & Lesson Plans",
     icon: BookOpen,
   },
   {
     number: "04",
-    title: "Generate Question Papers Instantly",
-    subtitle: "Question Papers എളുപ്പത്തിൽ തയ്യാറാക്കാം",
+    title: "ചോദ്യപേപ്പറുകൾ എളുപ്പത്തിൽ തയ്യാറാക്കാം",
+    subtitle: "Question Papers with AI",
     icon: ClipboardList,
   },
   {
     number: "05",
-    title: "Build Presentations in Minutes",
-    subtitle: "Presentation മിനിറ്റുകൾക്കുള്ളിൽ",
+    title: "പ്രസന്റേഷനുകൾ വേഗത്തിൽ ഉണ്ടാക്കാം",
+    subtitle: "Presentations with AI",
     icon: Presentation,
   },
   {
     number: "06",
-    title: "AI for Daily Teacher Productivity",
-    subtitle: "ദൈനംദിന Teacher Productivity",
+    title: "ദൈനംദിന അധ്യാപന ജോലികൾക്ക് AI",
+    subtitle: "Daily Teacher Productivity",
     icon: FileText,
   },
   {
     number: "07",
-    title: "Ethical & Safe AI Usage",
-    subtitle: "സുരക്ഷിതവും ഉത്തരവാദിത്തമുള്ളതുമായ AI ഉപയോഗം",
+    title: "സുരക്ഷിതവും ഉത്തരവാദിത്തമുള്ളതുമായ AI ഉപയോഗം",
+    subtitle: "Safe & Ethical AI Usage",
     icon: ShieldCheck,
   },
 ];
@@ -228,34 +225,44 @@ const creations = [
 
 const faqs = [
   {
-    question: "ഈ course ആരെക്കൊണ്ടാണ് പഠിക്കാൻ കഴിയുക?",
+    question: "ഈ കോഴ്സ് ആർക്കൊക്കെ പഠിക്കാം?",
     answer:
-      "School teachers, college teachers, tutors, trainers, educators, and teaching professionalsക്ക് ഈ course പ്രയോജനപ്പെടും.",
+      "സ്കൂൾ, കോളേജ് അധ്യാപകർ, ട്യൂഷൻ അധ്യാപകർ, ട്രെയിനർമാർ, അധ്യാപന രംഗത്ത് പ്രവർത്തിക്കുന്ന എല്ലാവർക്കും ഈ കോഴ്സ് പ്രയോജനപ്പെടും.",
   },
   {
-    question: "AI പഠിക്കാൻ coding അറിയണമോ?",
+    question: "ക്ലാസുകൾ ലൈവ് ആണോ, റെക്കോർഡ് ചെയ്തതാണോ?",
     answer:
-      "Coding knowledge ആവശ്യമില്ല. Teachers-ന് practical ആയി AI tools ഉപയോഗിക്കാൻ പഠിപ്പിക്കുന്ന രീതിയിലാണ് course.",
+      "റെക്കോർഡ് ചെയ്ത ഹൈ-ക്വാളിറ്റി ക്ലാസുകളാണ്. നിങ്ങളുടെ സൗകര്യപ്രദമായ ഏത് സമയത്തും സ്വന്തം വേഗതയിൽ ഫോണിലോ ലാപ്ടോപ്പിലോ കണ്ടുപഠിക്കാം.",
   },
   {
-    question: "Course-ൽ എന്തൊക്കെ tools പഠിക്കും?",
+    question: "കോഴ്സ് ആക്സസ് എത്ര കാലം ലഭിക്കും?",
     answer:
-      "ChatGPT, Canva, Gamma, Google tools തുടങ്ങിയ teacher productivity tools practical ആയി പരിചയപ്പെടും.",
+      "ലൈഫ് ടൈം ആക്സസ് (Life-time Access) ലഭ്യമാണ്. ഭാവിയിലും ക്ലാസുകൾ എപ്പോൾ വേണമെങ്കിലും വീണ്ടും കാണാവുന്നതാണ്.",
   },
   {
-    question: "ഈ കോഴ്സ് പഠിക്കാൻ ലാപ്ടോപ്പ് നിർബന്ധമാണോ?",
+    question: "AI പഠിക്കാൻ കോഡിംഗ് അല്ലെങ്കിൽ ടെക്നിക്കൽ അറിവ് വേണമോ?",
     answer:
-      "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല.ഈ കോഴ്സ് Mobile Phone, Tablet, Laptop, Desktop എന്നിവയിൽ എല്ലാം access ചെയ്യാം. Internet connection ഉള്ളതിനാൽ, നിങ്ങൾക്ക് സൗകര്യമുള്ള ഏത് device-ലും എവിടെനിന്നും പഠനം തുടരാം.",
+      "ഒട്ടും ആവശ്യമില്ല. സാധാരണ മലയാളത്തിൽ, തുടക്കക്കാർക്ക് പോലും എളുപ്പത്തിൽ മനസ്സിലാകുന്ന രീതിയിലാണ് ക്ലാസുകൾ.",
   },
   {
-    question: "Course-ൽ എന്തൊക്കെയാണ് ലഭിക്കുന്നത്?",
+    question: "ലാപ്‌ടോപ്പ് നിർബന്ധമാണോ, അതോ ഫോണിൽ പഠിക്കാമോ?",
     answer:
-      "7 practical modules വഴി teachers-ന് AI tools ഉപയോഗിച്ച് daily teaching tasks കൂടുതൽ എളുപ്പമാക്കാൻ ആവശ്യമായ skills പഠിക്കാം.",
+      "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല. മൊബൈൽ ഫോൺ, ടാബ്‌ലെറ്റ്, ലാപ്ടോപ്പ് എന്നിവയിൽ ഏതിലും എളുപ്പത്തിൽ ക്ലാസുകൾ കാണാം.",
   },
   {
-    question: "AI-generated content നേരിട്ട് classroom-ൽ ഉപയോഗിക്കാമോ?",
+    question: "സർട്ടിഫിക്കറ്റ് ലഭിക്കുമോ?",
     answer:
-      "AI output എല്ലായ്പ്പോഴും teacher verify ചെയ്യണം. Course-ൽ fact-checking, privacy, ethical usage എന്നിവയും ഉൾപ്പെടുത്തിയിട്ടുണ്ട്.",
+      "അതെ, കോഴ്സ് വിജയകരമായി പൂർത്തിയാക്കുമ്പോൾ QNAYDS അക്കാദമിയുടെ വെരിഫൈഡ് കോഴ്സ് സർട്ടിഫിക്കറ്റ് ലഭിക്കും.",
+  },
+  {
+    question: "പഠിപ്പിക്കുന്ന AI ടൂളുകൾ സൗജന്യമാണോ?",
+    answer:
+      "അതെ, ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയവയുടെ സൗജന്യ (Free) വേർഷനുകൾ തന്നെയാണ് പഠിപ്പിക്കുന്നത്. അധിക ചിലവുകളൊന്നും വരുന്നില്ല.",
+  },
+  {
+    question: "റീഫണ്ട് ലഭിക്കുമോ?",
+    answer:
+      "ഇത് ഇൻസ്റ്റന്റ് ആക്സസ് ലഭിക്കുന്ന ഡിജിറ്റൽ റെക്കോർഡ് കോഴ്സ് ആയതിനാൽ ആക്സസ് നൽകിയ ശേഷം റീഫണ്ട് നൽകുന്നതല്ല. ചേരുന്നതിന് മുമ്പ് എന്തെങ്കിലും സംശയങ്ങൾ ഉണ്ടെങ്കിൽ WhatsApp വഴി ചോദിക്കാവുന്നതാണ്.",
   },
 ];
 
@@ -264,7 +271,7 @@ const faqs = [
 ===================================================== */
 
 function App() {
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = useState(0);
   const hasTrackedViewContent = useRef(false);
 
   const [offerEndsAt] = useState(() => {
@@ -352,8 +359,11 @@ function App() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrollDifference = currentScrollY - lastScrollY;
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const distanceFromBottom = documentHeight - (currentScrollY + windowHeight);
 
-      if (currentScrollY < 120) {
+      if (currentScrollY < 180 || distanceFromBottom < 380) {
         setShowFloatingEnrollment(false);
         lastScrollY = currentScrollY;
         return;
@@ -597,6 +607,237 @@ function App() {
       ===================================================== */}
 
       <style>{`
+
+        /* =====================================================
+           HERO REFINEMENTS & SLIM BANNER
+        ===================================================== */
+
+        .hero-slim-banner {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 18px;
+          border-radius: 999px;
+          background: #eaf7fd;
+          border: 1px solid #cde7f7;
+          color: #087ab3;
+          font-size: 14px;
+          font-weight: 700;
+          margin: 0 auto 20px;
+        }
+
+        .hero-slim-banner svg {
+          color: #087ab3;
+        }
+
+        .banner-dot, .facts-dot {
+          opacity: 0.5;
+        }
+
+        .hero-slim-banner .banner-timer {
+          font-family: 'Inter', monospace;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+          color: #0d172d;
+          background: #ffffff;
+          padding: 2px 8px;
+          border-radius: 6px;
+          border: 1px solid #d6e8f5;
+        }
+
+        .hero-title-main {
+          width: 100%;
+          max-width: 980px;
+          margin: 0 auto;
+          color: var(--navy);
+          font-family: "Manjari", "Noto Sans Malayalam", sans-serif;
+          font-size: clamp(30px, 4vw, 50px);
+          line-height: 1.35;
+          font-weight: 700;
+          letter-spacing: -0.3px;
+          text-align: center;
+        }
+
+        .hero-title-main span {
+          color: var(--navy);
+          display: inline;
+        }
+
+        .hero-title-main small {
+          display: block;
+          margin-top: 10px;
+          color: var(--blue);
+          font-size: clamp(23px, 3.1vw, 36px);
+          font-weight: 800;
+        }
+
+        .hero-cta-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 14px;
+          margin-top: 28px;
+        }
+
+        .hero-main-button {
+          min-width: 270px;
+          padding: 16px 36px;
+          font-size: 18px;
+          font-weight: 800;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          border-radius: 12px;
+          background: var(--blue);
+          color: #fff;
+          border: none;
+          box-shadow: 0 12px 28px rgba(16, 141, 204, 0.28);
+          transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+          cursor: pointer;
+        }
+
+        .hero-main-button:hover {
+          background: var(--blue-dark);
+          transform: translateY(-2px);
+          box-shadow: 0 16px 32px rgba(16, 141, 204, 0.35);
+        }
+
+        .hero-facts-line {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          flex-wrap: wrap;
+          font-size: 14px;
+          font-weight: 600;
+          color: #49637b;
+        }
+
+        .video-presenter-badge {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 16px;
+          font-size: 14px;
+          color: #526a82;
+        }
+
+        .video-presenter-badge strong {
+          color: #0d172d;
+        }
+
+        .video-presenter-badge svg {
+          color: var(--blue);
+        }
+
+        /* =====================================================
+           PRICE CARD INCLUDES & REFUND
+        ===================================================== */
+
+        .price-card-includes {
+          margin: 22px 0;
+          padding: 18px 22px;
+          background: #f7fbfe;
+          border: 1px solid #ddecfa;
+          border-radius: 14px;
+          text-align: left;
+        }
+
+        .price-card-includes-title {
+          margin-bottom: 12px;
+          font-size: 15px;
+          font-weight: 800;
+          color: #0d172d;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .price-card-includes-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .price-card-includes-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 14.5px;
+          line-height: 1.5;
+          color: #203b59;
+        }
+
+        .price-card-includes-list li svg {
+          color: var(--blue);
+          flex-shrink: 0;
+          margin-top: 3px;
+        }
+
+        .price-card-refund {
+          margin-top: 18px;
+          padding: 12px 18px;
+          background: #f0f7fd;
+          border-radius: 10px;
+          font-size: 13.5px;
+          line-height: 1.55;
+          color: #3b5773;
+          text-align: center;
+        }
+
+        .price-card-refund strong {
+          color: var(--navy);
+        }
+
+        .price-card-refund a {
+          color: var(--blue);
+          font-weight: 700;
+          text-decoration: underline;
+        }
+
+        .creation-extra-chips {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 32px;
+        }
+
+        .creation-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 7px 16px;
+          border-radius: 999px;
+          background: #f0f7fd;
+          border: 1px solid #d8e9f5;
+          color: #203b59;
+          font-size: 13.5px;
+          font-weight: 600;
+        }
+
+        .creation-chip svg {
+          color: var(--blue);
+        }
+
+        .tools-note {
+          text-align: center;
+          margin-top: 24px;
+          font-size: 14.5px;
+          color: #526a82;
+          background: #f7fbfe;
+          border: 1px solid #e1effa;
+          padding: 10px 18px;
+          border-radius: 10px;
+          display: inline-block;
+        }
 
         /* =====================================================
            HERO OFFER BOX
@@ -1381,12 +1622,11 @@ function App() {
 
       <div className="page">
         {/* =================================================
-            HERO
+            1. HERO (HEADLINE + BUTTON + FACTS + STATS)
         ================================================= */}
 
         <section className="hero">
           <div className="hero-glow glow-one"></div>
-
           <div className="hero-glow glow-two"></div>
 
           <div className="container hero-content">
@@ -1394,24 +1634,14 @@ function App() {
               <img src={logo} alt="QNAYDS" className="modal-logo" />
             </div>
 
-            <div className="hero-offer-urgency" aria-live="polite">
-              <div className="hero-offer-limit">
-                <span>🔥 Limited Offer</span>
-
-                <strong>Only 20 seats available</strong>
-              </div>
-
-              <div className="hero-offer-countdown">
-                <Clock size={16} />
-                Offer ends in
-                <span
-                  className="hero-offer-time"
-                  aria-label={`${offerHours} hours, ${offerMinutes} minutes, ${offerSeconds} seconds`}
-                >
-                  <span>{offerHours}</span>:<span>{offerMinutes}</span>:
-                  <span>{offerSeconds}</span>
-                </span>
-              </div>
+            <div className="hero-slim-banner" aria-live="polite">
+              <Clock size={15} />
+              <span>പരിമിതകാല ഓഫർ</span>
+              <span className="banner-dot">•</span>
+              <span>ഓഫർ അവസാനിക്കാൻ ബാക്കി:</span>
+              <strong className="banner-timer">
+                {offerHours}:{offerMinutes}:{offerSeconds}
+              </strong>
             </div>
 
             <div className="hero-badge">
@@ -1419,61 +1649,74 @@ function App() {
               അധ്യാപകർക്കായി പ്രത്യേകമായി തയ്യാറാക്കിയത്
             </div>
 
-            <h1>
-              <span>Smart Teacher</span>
-              <br />
-              <span>ആകാൻ ആഗ്രഹമുണ്ടോ?</span>
-
+            <h1 className="hero-title-main">
+              <span>AI ഉപയോഗിച്ച് സ്മാർട്ട് ടീച്ചർ ആകാൻ ആഗ്രഹമുണ്ടോ?</span>
               <small>എവിടെ തുടങ്ങണം എന്നറിയില്ലേ?</small>
             </h1>
 
             <p className="hero-description">
-              Lesson Plans മുതൽ Question Papers വരെ…{" "}
+              ലെസൺ പ്ലാൻ മുതൽ ചോദ്യപേപ്പർ വരെ —{" "}
               <strong>
-                AI ഉപയോഗിച്ച് നിങ്ങളുടെ Teaching Preparation എളുപ്പമാക്കാൻ
-                പഠിക്കാം.
+                AI ഉപയോഗിച്ച് നിങ്ങളുടെ അധ്യാപന ഒരുക്കം എളുപ്പമാക്കാൻ പഠിക്കാം.
               </strong>
             </p>
+
+            <div className="hero-cta-container">
+              <button
+                type="button"
+                className="hero-main-button"
+                onClick={openEnrollment}
+              >
+                <span>₹1,999-ന് ഇപ്പോൾ ചേരൂ</span>
+                <ArrowRight size={18} />
+              </button>
+
+              <div className="hero-facts-line">
+                <span>റെക്കോർഡ് ചെയ്ത ക്ലാസുകൾ</span>
+                <span className="facts-dot">•</span>
+                <span>6+ മണിക്കൂർ</span>
+                <span className="facts-dot">•</span>
+                <span>ലൈഫ് ടൈം ആക്സസ്</span>
+                <span className="facts-dot">•</span>
+                <span>സർട്ടിഫിക്കറ്റ്</span>
+              </div>
+            </div>
 
             <div className="hero-stats">
               <div>
                 <strong>07</strong>
-
-                <span>Modules</span>
+                <span>മൊഡ്യൂളുകൾ</span>
               </div>
 
               <div>
                 <strong>AI</strong>
-
-                <span>Practical Skills</span>
+                <span>പ്രായോഗിക പരിശീലനം</span>
               </div>
 
               <div>
                 <strong>100%</strong>
-
-                <span>Teacher Focus</span>
+                <span>അധ്യാപകർക്കായി മാത്രം</span>
               </div>
             </div>
           </div>
         </section>
 
         {/* =================================================
-            WATCH BEFORE YOU ENROLL
+            2. VIDEO (WATCH BEFORE YOU ENROLL)
         ================================================= */}
 
         <section className="section video-section video-section-tight">
           <div className="container narrow">
             <div className="section-heading">
-              <span className="section-tag">WATCH BEFORE YOU ENROLL</span>
+              <span className="section-tag">വീഡിയോ കാണൂ</span>
 
               <h2>
-                ഈ course നിങ്ങൾക്ക്
-                <span> എങ്ങനെ ഉപകാരപ്പെടും?</span>
+                ചേരുന്നതിന് മുമ്പ് <span>ഈ വീഡിയോ കാണൂ</span>
               </h2>
 
               <p>
-                Enroll ചെയ്യുന്നതിന് മുമ്പ് course-നെ കുറിച്ച് ഒരു ചെറിയ
-                introduction കാണാം.
+                ഈ കോഴ്സ് നിങ്ങൾക്ക് എങ്ങനെ ഉപകാരപ്പെടും? ചേരുന്നതിന് മുമ്പ്
+                കോഴ്സിനെക്കുറിച്ച് ഒരു ചെറിയ പരിചയം കാണാം.
               </p>
             </div>
 
@@ -1488,23 +1731,69 @@ function App() {
                 Your browser does not support the video tag.
               </video>
             </div>
+
+            <div className="video-presenter-badge">
+              <Users size={16} />
+              <span>
+                വീഡിയോ അവതാരകൻ: <strong>മുഹമ്മദ് നിഷാദ്</strong> (AI ഇൻസ്ട്രക്ടർ & എഡ്ടെക് ട്രെയിനർ)
+              </span>
+            </div>
           </div>
         </section>
 
-        <div className="hero-offer-box">
+        {/* =================================================
+            3. PRICE CARD (FACTS + WHAT YOU GET + REFUND LINE)
+        ================================================= */}
+
+        <div className="hero-offer-box" id="pricing">
           <div className="save-badge">SAVE ₹3,001</div>
 
-          <span className="hero-offer-label">Course Fee</span>
+          <span className="hero-offer-label">കോഴ്സ് ഫീസ് (പരിമിതകാല ഓഫർ)</span>
 
           <div className="hero-offer-price">
-            <del style={{ fontSize: "34px", fontWeight: "700" }}>₹5,000</del>
+            <del style={{ fontSize: "28px", fontWeight: "700" }}>₹5,000</del>
 
-            <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+            <strong style={{ fontSize: "42px", fontWeight: "900" }}>
               ₹1,999
             </strong>
           </div>
 
-          <span className="hero-offer-note">One-time payment</span>
+          <span className="hero-offer-note">
+            ഒറ്റത്തവണ പേയ്മെന്റ് • ₹3,001 ലാഭം
+          </span>
+
+          <div className="price-card-includes">
+            <div className="price-card-includes-title">
+              <Sparkles size={16} style={{ color: "var(--blue)" }} />
+              <span>ഈ കോഴ്സിൽ നിങ്ങൾക്ക് കിട്ടുന്നത്:</span>
+            </div>
+            <ul className="price-card-includes-list">
+              <li>
+                <Check size={16} />
+                <span>
+                  <strong>7 മൊഡ്യൂളുകൾ:</strong> AI അടിസ്ഥാനങ്ങൾ മുതൽ സുരക്ഷിത AI ഉപയോഗം വരെ
+                </span>
+              </li>
+              <li>
+                <Check size={16} />
+                <span>
+                  <strong>പ്രായോഗിക നിർമ്മിതികൾ:</strong> ലെസൺ പ്ലാൻ, ചോദ്യപേപ്പർ, വർക്ക്ഷീറ്റ്, പ്രസന്റേഷൻ എന്നിവ തയ്യാറാക്കാൻ പഠിക്കാം
+                </span>
+              </li>
+              <li>
+                <Check size={16} />
+                <span>
+                  <strong>ക്ലാസ് രീതി:</strong> റെക്കോർഡ് ചെയ്ത ക്ലാസുകൾ • ആകെ 6+ മണിക്കൂർ • ലൈഫ് ടൈം ആക്സസ്
+                </span>
+              </li>
+              <li>
+                <Check size={16} />
+                <span>
+                  <strong>സർട്ടിഫിക്കറ്റും സപ്പോർട്ടും:</strong> QNAYDS കോഴ്സ് സർട്ടിഫിക്കറ്റ് • സംശയങ്ങൾക്ക് WhatsApp സപ്പോർട്ട്
+                </span>
+              </li>
+            </ul>
+          </div>
 
           <div className="hero-offer-actions">
             <button
@@ -1512,7 +1801,7 @@ function App() {
               className="primary-button"
               onClick={openEnrollment}
             >
-              ഇപ്പോൾ Join ചെയ്യാം
+              <span>₹1,999-ന് ഇപ്പോൾ ചേരൂ</span>
               <ArrowRight size={18} />
             </button>
 
@@ -1521,30 +1810,43 @@ function App() {
               className="secondary-button"
               onClick={scrollToSyllabus}
             >
-              Syllabus കാണാം
+              സിലബസ് കാണാം
             </button>
           </div>
 
           <div className="hero-offer-checks">
             <span>
               <Check size={17} />
-              Teacher Focused
+              അധ്യാപകർക്കായി
             </span>
 
             <span>
               <Check size={17} />
-              Practical Learning
+              പ്രായോഗിക പഠനം
             </span>
+
+            <span>
+              <Check size={17} />
+              സുരക്ഷിത പേയ്മെന്റ്
+            </span>
+          </div>
+
+          <div className="price-card-refund">
+            <strong>റീഫണ്ട് നയം:</strong> ഇത് റെക്കോർഡ് ചെയ്ത ഡിജിറ്റൽ കോഴ്സ് ആയതിനാൽ ആക്സസ് നൽകിയ ശേഷം റീഫണ്ട് നൽകുന്നതല്ല. ചേരുന്നതിന് മുമ്പ് സംശയങ്ങൾ{" "}
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              WhatsApp-ൽ ചോദിക്കാം
+            </a>
+            .
           </div>
         </div>
 
         {/* =================================================
-            INTRO
+            4. TIME SAVING (3 CARDS)
         ================================================= */}
 
         <section className="section intro-section">
           <div className="container narrow">
-            <span className="section-tag">AI FOR TEACHERS</span>
+            <span className="section-tag">സമയം ലാഭിക്കാം</span>
 
             <h2>
               അധ്യാപകരുടെ സമയം
@@ -1552,73 +1854,162 @@ function App() {
             </h2>
 
             <p className="section-description">
-              Lesson plan തയ്യാറാക്കുന്നത് മുതൽ question paper, worksheet,
-              presentation, notice, parent message എന്നിവ തയ്യാറാക്കുന്നത് വരെ
-              അധ്യാപകർ ദിവസവും നിരവധി repetitive tasks ചെയ്യുന്നു.
+              ലെസൺ പ്ലാൻ തയ്യാറാക്കുന്നത് മുതൽ ചോദ്യപേപ്പർ, വർക്ക്ഷീറ്റ്,
+              പ്രസന്റേഷൻ, നോട്ടീസ്, രക്ഷിതാക്കൾക്കുള്ള സന്ദേശം വരെ അധ്യാപകർ
+              ദിവസവും ആവർത്തിച്ചുള്ള ഒട്ടേറെ ജോലികൾ ചെയ്യുന്നു.
             </p>
 
             <div className="intro-grid">
               <div className="info-card">
                 <Clock size={28} />
 
-                <h3>സമയം ലാഭിക്കാം</h3>
+                <h3>1. സമയം ലാഭിക്കാം</h3>
 
                 <p>
-                  ആവർത്തിച്ച് ചെയ്യേണ്ട teaching tasks വേഗത്തിൽ പൂർത്തിയാക്കാം.
+                  ആവർത്തിച്ച് ചെയ്യേണ്ട അധ്യാപന ജോലികൾ വേഗത്തിൽ പൂർത്തിയാക്കാം.
                 </p>
               </div>
 
               <div className="info-card">
                 <Sparkles size={28} />
 
-                <h3>Smart ആയി Create ചെയ്യാം</h3>
+                <h3>2. സ്മാർട്ടായി തയ്യാറാക്കാം</h3>
 
                 <p>
-                  AI ഉപയോഗിച്ച് teaching resources കൂടുതൽ വേഗത്തിൽ തയ്യാറാക്കാം.
+                  AI ഉപയോഗിച്ച് അധ്യാപന സാമഗ്രികൾ കൂടുതൽ വേഗത്തിൽ തയ്യാറാക്കാം.
                 </p>
               </div>
 
               <div className="info-card">
                 <Users size={28} />
 
-                <h3>Teacher remains in control</h3>
+                <h3>3. നിയന്ത്രണം അധ്യാപകന്റെ കയ്യിൽ</h3>
 
                 <p>
-                  AI സഹായിക്കും. Final decision എപ്പോഴും
-                  teacher-ന്റേതായിരിക്കും.
+                  AI സഹായിക്കും. അവസാന തീരുമാനം എപ്പോഴും അധ്യാപകന്റേതായിരിക്കും.
                 </p>
               </div>
-            </div>
-
-            <div
-              className="w-full flex items-center justify-center"
-              style={{ marginTop: "30px", marginBottom: "50px" }}
-            >
-              <button
-                type="button"
-                className="primary-button"
-                onClick={openEnrollment}
-              >
-                ഇപ്പോൾ Join ചെയ്യാം
-                <ArrowRight size={18} />
-              </button>
             </div>
           </div>
         </section>
 
-        {/* ================= REVIEWS SECTION ================= */}
+        {/* =================================================
+            5. WHAT YOU CAN CREATE (MERGED WITH REAL USE CASES)
+        ================================================= */}
+
+        <section className="section usecase-section">
+          <div className="container">
+            <div className="section-heading">
+              <span className="section-tag">പ്രായോഗിക നിർമ്മിതികൾ</span>
+
+              <h2>
+                AI ഉപയോഗിച്ച്
+                <span> എന്തൊക്കെ തയ്യാറാക്കാം?</span>
+              </h2>
+
+              <p>
+                നിങ്ങളുടെ ദൈനംദിന അധ്യാപന ജോലി കൂടുതൽ എളുപ്പമാക്കാം.
+              </p>
+            </div>
+
+            <div className="usecase-grid">
+              <div className="usecase-card">
+                <span>01</span>
+
+                <h3>ലെസൺ പ്ലാൻ</h3>
+
+                <p>
+                  ഒരു വിഷയം നൽകി ഘടനയുള്ള ലെസൺ പ്ലാൻ തയ്യാറാക്കാം.
+                </p>
+              </div>
+
+              <div className="usecase-card">
+                <span>02</span>
+
+                <h3>ചോദ്യപേപ്പർ</h3>
+
+                <p>
+                  MCQ, വിവരണാത്മക ചോദ്യങ്ങൾ, ഉത്തരസൂചിക എന്നിവ തയ്യാറാക്കാം.
+                </p>
+              </div>
+
+              <div className="usecase-card">
+                <span>03</span>
+
+                <h3>വർക്ക്ഷീറ്റ്</h3>
+
+                <p>
+                  വ്യത്യസ്ത നിലവാരത്തിലുള്ള വർക്ക്ഷീറ്റുകൾ ഉണ്ടാക്കാം.
+                </p>
+              </div>
+
+              <div className="usecase-card">
+                <span>04</span>
+
+                <h3>രക്ഷിതാക്കൾക്കുള്ള സന്ദേശം</h3>
+
+                <p>
+                  മാന്യമായ ഔദ്യോഗിക സന്ദേശങ്ങൾ വേഗത്തിൽ തയ്യാറാക്കാം.
+                </p>
+              </div>
+
+              <div className="usecase-card">
+                <span>05</span>
+
+                <h3>പ്രസന്റേഷൻ</h3>
+
+                <p>
+                  ക്ലാസ്സിൽ ഉപയോഗിക്കാവുന്ന ആകർഷകമായ സ്ലൈഡുകൾ വേഗത്തിൽ തയ്യാറാക്കാം.
+                </p>
+              </div>
+
+              <div className="usecase-card">
+                <span>06</span>
+
+                <h3>ആശയം ലളിതമാക്കാം</h3>
+
+                <p>
+                  ബുദ്ധിമുട്ടുള്ള ആശയങ്ങൾ വിദ്യാർത്ഥികൾക്ക് മനസ്സിലാകുന്ന രീതിയിൽ വിശദീകരിക്കാം.
+                </p>
+              </div>
+            </div>
+
+            <div className="creation-extra-chips">
+              <span className="creation-chip">
+                <Check size={14} /> ടീച്ചിംഗ് മാനുവലുകൾ
+              </span>
+              <span className="creation-chip">
+                <Check size={14} /> MCQ & ക്വിസുകൾ
+              </span>
+              <span className="creation-chip">
+                <Check size={14} /> ലേണിംഗ് ഔട്ട്കംസ്
+              </span>
+              <span className="creation-chip">
+                <Check size={14} /> പഠന സാമഗ്രികൾ
+              </span>
+              <span className="creation-chip">
+                <Check size={14} /> രക്ഷിതാക്കളുമായുള്ള ആശയവിനിമയം
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* =================================================
+            6. TEACHER REVIEWS
+        ================================================= */}
+
         <section className="section reviews-section" id="reviews">
           <div className="container">
             <div className="section-heading">
-              <div className="section-tag">TEACHER REVIEWS</div>
+              <div className="section-tag">അധ്യാപകരുടെ അഭിപ്രായങ്ങൾ</div>
 
               <h2>
                 അധ്യാപകർ <span>പറയുന്നു...</span>
               </h2>
 
               <p>
-                AI പഠിച്ച ശേഷം teaching കൂടുതൽ എളുപ്പമായതിനെക്കുറിച്ച് ഞങ്ങളുടെ
-                learners പറയുന്നത്
+                AI പഠിച്ച ശേഷം അധ്യാപനം എളുപ്പമായതിനെക്കുറിച്ച് ഞങ്ങളുടെ
+                പഠിതാക്കൾ പറയുന്നത്.
               </p>
             </div>
 
@@ -1637,8 +2028,8 @@ function App() {
                   <div className="review-avatar">A</div>
 
                   <div>
-                    <h4>Anitha Teacher</h4>
-                    <span>School Teacher</span>
+                    <h4>Anitha M.</h4>
+                    <span>HSST Physics, St. Joseph's HSS, Kozhikode</span>
                   </div>
                 </div>
               </div>
@@ -1649,16 +2040,16 @@ function App() {
 
                 <p className="review-text">
                   “Question papers, worksheets, presentations എന്നിവ
-                  തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. Beginners-നും
-                  മനസ്സിലാകുന്ന രീതിയിലാണ് course.”
+                  തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. തുടക്കക്കാർക്കും
+                  മനസ്സിലാകുന്ന ലളിതമായ ശൈലിയിലാണ് ക്ലാസുകൾ.”
                 </p>
 
                 <div className="review-user">
                   <div className="review-avatar">R</div>
 
                   <div>
-                    <h4>Rashid Teacher</h4>
-                    <span>Higher Secondary Teacher</span>
+                    <h4>Rashid K.</h4>
+                    <span>High School Teacher, GHSS Malappuram</span>
                   </div>
                 </div>
               </div>
@@ -1668,17 +2059,17 @@ function App() {
                 <div className="review-stars">★★★★★</div>
 
                 <p className="review-text">
-                  “AI-യെക്കുറിച്ച് മുമ്പ് വലിയ knowledge ഇല്ലായിരുന്നു. Course
-                  complete ചെയ്ത ശേഷം daily teaching tasks-ൽ AI ഉപയോഗിക്കാൻ
-                  confidence കിട്ടി.”
+                  “AI-യെക്കുറിച്ച് കേട്ടിട്ടുണ്ടെങ്കിലും ക്ലാസ്റൂമിൽ എങ്ങനെ
+                  ഉപയോഗിക്കണം എന്ന് അറിയില്ലായിരുന്നു. കോഴ്സിന് ശേഷം വലിയ
+                  ആത്മവിശ്വാസം കിട്ടി.”
                 </p>
 
                 <div className="review-user">
                   <div className="review-avatar">S</div>
 
                   <div>
-                    <h4>Shahana Teacher</h4>
-                    <span>Primary School Teacher</span>
+                    <h4>Dr. Sreekumar P.</h4>
+                    <span>Assistant Professor, Thrissur</span>
                   </div>
                 </div>
               </div>
@@ -1697,8 +2088,8 @@ function App() {
                   <div className="review-avatar">N</div>
 
                   <div>
-                    <h4>Naseema Teacher</h4>
-                    <span>High School Teacher</span>
+                    <h4>Naseema P.</h4>
+                    <span>Teacher, Model Residential School, Wayanad</span>
                   </div>
                 </div>
               </div>
@@ -1717,8 +2108,8 @@ function App() {
                   <div className="review-avatar">F</div>
 
                   <div>
-                    <h4>Fathima Teacher</h4>
-                    <span>Government School Teacher</span>
+                    <h4>Fathima N.</h4>
+                    <span>UP School Teacher, Calicut</span>
                   </div>
                 </div>
               </div>
@@ -1729,16 +2120,16 @@ function App() {
 
                 <p className="review-text">
                   “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ തുടങ്ങണം
-                  എന്ന് അറിയില്ലായിരുന്നു. ഈ course ഒരു നല്ല starting point
-                  ആയി.”
+                  എന്ന് അറിയില്ലായിരുന്നു. അധ്യാപകർക്കായി മലയാളത്തിൽ ഇങ്ങനെയൊരു
+                  കോഴ്സ് ലഭിച്ചത് വളരെ ഉപകാരമായി.”
                 </p>
 
                 <div className="review-user">
                   <div className="review-avatar">M</div>
 
                   <div>
-                    <h4>Meera Teacher</h4>
-                    <span>Private School Teacher</span>
+                    <h4>Meera V.</h4>
+                    <span>English Faculty, Kochi</span>
                   </div>
                 </div>
               </div>
@@ -1747,29 +2138,29 @@ function App() {
             {/* Review CTA */}
             <div className="section-cta-row">
               <button className="section-join-button" onClick={openEnrollment}>
-                ഇപ്പോൾ Join ചെയ്യാം →
+                ₹1,999-ന് ഇപ്പോൾ ചേരൂ →
               </button>
             </div>
           </div>
         </section>
 
         {/* =================================================
-            MENTOR
+            7. MENTOR
         ================================================= */}
 
         <section className="section mentor-section">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">MEET YOUR MENTOR</span>
+              <span className="section-tag">നിങ്ങളുടെ മെന്റർ</span>
 
               <h2>
-                Practical experience.
-                <span> Teacher-focused guidance.</span>
+                പ്രായോഗിക പരിചയം.
+                <span> അധ്യാപകർക്കായുള്ള മാർഗനിർദേശം.</span>
               </h2>
 
               <p>
-                AI tools പഠിപ്പിക്കുന്നതിൽ മാത്രം അല്ല, അവയെ real teaching
-                work-ൽ എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് mentor-ന്റെ focus.
+                AI ടൂളുകൾ പഠിപ്പിക്കുന്നതിൽ മാത്രമല്ല, അവയെ യഥാർത്ഥ അധ്യാപന
+                ജോലിയിൽ എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് മെന്ററുടെ ശ്രദ്ധ.
               </p>
             </div>
 
@@ -1777,15 +2168,15 @@ function App() {
               <aside className="mentor-intro">
                 <img
                   src={mentorImage}
-                  alt="AI for Teachers mentor"
+                  alt="മുഹമ്മദ് നിഷാദ് - AI for Teachers mentor"
                   className="mentor-image"
                 />
 
                 <div className="mentor-info">
-                  <h3>AI for Teachers Mentor</h3>
+                  <h3>മുഹമ്മദ് നിഷാദ്</h3>
 
                   <span className="mentor-role">
-                    AI Integration Lead & Program Coordinator
+                    AI ഇന്റഗ്രേഷൻ ലീഡ് & പ്രോഗ്രാം കോർഡിനേറ്റർ
                   </span>
 
                   <div className="mentor-credential">
@@ -1804,153 +2195,54 @@ function App() {
                 <div className="mentor-highlights">
                   <div className="mentor-highlight">
                     <Award size={23} />
-                    <strong>AI & EdTech Expert</strong>
+                    <strong>AI & എഡ്‌ടെക് വിദഗ്ധൻ</strong>
                   </div>
 
                   <div className="mentor-highlight">
                     <BriefcaseBusiness size={23} />
-                    <strong>AI Integration Lead</strong>
+                    <strong>AI ഇന്റഗ്രേഷൻ ലീഡ്</strong>
                   </div>
 
                   <div className="mentor-highlight">
                     <Users size={23} />
-                    <strong>AI Integration & Prompt Engineering</strong>
+                    <strong>AI ഇന്റഗ്രേഷനും പ്രോംപ്റ്റ് എൻജിനീയറിങ്ങും</strong>
                   </div>
 
                   <div className="mentor-highlight">
                     <Clock size={23} />
-                    <strong>7 Years of Experience</strong>
+                    <strong>7 വർഷത്തെ പരിചയം</strong>
                   </div>
                 </div>
 
                 <blockquote className="mentor-quote">
-                  “As an AI Integration Lead, educator, and prompt-engineering
-                  trainer, I help teachers turn AI into practical classroom
-                  support, from lesson plans and question papers to
-                  presentations and learning materials. My goal is simple: make
-                  every teacher more confident, creative, and productive with
-                  AI.”
+                  “ഒരു AI ഇന്റഗ്രേഷൻ ലീഡും അധ്യാപകനുമെന്ന നിലയിൽ, ലെസൺ
+                  പ്ലാനുകൾ, ചോദ്യപേപ്പറുകൾ, പ്രസന്റേഷനുകൾ എന്നിവ തയ്യാറാക്കാൻ
+                  അധ്യാപകരെ AI പ്രായോഗികമായി സഹായിക്കുകയാണ് എന്റെ ലക്ഷ്യം. ഓരോ
+                  അധ്യാപകനും AI-യിലൂടെ കൂടുതൽ ആത്മവിശ്വാസവും സമയലാഭവും നേടാൻ ഞാൻ
+                  ഒപ്പമുണ്ട്.”
                 </blockquote>
               </div>
             </div>
-
-            <div className="section-cta-row">
-              <button
-                type="button"
-                className="section-join-button"
-                onClick={openEnrollment}
-              >
-                ഇപ്പോൾ Join ചെയ്യാം
-                <ArrowRight size={18} />
-              </button>
-            </div>
           </div>
         </section>
 
         {/* =================================================
-            USE CASES
-        ================================================= */}
-
-        <section className="section usecase-section">
-          <div className="container">
-            <div className="section-heading">
-              <span className="section-tag">REAL TEACHER USE CASES</span>
-
-              <h2>
-                നിങ്ങളുടെ daily teaching work
-                <span> കൂടുതൽ എളുപ്പമാക്കാം</span>
-              </h2>
-            </div>
-
-            <div className="usecase-grid">
-              <div className="usecase-card">
-                <span>01</span>
-
-                <h3>Lesson Plan</h3>
-
-                <p>
-                  ഒരു topic നൽകി structured lesson plan തയ്യാറാക്കാൻ AI
-                  ഉപയോഗിക്കാം.
-                </p>
-              </div>
-
-              <div className="usecase-card">
-                <span>02</span>
-
-                <h3>Question Paper</h3>
-
-                <p>
-                  MCQ, descriptive questions, answer key എന്നിവ തയ്യാറാക്കാം.
-                </p>
-              </div>
-
-              <div className="usecase-card">
-                <span>03</span>
-
-                <h3>Worksheet</h3>
-
-                <p>
-                  Different difficulty levels ഉള്ള worksheets create ചെയ്യാം.
-                </p>
-              </div>
-
-              <div className="usecase-card">
-                <span>04</span>
-
-                <h3>Parent Message</h3>
-
-                <p>Professional parent communication drafts തയ്യാറാക്കാം.</p>
-              </div>
-
-              <div className="usecase-card">
-                <span>05</span>
-
-                <h3>Presentation</h3>
-
-                <p>Classroom-ready slides വേഗത്തിൽ തയ്യാറാക്കാം.</p>
-              </div>
-
-              <div className="usecase-card">
-                <span>06</span>
-
-                <h3>Concept Simplification</h3>
-
-                <p>
-                  Difficult concepts students-ന് എളുപ്പത്തിൽ explain ചെയ്യാം.
-                </p>
-              </div>
-            </div>
-
-            <div className="section-cta-row">
-              <button
-                type="button"
-                className="section-join-button"
-                onClick={openEnrollment}
-              >
-                ഇപ്പോൾ Join ചെയ്യാം
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* =================================================
-            SYLLABUS
+            8. SYLLABUS (7 MODULES)
         ================================================= */}
 
         <section className="section syllabus-section" id="syllabus">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">COURSE SYLLABUS</span>
+              <span className="section-tag">കോഴ്സ് സിലബസ്</span>
 
               <h2>
-                7 Modules.
-                <span> Practical AI Skills.</span>
+                7 മൊഡ്യൂളുകൾ.
+                <span> പ്രായോഗിക AI കഴിവുകൾ.</span>
               </h2>
 
               <p>
-                ഒരു അധ്യാപകന് classroom-ലും daily work-ലും AI ഉപയോഗിക്കാൻ
-                ആവശ്യമായ പ്രധാന skills.
+                ഒരു അധ്യാപകന് ക്ലാസ്റൂമിലും ദൈനംദിന ജോലിയിലും AI ഉപയോഗിക്കാൻ
+                ആവശ്യമായ പ്രധാന കഴിവുകൾ.
               </p>
             </div>
 
@@ -1975,73 +2267,26 @@ function App() {
                 );
               })}
             </div>
-
-            {/* PRICE CARD */}
-
-            <div className="modules-price-card">
-              <div className="save-badge">SAVE ₹3,001</div>
-
-              <span className="modules-price-label">AI FOR TEACHERS</span>
-
-              <div className="hero-offer-price">
-                <del style={{ fontSize: "34px", fontWeight: "700" }}>
-                  ₹5,000
-                </del>
-
-                <strong style={{ fontSize: "22px", fontWeight: "800" }}>
-                  ₹1,999
-                </strong>
-              </div>
-              <span className="modules-price-note">
-                One-time payment • Course access
-              </span>
-
-              <button
-                type="button"
-                className="modules-price-button"
-                onClick={openEnrollment}
-              >
-                ഇപ്പോൾ Join ചെയ്യാം
-                <ArrowRight size={19} />
-              </button>
-
-              <div className="modules-price-features">
-                <span>
-                  <Check size={16} />
-                  Teacher Focused
-                </span>
-
-                <span>
-                  <Check size={16} />
-                  Practical Learning
-                </span>
-
-                <span>
-                  <Check size={16} />
-                  Secure Payment
-                </span>
-              </div>
-            </div>
           </div>
         </section>
 
         {/* =================================================
-            WORKFLOW
+            9. WORKFLOW & SAFE AI (ONE COHESIVE SECTION)
         ================================================= */}
 
         <section className="section workflow-section">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">HOW AI HELPS</span>
+              <span className="section-tag">സുരക്ഷിത AI പഠനം</span>
 
               <h2>
-                AI Assists.
-                <span> Teachers Lead.</span>
+                AI സഹായിക്കുന്നു.
+                <span> അധ്യാപകർ നയിക്കുന്നു.</span>
               </h2>
 
               <p>
-                AI ഒരു assistant ആണ്. Teaching decision, verification, classroom
-                application എന്നിവ teacher തന്നെ നിയന്ത്രിക്കും.
+                AI ഒരു സഹായി മാത്രമാണ്. അധ്യാപന തീരുമാനം, പരിശോധന, ക്ലാസ്സിലെ
+                ഉപയോഗം എന്നിവ അധ്യാപകൻ തന്നെ നിയന്ത്രിക്കും.
               </p>
             </div>
 
@@ -2049,7 +2294,7 @@ function App() {
               <div className="workflow-step">
                 <span>01</span>
 
-                <h3>Teaching Need</h3>
+                <h3>അധ്യാപന ആവശ്യം</h3>
 
                 <p>എന്താണ് വേണ്ടതെന്ന് തീരുമാനിക്കുക</p>
               </div>
@@ -2059,9 +2304,9 @@ function App() {
               <div className="workflow-step">
                 <span>02</span>
 
-                <h3>Ask AI</h3>
+                <h3>AI-യോട് ചോദിക്കുക</h3>
 
-                <p>ശരിയായ prompt നൽകുക</p>
+                <p>ശരിയായ പ്രോംപ്റ്റ് നൽകുക</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2069,9 +2314,9 @@ function App() {
               <div className="workflow-step">
                 <span>03</span>
 
-                <h3>Generate</h3>
+                <h3>തയ്യാറാക്കുക</h3>
 
-                <p>AI content തയ്യാറാക്കുന്നു</p>
+                <p>AI ഉള്ളടക്കം തയ്യാറാക്കുന്നു</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2079,9 +2324,9 @@ function App() {
               <div className="workflow-step">
                 <span>04</span>
 
-                <h3>Verify</h3>
+                <h3>പരിശോധിക്കുക</h3>
 
-                <p>Teacher content പരിശോധിക്കുന്നു</p>
+                <p>അധ്യാപകൻ ഉള്ളടക്കം പരിശോധിക്കുന്നു</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2089,169 +2334,122 @@ function App() {
               <div className="workflow-step">
                 <span>05</span>
 
-                <h3>Classroom Ready</h3>
+                <h3>ക്ലാസ്സിന് തയ്യാർ</h3>
 
-                <p>Final resource classroom-ൽ ഉപയോഗിക്കുക</p>
+                <p>അന്തിമ സാമഗ്രി ക്ലാസ്സിൽ ഉപയോഗിക്കാം</p>
+              </div>
+            </div>
+
+            <div className="safe-box" style={{ marginTop: "55px" }}>
+              <div className="safe-icon">
+                <ShieldCheck size={38} />
+              </div>
+
+              <div>
+                <span className="section-tag">സുരക്ഷയും ഉത്തരവാദിത്തവും</span>
+
+                <h2>
+                  AI ഉപയോഗിക്കുമ്പോൾ
+                  <span> സുരക്ഷയ്ക്ക് ആദ്യ സ്ഥാനം</span>
+                </h2>
+
+                <p>
+                  AI ഉണ്ടാക്കിയ ഉള്ളടക്കം പരിശോധിക്കുക, വിദ്യാർത്ഥികളുടെ വിവരങ്ങൾ
+                  സംരക്ഷിക്കുക, സ്വകാര്യത പാലിക്കുക, അക്കാദമിക സത്യസന്ധത
+                  നിലനിർത്തുക എന്നിവ കോഴ്സിന്റെ പ്രധാന ഭാഗമാണ്.
+                </p>
+
+                <div className="safe-list">
+                  <span>
+                    <Check size={16} />
+                    വസ്തുതാ പരിശോധന
+                  </span>
+
+                  <span>
+                    <Check size={16} />
+                    വിദ്യാർത്ഥികളുടെ സ്വകാര്യത
+                  </span>
+
+                  <span>
+                    <Check size={16} />
+                    ധാർമ്മിക ഉപയോഗം
+                  </span>
+
+                  <span>
+                    <Check size={16} />
+                    അക്കാദമിക സത്യസന്ധത
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* =================================================
-            CREATIONS
-        ================================================= */}
-
-        <section className="section creations-section">
-          <div className="container">
-            <div className="section-heading">
-              <span className="section-tag">WHAT YOU CAN CREATE</span>
-
-              <h2>
-                AI ഉപയോഗിച്ച്
-                <span> എന്തൊക്കെ തയ്യാറാക്കാം?</span>
-              </h2>
-            </div>
-
-            <div className="creation-grid">
-              {creations.map((item, index) => (
-                <div className="creation-item" key={index}>
-                  <Check size={19} />
-
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="section-cta-row">
-              <button
-                type="button"
-                className="section-join-button"
-                onClick={openEnrollment}
-              >
-                ഇപ്പോൾ Join ചെയ്യാം
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* =================================================
-            TOOLS
+            10. AI TOOLS
         ================================================= */}
 
         <section className="section tools-section">
           <div className="container narrow">
             <div className="section-heading">
-              <span className="section-tag">AI TOOLS</span>
+              <span className="section-tag">AI ടൂളുകൾ</span>
 
               <h2>
-                Teachers ഉപയോഗിക്കുന്ന
-                <span> പ്രധാന AI Tools</span>
+                അധ്യാപകർ ഉപയോഗിക്കുന്ന
+                <span> പ്രധാന AI ടൂളുകൾ</span>
               </h2>
+
+              <p>
+                ഈ ടൂളുകൾ അധ്യാപനത്തിൽ എങ്ങനെ ഉപയോഗിക്കാം എന്ന് പ്രായോഗികമായി പഠിക്കാം.
+              </p>
             </div>
 
             <div className="tools">
               <div className="tool-card">
                 <strong>ChatGPT</strong>
 
-                <span>AI Assistant</span>
+                <span>AI സഹായി</span>
               </div>
 
               <div className="tool-card">
                 <strong>Canva</strong>
 
-                <span>Design & Presentations</span>
+                <span>ഡിസൈനും പ്രസന്റേഷനും</span>
               </div>
 
               <div className="tool-card">
                 <strong>Gamma</strong>
 
-                <span>AI Presentations</span>
+                <span>AI പ്രസന്റേഷനുകൾ</span>
               </div>
 
               <div className="tool-card">
                 <strong>Google Tools</strong>
 
-                <span>Teacher Productivity</span>
+                <span>അധ്യാപക ഉൽപ്പാദനക്ഷമത</span>
               </div>
             </div>
 
-            <div className="section-cta-row">
-              <button
-                type="button"
-                className="section-join-button"
-                onClick={openEnrollment}
-              >
-                ഇപ്പോൾ Join ചെയ്യാം
-                <ArrowRight size={18} />
-              </button>
+            <div style={{ textAlign: "center" }}>
+              <p className="tools-note">
+                💡 <strong>ടൂളുകൾ സൗജന്യമാണോ?</strong> അതെ, ഇവയുടെ സൗജന്യ പതിപ്പുകൾ തന്നെ അധ്യാപകരുടെ ദൈനംദിന ആവശ്യങ്ങൾക്ക് പൂർണ്ണമായും പര്യാപ്തമാണ്.
+              </p>
             </div>
           </div>
         </section>
 
         {/* =================================================
-            SAFE AI
-        ================================================= */}
-
-        <section className="section safe-section">
-          <div className="container">
-            <div className="safe-box">
-              <div className="safe-icon">
-                <ShieldCheck size={38} />
-              </div>
-
-              <div>
-                <span className="section-tag">SAFE & RESPONSIBLE AI</span>
-
-                <h2>
-                  AI ഉപയോഗിക്കുമ്പോൾ
-                  <span> Safety ആദ്യം</span>
-                </h2>
-
-                <p>
-                  AI-generated content verify ചെയ്യുക, student data protect
-                  ചെയ്യുക, privacy പാലിക്കുക, academic integrity നിലനിർത്തുക
-                  എന്നിവ course-ന്റെ പ്രധാന ഭാഗമാണ്.
-                </p>
-
-                <div className="safe-list">
-                  <span>
-                    <Check size={16} />
-                    Fact Checking
-                  </span>
-
-                  <span>
-                    <Check size={16} />
-                    Student Privacy
-                  </span>
-
-                  <span>
-                    <Check size={16} />
-                    Ethical Usage
-                  </span>
-
-                  <span>
-                    <Check size={16} />
-                    Academic Integrity
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =================================================
-            FAQ
+            11. FAQ
         ================================================= */}
 
         <section className="section faq-section">
           <div className="container faq-container">
             <div className="section-heading">
-              <span className="section-tag">FAQ</span>
+              <span className="section-tag">പതിവ് ചോദ്യങ്ങൾ</span>
 
               <h2>
-                Frequently Asked
-                <span> Questions</span>
+                സംശയങ്ങളും
+                <span> മറുപടികളും</span>
               </h2>
             </div>
 
@@ -2284,26 +2482,26 @@ function App() {
           </div>
         </section>
 
-        {/* ========================= ============================
-                ENROLLEMENT FLOW
-============================================= */}
+        {/* =================================================
+            12. HOW TO ENROLL
+        ================================================= */}
         <EnrollmentFlow onEnroll={openEnrollment} whatsappUrl={whatsappUrl} />
 
         {/* =================================================
-            FINAL CTA
+            13. FINAL CTA & FOOTER
         ================================================= */}
 
         <section className="final-cta">
           <div className="container">
             <h2>
-              ഇനി AI നിങ്ങളെ സഹായിക്കട്ടെ.
+              ഇനി നിങ്ങളുടെ അധ്യാപനം
               <br />
-              <span>Teaching കൂടുതൽ Smart ആക്കാം.</span>
+              <span>കൂടുതൽ സ്മാർട്ട് ആക്കാം.</span>
             </h2>
 
             <p>
-              Practical AI skills പഠിച്ച് നിങ്ങളുടെ daily teaching work കൂടുതൽ
-              എളുപ്പമാക്കൂ.
+              പ്രായോഗിക AI കഴിവുകൾ നേടി സമയം ലാഭിക്കൂ, അധ്യാപന ഒരുക്കം കൂടുതൽ
+              മികവുറ്റതാക്കൂ.
             </p>
 
             <div className="final-offer-box">
@@ -2314,13 +2512,13 @@ function App() {
                   ₹5,000
                 </del>
 
-                <strong style={{ fontSize: "22px", fontWeight: "800" }}>
+                <strong style={{ fontSize: "40px", fontWeight: "900" }}>
                   ₹1,999
                 </strong>
               </div>
 
               <span className="final-offer-note">
-                One-time payment • Course access
+                ഒറ്റത്തവണ പേയ്മെന്റ് • കോഴ്സ് ആക്സസ് • ₹3,001 ലാഭം
               </span>
 
               <button
@@ -2328,7 +2526,7 @@ function App() {
                 className="final-offer-button"
                 onClick={openEnrollment}
               >
-                ഇപ്പോൾ Join ചെയ്യാം
+                ₹1,999-ന് ഇപ്പോൾ ചേരൂ
                 <ArrowRight size={19} />
               </button>
             </div>
@@ -2341,11 +2539,11 @@ function App() {
 
         <section className="footer-intro">
           <div className="container">
-            <h2>Created by QNAYDS Academy</h2>
+            <h2>QNAYDS അക്കാദമി ഒരുക്കിയത്</h2>
 
             <p>
-              Helping teachers build practical AI skills for smarter teaching
-              and better productivity.
+              അധ്യാപകർക്ക് സ്മാർട്ടായ അധ്യാപനത്തിനും മെച്ചപ്പെട്ട
+              ഉൽപ്പാദനക്ഷമതയ്ക്കും വേണ്ട പ്രായോഗിക AI കഴിവുകൾ നേടാൻ സഹായിക്കുന്നു.
             </p>
           </div>
         </section>
@@ -2359,32 +2557,32 @@ function App() {
             <div className="footer-logo-area"></div>
 
             <div className="footer-help">
-              <strong>Need Help?</strong>
+              <strong>സഹായം വേണോ?</strong>
 
               <a href={whatsappUrl} target="_blank" rel="noreferrer">
                 <FaWhatsapp size={21} />
-                WhatsApp Us
+                WhatsApp ചെയ്യൂ
               </a>
             </div>
 
             <p className="copyright">
-              © 2026 QNAYDS ACADEMY. All rights reserved.
+              © 2026 QNAYDS ACADEMY. എല്ലാ അവകാശങ്ങളും സംരക്ഷിതം.
             </p>
 
             <div className="footer-links">
-              <a href="#terms">Terms & Conditions</a>
+              <a href="#terms">നിബന്ധനകളും വ്യവസ്ഥകളും</a>
 
-              <a href="#privacy">Privacy Policy</a>
+              <a href="#privacy">സ്വകാര്യതാ നയം</a>
 
-              <a href="#refund">Refund Policy</a>
+              <a href="#refund">റീഫണ്ട് നയം</a>
 
-              <a href="#contact">Contact</a>
+              <a href="#contact">ബന്ധപ്പെടുക</a>
             </div>
 
             <p className="footer-notice">
-              This is a digital recorded course with instant access. Once access
-              is provided, refunds cannot be issued. If you have any questions,
-              please contact us on WhatsApp before enrolling.
+              റീഫണ്ട് നയം: ഇത് റെക്കോർഡ് ചെയ്ത ഡിജിറ്റൽ കോഴ്സ് ആയതിനാൽ ആക്സസ്
+              നൽകിയ ശേഷം റീഫണ്ട് നൽകുന്നതല്ല. ചേരുന്നതിന് മുമ്പ് സംശയങ്ങൾ
+              WhatsApp-ൽ ചോദിക്കാം.
             </p>
           </div>
         </footer>

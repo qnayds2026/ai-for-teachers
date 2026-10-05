@@ -15,22 +15,19 @@ const steps = [
     num: "1",
     icon: CreditCard,
     title: "എൻറോൾ & പേയ്‌മെന്റ്",
-    eng: "Enroll & Pay",
-    desc: "പേരും നമ്പറും നൽകി GPay, PhonePe അല്ലെങ്കിൽ Cards വഴി സുരക്ഷിതമായി ഫീസ് അടയ്ക്കുക.",
+    desc: "പേരും ഫോൺ നമ്പറും നൽകി GPay, PhonePe അല്ലെങ്കിൽ കാർഡ് വഴി സുരക്ഷിതമായി ഫീസ് അടയ്ക്കുക.",
   },
   {
     num: "2",
     icon: MailCheck,
     title: "ലോഗിൻ ലിങ്ക് ലഭിക്കുന്നു",
-    eng: "Instant Access Link",
-    desc: "പേയ്‌മെന്റ് കഴിഞ്ഞ ഉടൻ തന്നെ Email വഴി ലോഗിൻ ലിങ്ക് തൽക്ഷണം എത്തും.",
+    desc: "പേയ്‌മെന്റ് കഴിഞ്ഞ ഉടൻ ഇമെയിൽ വഴി ലോഗിൻ ലിങ്ക് എത്തും. ഇമെയിൽ കിട്ടിയില്ലെങ്കിൽ WhatsApp-ൽ ഞങ്ങളെ അറിയിക്കൂ.",
   },
   {
     num: "3",
     icon: GraduationCap,
     title: "പഠനം ആരംഭിക്കാം!",
-    eng: "Start Learning",
-    desc: "Password നൽകി ലോഗിൻ ചെയ്ത് ഫോണിലോ ലാപ്ടോപ്പിലോ ക്ലാസുകൾ കണ്ടുതുടങ്ങാം.",
+    desc: "പാസ്‌വേഡ് നൽകി ലോഗിൻ ചെയ്ത് ഫോണിലോ ലാപ്ടോപ്പിലോ ക്ലാസുകൾ കണ്ടുതുടങ്ങാം.",
     isLast: true,
   },
 ];
@@ -43,12 +40,12 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
         <div className="simple-flow-header">
           <span className="simple-flow-tag">
             <Sparkles size={13} />
-            HOW IT WORKS
+            പഠനം തുടങ്ങാം
           </span>
           <h2>
-            Start Learning in <span>3 Simple Steps</span>
+            <span>3 ലളിതമായ ഘട്ടങ്ങളിൽ</span> പഠനം തുടങ്ങാം
           </h2>
-          <p>സങ്കീർണ്ണമായ ഒന്നുമില്ല — 1 മിനിറ്റിൽ എൻറോൾ ചെയ്യാം</p>
+          <p>സങ്കീർണ്ണമായ ഒന്നുമില്ല, 1 മിനിറ്റിൽ ചേരാം.</p>
         </div>
 
         {/* 3 Step Pipeline */}
@@ -71,7 +68,6 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
                   </div>
 
                   <div className="step-text-wrap">
-                    <span className="step-eng-sub">{step.eng}</span>
                     <h3 className="step-title">{step.title}</h3>
                     <p className="step-desc">{step.desc}</p>
                   </div>
@@ -102,7 +98,7 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
                 className="simple-enroll-btn"
                 onClick={onEnroll}
               >
-                <span>ഇപ്പോൾ Enroll ചെയ്യാം</span>
+                <span>₹1,999-ന് ഇപ്പോൾ ചേരൂ</span>
                 <ArrowRight size={15} />
               </button>
             )}
