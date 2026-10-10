@@ -118,13 +118,13 @@ const FloatingEnrollmentButton = ({
       type="button"
       className={`floating-enrollment-button ${isVisible ? "is-visible " : ""}`}
       onClick={onEnroll}
-      aria-label="₹1,999-ന് ഇപ്പോൾ ചേരൂ"
+      aria-label="Join Now for ₹1,999"
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
     >
       <div className="floating-enrollment-copy">
         <div className="floating-enrollment-main">
-          <h6>അധ്യാപകർക്കുള്ള AI കോഴ്സ്</h6>
+          <h6>AI Course for Teachers</h6>
 
           <p>
             <del>
@@ -133,17 +133,17 @@ const FloatingEnrollmentButton = ({
             <strong>
               <h6>₹1,999</h6>
             </strong>
-            <span className="text-white">ഇപ്പോൾ ചേരൂ</span>
+            <span className="text-white">Join Now</span>
           </p>
         </div>
 
         <div className="floating-enrollment-urgency">
           <span>
             <Clock size={13} />
-            പരിമിതകാല ഓഫർ
+            Limited-time Offer
           </span>
           <small>
-            ഓഫർ അവസാനിക്കാൻ: {offerHours}:{offerMinutes}:{offerSeconds}
+            Offer അവസാനിക്കാൻ: {offerHours}:{offerMinutes}:{offerSeconds}
           </small>
         </div>
       </div>
@@ -160,38 +160,38 @@ const FloatingEnrollmentButton = ({
 const modules = [
   {
     number: "01",
-    title: "ഡിജിറ്റൽ & AI അടിസ്ഥാനങ്ങൾ",
-    subtitle: "കമ്പ്യൂട്ടറും AI-യും ക്ലാസ്റൂമിൽ",
+    title: "Digital & AI Basics",
+    subtitle: "ക്ലാസ് മുറിയിൽ കമ്പ്യൂട്ടറും AI-യും",
     icon: Brain,
   },
   {
     number: "02",
-    title: "AI ടൂളുകൾ ഉപയോഗിച്ച് തുടങ്ങാം",
+    title: "AI Tools ഉപയോഗിച്ച് തുടങ്ങാം",
     subtitle: "ChatGPT, Canva, Gamma തുടക്കം",
     icon: Sparkles,
   },
   {
     number: "03",
-    title: "ടീച്ചിംഗ് മാനുവലുകളും ലെസൺ പ്ലാനുകളും തയ്യാറാക്കാം",
+    title: "Teaching മാനുവലുകളും ലെസൺ പ്ലാനുകളും Create",
     subtitle: "ഘടനാപരമായ പാഠ്യപദ്ധതി തയ്യാറാക്കൽ",
     icon: BookOpen,
   },
   {
     number: "04",
-    title: "ചോദ്യപേപ്പറുകൾ എളുപ്പത്തിൽ തയ്യാറാക്കാം",
-    subtitle: "MCQ-കളും ഉത്തരസൂചികകളും",
+    title: "Question Papers എളുപ്പത്തിൽ Create",
+    subtitle: "MCQ-കളും Answer Keyകളും",
     icon: ClipboardList,
   },
   {
     number: "05",
-    title: "പ്രസന്റേഷനുകൾ വേഗത്തിൽ ഉണ്ടാക്കാം",
-    subtitle: "സ്മാർട്ട് സ്ലൈഡുകളും വിഷ്വലുകളും",
+    title: "Presentations വേഗത്തിൽ ഉണ്ടാക്കാം",
+    subtitle: "Smart Slides Visuals",
     icon: Presentation,
   },
   {
     number: "06",
     title: "ദൈനംദിന അധ്യാപന ജോലികൾക്ക് AI",
-    subtitle: "വർക്ക്ഷീറ്റുകൾ & രക്ഷിതാക്കൾക്കുള്ള സന്ദേശങ്ങൾ",
+    subtitle: "Worksheets & രക്ഷിതാക്കൾക്കുള്ള സന്ദേശങ്ങൾ",
     icon: FileText,
   },
   {
@@ -225,59 +225,59 @@ const creations = [
 
 const faqs = [
   {
-    question: "1. ഈ കോഴ്സ് ആർക്കൊക്കെ പഠിക്കാം?",
+    question: "1. ഈ Course ആർക്കൊക്കെ Learn?",
     answer:
-      "സ്കൂൾ, കോളേജ് അധ്യാപകർ, ട്യൂഷൻ അധ്യാപകർ, ട്രെയിനർമാർ, അധ്യാപന രംഗത്ത് പ്രവർത്തിക്കുന്ന എല്ലാവർക്കും ഈ കോഴ്സ് പ്രയോജനപ്പെടും.",
+      "സ്കൂൾ, കോളേജ് അധ്യാപകർ, Tuition അധ്യാപകർ, Trainers, അധ്യാപന രംഗത്ത് പ്രവർത്തിക്കുന്ന എല്ലാവർക്കും ഈ Course പ്രയോജനപ്പെടും.",
   },
   {
-    question: "2. AI പഠിക്കാൻ കോഡിംഗ് അറിയണമോ?",
+    question: "2. AI പഠിക്കാൻ Coding അറിയണമോ?",
     answer:
-      "ഒട്ടും ആവശ്യമില്ല. സാധാരണ മലയാളത്തിൽ, തുടക്കക്കാർക്ക് പോലും എളുപ്പത്തിൽ മനസ്സിലാകുന്ന രീതിയിലാണ് ക്ലാസുകൾ.",
+      "ഒട്ടും ആവശ്യമില്ല. സാധാരണ മലയാളത്തിൽ, തുടക്കക്കാർക്ക് പോലും എളുപ്പത്തിൽ മനസ്സിലാകുന്ന രീതിയിലാണ് Classes.",
   },
   {
-    question: "3. കോഴ്സിൽ ഏതെല്ലാം ടൂളുകൾ പഠിക്കും?",
+    question: "3. in the course ഏതെല്ലാം Tools പഠിക്കും?",
     answer:
-      "ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയ പ്രമുഖ അധ്യാപക പ്രൊഡക്റ്റിവിറ്റി AI ടൂളുകൾ practical ആയി ഉപയോഗിക്കാൻ പഠിക്കും.",
+      "ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയ പ്രമുഖ Teacher Productivity AI Tools practical ആയി ഉപയോഗിക്കാൻ പഠിക്കും.",
   },
   {
     question: "4. ലാപ്‌ടോപ്പ് നിർബന്ധമാണോ, അതോ ഫോണിൽ പഠിക്കാമോ?",
     answer:
-      "അല്ല, ലാപ്ടോപ്പ് നിർബന്ധമില്ല. മൊബൈൽ ഫോൺ, ടാബ്‌ലെറ്റ്, ലാപ്ടോപ്പ് എന്നിവയിൽ ഏതിലും എളുപ്പത്തിൽ ക്ലാസുകൾ കാണാം.",
+      "അല്ല, Laptop നിർബന്ധമില്ല. Mobile Phone, Tablet, Laptop and moreയിൽ ഏതിലും എളുപ്പത്തിൽ Classes കാണാം.",
   },
   {
-    question: "5. കോഴ്സിൽ എന്തെല്ലാം ലഭിക്കും?",
+    question: "5. in the course എന്തെല്ലാം you will get?",
     answer:
-      "7 പ്രാക്ടിക്കൽ മൊഡ്യൂളുകൾ, ലെസൺ പ്ലാൻ & ചോദ്യപേപ്പർ മാതൃകകൾ, ലൈഫ് ടൈം ആക്സസ്, കോഴ്സ് സർട്ടിഫിക്കറ്റ്, സംശയങ്ങൾക്ക് WhatsApp സപ്പോർട്ട് എന്നിവ ലഭിക്കും.",
+      "7 Practical Modules, Lesson Plan & Question Paper മാതൃകകൾ, Lifetime Access, Course Certificate, സംശയങ്ങൾക്ക് WhatsApp Support and more you will get.",
   },
   {
-    question: "ക്ലാസുകൾ ലൈവ് ആണോ, റെക്കോർഡ് ചെയ്തതാണോ?",
+    question: "Classes ലൈവ് ആണോ, Recordedതാണോ?",
     answer:
-      "റെക്കോർഡ് ചെയ്ത ഹൈ-ക്വാളിറ്റി ക്ലാസുകളാണ്. നിങ്ങളുടെ സൗകര്യപ്രദമായ ഏത് സമയത്തും സ്വന്തം വേഗതയിൽ ഫോണിലോ ലാപ്ടോപ്പിലോ കണ്ടുപഠിക്കാം.",
+      "Recorded ഹൈ-ക്വാളിറ്റി ക്ലാസുകളാണ്. Your സൗകര്യപ്രദമായ ഏത് സമയത്തും സ്വന്തം വേഗതയിൽ ഫോണിലോ ലാപ്ടോപ്പിലോ കണ്ടുLearn.",
   },
   {
-    question: "കോഴ്സ് എത്ര മണിക്കൂർ ഉണ്ട്?",
+    question: "Course എത്ര hours ഉണ്ട്?",
     answer:
-      "ആകെ 6+ മണിക്കൂർ ദൈർഘ്യമുള്ള സമഗ്രവും പ്രായോഗികവുമായ ക്ലാസുകളാണ് കോഴ്സിലുള്ളത്.",
+      "6+ hours in total ദൈർഘ്യമുള്ള സമഗ്രവും Practicalവുമായ ക്ലാസുകളാണ് കോഴ്സിലുള്ളത്.",
   },
   {
-    question: "ആക്സസ് എത്ര കാലം ലഭിക്കും?",
+    question: "Access എത്ര കാലം you will get?",
     answer:
-      "ലൈഫ് ടൈം ആക്സസ് (Life-time Access) ലഭ്യമാണ്. ഭാവിയിലും ക്ലാസുകൾ എപ്പോൾ വേണമെങ്കിലും വീണ്ടും കാണാവുന്നതാണ്.",
+      "Lifetime Access (Life-time Access) ലഭ്യമാണ്. ഭാവിയിലും Classes എപ്പോൾ വേണമെങ്കിലും വീണ്ടും കാണാവുന്നതാണ്.",
   },
   {
-    question: "സർട്ടിഫിക്കറ്റ് ലഭിക്കുമോ?",
+    question: "Certificate ലഭിക്കുമോ?",
     answer:
-      "അതെ, കോഴ്സ് വിജയകരമായി പൂർത്തിയാക്കുമ്പോൾ QNAYDS അക്കാദമിയുടെ വെരിഫൈഡ് കോഴ്സ് സർട്ടിഫിക്കറ്റ് ലഭിക്കും.",
+      "അതെ, Course വിജയകരമായി പൂർത്തിയാക്കുമ്പോൾ QNAYDS Academyയുടെ Verified Course Certificate you will get.",
   },
   {
-    question: "AI ടൂളുകൾ സൗജന്യമാണോ?",
+    question: "AI Are these tools free?",
     answer:
-      "അതെ, ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയവയുടെ സൗജന്യ (Free) വേർഷനുകൾ തന്നെയാണ് പഠിപ്പിക്കുന്നത്. അധിക ചിലവുകളൊന്നും വരുന്നില്ല.",
+      "അതെ, ChatGPT, Canva, Gamma, Google Tools തുടങ്ങിയവയുടെ Free (Free) വേർഷനുകൾ തന്നെയാണ് പഠിപ്പിക്കുന്നത്. അധിക ചിലവുകളൊന്നും വരുന്നില്ല.",
   },
   {
-    question: "റീഫണ്ട് ലഭിക്കുമോ?",
+    question: "Refund ലഭിക്കുമോ?",
     answer:
-      "ഇത് ഇൻസ്റ്റന്റ് ആക്സസ് ലഭിക്കുന്ന ഡിജിറ്റൽ റെക്കോർഡ് കോഴ്സ് ആയതിനാൽ ആക്സസ് നൽകിയ ശേഷം റീഫണ്ട് നൽകുന്നതല്ല. ചേരുന്നതിന് മുമ്പ് എന്തെങ്കിലും സംശയങ്ങൾ ഉണ്ടെങ്കിൽ WhatsApp വഴി ചോദിക്കാവുന്നതാണ്.",
+      "ഇത് Instant Access ലഭിക്കുന്ന Digital Recorded Course ആയതിനാൽ Access നൽകിയ ശേഷം Refund നൽകുന്നതല്ല. Before enrolling, എന്തെങ്കിലും സംശയങ്ങൾ ഉണ്ടെങ്കിൽ WhatsApp വഴി ചോദിക്കാവുന്നതാണ്.",
   },
 ];
 
@@ -1854,9 +1854,9 @@ function App() {
 
             <div className="hero-slim-banner" aria-live="polite">
               <Clock size={15} />
-              <span>പരിമിതകാല ഓഫർ</span>
+              <span>Limited-time Offer</span>
               <span className="banner-dot">•</span>
-              <span>ഓഫർ അവസാനിക്കാൻ ബാക്കി:</span>
+              <span>Time left for this offer:</span>
               <strong className="banner-timer">
                 {offerHours}:{offerMinutes}:{offerSeconds}
               </strong>
@@ -1875,7 +1875,7 @@ function App() {
             <p className="hero-description">
               ലെസൺ പ്ലാൻ മുതൽ ചോദ്യപേപ്പർ വരെ —{" "}
               <strong>
-                AI ഉപയോഗിച്ച് നിങ്ങളുടെ അധ്യാപന ഒരുക്കം എളുപ്പമാക്കാൻ പഠിക്കാം.
+                AI ഉപയോഗിച്ച് Your അധ്യാപന ഒരുക്കം എളുപ്പമാക്കാൻ Learn.
               </strong>
             </p>
 
@@ -1885,35 +1885,35 @@ function App() {
                 className="hero-main-button"
                 onClick={openEnrollment}
               >
-                <span>₹1,999-ന് ഇപ്പോൾ ചേരൂ</span>
+                <span>Join Now for ₹1,999</span>
                 <ArrowRight size={18} />
               </button>
 
               <div className="hero-facts-line">
-                <span>റെക്കോർഡ് ചെയ്ത ക്ലാസുകൾ</span>
+                <span>Recorded Classes</span>
                 <span className="facts-dot">•</span>
-                <span>6+ മണിക്കൂർ</span>
+                <span>6+ Hours</span>
                 <span className="facts-dot">•</span>
-                <span>ലൈഫ് ടൈം ആക്സസ്</span>
+                <span>Lifetime Access</span>
                 <span className="facts-dot">•</span>
-                <span>സർട്ടിഫിക്കറ്റ്</span>
+                <span>Certificate</span>
               </div>
             </div>
 
             <div className="hero-stats">
               <div>
                 <strong>07</strong>
-                <span>മൊഡ്യൂളുകൾ</span>
+                <span>Modules</span>
               </div>
 
               <div>
                 <strong>AI</strong>
-                <span>പ്രായോഗിക പരിശീലനം</span>
+                <span>Practical Training</span>
               </div>
 
               <div>
                 <strong>100%</strong>
-                <span>അധ്യാപകർക്കായി മാത്രം</span>
+                <span>Designed for Teachers</span>
               </div>
             </div>
           </div>
@@ -1926,14 +1926,14 @@ function App() {
         <section className="section video-section video-section-tight">
           <div className="container narrow">
             <div className="section-heading">
-              <span className="section-tag">വീഡിയോ കാണൂ</span>
+              <span className="section-tag">Watch the Video</span>
 
               <h2>
-                ചേരുന്നതിന് മുമ്പ് <span>ഈ വീഡിയോ കാണൂ</span>
+                Before enrolling, <span>watch this video</span>
               </h2>
 
               <p>
-                ഈ കോഴ്സ് നിങ്ങൾക്ക് എങ്ങനെ ഉപകാരപ്പെടും? ചേരുന്നതിന് മുമ്പ്
+                ഈ Course you can How ഉപകാരപ്പെടും? ചേരുന്നതിന് മുമ്പ്
                 കോഴ്സിനെക്കുറിച്ച് ഒരു ചെറിയ പരിചയം കാണാം.
               </p>
             </div>
@@ -1953,7 +1953,7 @@ function App() {
             <div className="video-presenter-badge">
               <Users size={16} />
               <span>
-                വീഡിയോ അവതാരകൻ: <strong>മുഹമ്മദ് നിഷാദ്</strong> (AI ഇൻസ്ട്രക്ടർ & എഡ്ടെക് ട്രെയിനർ)
+                Presented by: <strong>Muhammad Nishad</strong> (AI Instructor & EdTech Trainer)
               </span>
             </div>
           </div>
@@ -1964,9 +1964,9 @@ function App() {
         ================================================= */}
 
         <div className="hero-offer-box" id="pricing">
-          <div className="save-badge">₹3,001 ലാഭം</div>
+          <div className="save-badge">Save ₹3,001</div>
 
-          <span className="hero-offer-label">കോഴ്സ് ഫീസ് (പരിമിതകാല ഓഫർ)</span>
+          <span className="hero-offer-label">Course Fee (Limited-time Offer)</span>
 
           <div className="hero-offer-price">
             <del style={{ fontSize: "28px", fontWeight: "700" }}>₹5,000</del>
@@ -1977,37 +1977,37 @@ function App() {
           </div>
 
           <span className="hero-offer-note">
-            ഒറ്റത്തവണ പേയ്മെന്റ് • ₹3,001 ലാഭം
+            ഒറ്റത്തവണ Payment • Save ₹3,001
           </span>
 
           <div className="price-card-includes">
             <div className="price-card-includes-title">
               <Sparkles size={16} style={{ color: "var(--blue)" }} />
-              <span>ഈ കോഴ്സിൽ നിങ്ങൾക്ക് കിട്ടുന്നത്:</span>
+              <span>What you get in this course:</span>
             </div>
             <ul className="price-card-includes-list">
               <li>
                 <Check size={16} />
                 <span>
-                  <strong>7 മൊഡ്യൂളുകൾ:</strong> AI അടിസ്ഥാനങ്ങൾ മുതൽ സുരക്ഷിത AI ഉപയോഗം വരെ
+                  <strong>7 Modules:</strong> From AI Basics to Safe AI Usage
                 </span>
               </li>
               <li>
                 <Check size={16} />
                 <span>
-                  <strong>പ്രായോഗിക നിർമ്മിതികൾ:</strong> ലെസൺ പ്ലാൻ, ചോദ്യപേപ്പർ, വർക്ക്ഷീറ്റ്, പ്രസന്റേഷൻ എന്നിവ തയ്യാറാക്കാൻ പഠിക്കാം
+                  <strong>Practical Outputs:</strong> Lesson Plan, Question Paper, Worksheet, Learn to create presentations, worksheets, lesson plans, and question papers
                 </span>
               </li>
               <li>
                 <Check size={16} />
                 <span>
-                  <strong>ക്ലാസ് രീതി:</strong> റെക്കോർഡ് ചെയ്ത ക്ലാസുകൾ • ആകെ 6+ മണിക്കൂർ • ലൈഫ് ടൈം ആക്സസ്
+                  <strong>Class Format:</strong> Recorded Classes • 6+ hours in total • Lifetime Access
                 </span>
               </li>
               <li>
                 <Check size={16} />
                 <span>
-                  <strong>സർട്ടിഫിക്കറ്റും സപ്പോർട്ടും:</strong> കോഴ്സ് സർട്ടിഫിക്കറ്റ് • WhatsApp സപ്പോർട്ട്
+                  <strong>Certificate and Support:</strong> Course Certificate • WhatsApp Support
                 </span>
               </li>
             </ul>
@@ -2019,7 +2019,7 @@ function App() {
               className="primary-button"
               onClick={openEnrollment}
             >
-              <span>₹1,999-ന് ഇപ്പോൾ ചേരൂ</span>
+              <span>Join Now for ₹1,999</span>
               <ArrowRight size={18} />
             </button>
 
@@ -2028,7 +2028,7 @@ function App() {
               className="secondary-button"
               onClick={scrollToSyllabus}
             >
-              സിലബസ് കാണാം
+              <span>Syllabus</span>
             </button>
           </div>
 
@@ -2040,17 +2040,17 @@ function App() {
 
             <span>
               <Check size={17} />
-              പ്രായോഗിക പഠനം
+              Practical പഠനം
             </span>
 
             <span>
               <Check size={17} />
-              സുരക്ഷിത പേയ്മെന്റ്
+              Secure Payment
             </span>
           </div>
 
           <div className="price-card-refund">
-            <strong>റീഫണ്ട് നയം:</strong> ഇത് റെക്കോർഡ് ചെയ്ത ഡിജിറ്റൽ കോഴ്സ് ആയതിനാൽ ആക്സസ് നൽകിയ ശേഷം റീഫണ്ട് നൽകുന്നതല്ല. ചേരുന്നതിന് മുമ്പ് സംശയങ്ങൾ{" "}
+            <strong>Refund Policy:</strong> As this is a recorded digital course, refunds are not available after access is granted. Please clarify any questions before enrolling.{" "}
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
               WhatsApp-ൽ ചോദിക്കാം
             </a>
@@ -2064,7 +2064,7 @@ function App() {
 
         <section className="section intro-section">
           <div className="container narrow">
-            <span className="section-tag">സമയം ലാഭിക്കാം</span>
+            <span className="section-tag">Save Time</span>
 
             <h2>
               അധ്യാപകരുടെ സമയം
@@ -2072,8 +2072,8 @@ function App() {
             </h2>
 
             <p className="section-description">
-              ലെസൺ പ്ലാൻ തയ്യാറാക്കുന്നത് മുതൽ ചോദ്യപേപ്പർ, വർക്ക്ഷീറ്റ്,
-              പ്രസന്റേഷൻ, നോട്ടീസ്, രക്ഷിതാക്കൾക്കുള്ള സന്ദേശം വരെ അധ്യാപകർ
+              Lesson Plan തയ്യാറാക്കുന്നത് from Question Paper, Worksheet,
+              Presentation, നോട്ടീസ്, Messages for Parents to അധ്യാപകർ
               ദിവസവും ആവർത്തിച്ചുള്ള ഒട്ടേറെ ജോലികൾ ചെയ്യുന്നു.
             </p>
 
@@ -2081,7 +2081,7 @@ function App() {
               <div className="info-card">
                 <Clock size={28} />
 
-                <h3>1. സമയം ലാഭിക്കാം</h3>
+                <h3>1. Save Time</h3>
 
                 <p>
                   ആവർത്തിച്ച് ചെയ്യേണ്ട അധ്യാപന ജോലികൾ വേഗത്തിൽ പൂർത്തിയാക്കാം.
@@ -2091,20 +2091,20 @@ function App() {
               <div className="info-card">
                 <Sparkles size={28} />
 
-                <h3>2. സ്മാർട്ടായി തയ്യാറാക്കാം</h3>
+                <h3>2. Create Smarter</h3>
 
                 <p>
-                  AI ഉപയോഗിച്ച് അധ്യാപന സാമഗ്രികൾ കൂടുതൽ വേഗത്തിൽ തയ്യാറാക്കാം.
+                  AI ഉപയോഗിച്ച് അധ്യാപന സാമഗ്രികൾ More വേഗത്തിൽ Create.
                 </p>
               </div>
 
               <div className="info-card">
                 <Users size={28} />
 
-                <h3>3. നിയന്ത്രണം അധ്യാപകന്റെ കയ്യിൽ</h3>
+                <h3>3. Teachers Stay in Control</h3>
 
                 <p>
-                  AI സഹായിക്കും. അവസാന തീരുമാനം എപ്പോഴും അധ്യാപകന്റേതായിരിക്കും.
+                  AI Assistantക്കും. അവസാന തീരുമാനം എപ്പോഴും അധ്യാപകന്റേതായിരിക്കും.
                 </p>
               </div>
             </div>
@@ -2118,7 +2118,7 @@ function App() {
         <section className="section usecase-section">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">പ്രായോഗിക നിർമ്മിതികൾ</span>
+              <span className="section-tag">Practical Outputs</span>
 
               <h2>
                 AI ഉപയോഗിച്ച്
@@ -2126,7 +2126,7 @@ function App() {
               </h2>
 
               <p>
-                നിങ്ങളുടെ ദൈനംദിന അധ്യാപന ജോലി കൂടുതൽ എളുപ്പമാക്കാം.
+                Your ദൈനംദിന അധ്യാപന ജോലി More എളുപ്പമാക്കാം.
               </p>
             </div>
 
@@ -2134,57 +2134,57 @@ function App() {
               <div className="usecase-card">
                 <span>01</span>
 
-                <h3>ലെസൺ പ്ലാൻ</h3>
+                <h3>Lesson Plan</h3>
 
                 <p>
-                  ഒരു വിഷയം നൽകി ഘടനയുള്ള ലെസൺ പ്ലാൻ തയ്യാറാക്കാം.
+                  ഒരു വിഷയം നൽകി ഘടനയുള്ള Lesson Plan Create.
                 </p>
               </div>
 
               <div className="usecase-card">
                 <span>02</span>
 
-                <h3>ചോദ്യപേപ്പർ</h3>
+                <h3>Question Paper</h3>
 
                 <p>
-                  MCQ, വിവരണാത്മക ചോദ്യങ്ങൾ, ഉത്തരസൂചിക എന്നിവ തയ്യാറാക്കാം.
+                  MCQ, Descriptive ചോദ്യങ്ങൾ, Answer Key and more Create.
                 </p>
               </div>
 
               <div className="usecase-card">
                 <span>03</span>
 
-                <h3>വർക്ക്ഷീറ്റ്</h3>
+                <h3>Worksheet</h3>
 
                 <p>
-                  വ്യത്യസ്ത നിലവാരത്തിലുള്ള വർക്ക്ഷീറ്റുകൾ ഉണ്ടാക്കാം.
+                  വ്യത്യസ്ത നിലവാരത്തിലുള്ള Worksheets ഉണ്ടാക്കാം.
                 </p>
               </div>
 
               <div className="usecase-card">
                 <span>04</span>
 
-                <h3>രക്ഷിതാക്കൾക്കുള്ള സന്ദേശം</h3>
+                <h3>Messages for Parents</h3>
 
                 <p>
-                  മാന്യമായ ഔദ്യോഗിക സന്ദേശങ്ങൾ വേഗത്തിൽ തയ്യാറാക്കാം.
+                  മാന്യമായ ഔദ്യോഗിക സന്ദേശങ്ങൾ വേഗത്തിൽ Create.
                 </p>
               </div>
 
               <div className="usecase-card">
                 <span>05</span>
 
-                <h3>പ്രസന്റേഷൻ</h3>
+                <h3>Presentation</h3>
 
                 <p>
-                  ക്ലാസ്സിൽ ഉപയോഗിക്കാവുന്ന ആകർഷകമായ സ്ലൈഡുകൾ വേഗത്തിൽ തയ്യാറാക്കാം.
+                  Classസിൽ ഉപയോഗിക്കാവുന്ന ആകർഷകമായ Slides വേഗത്തിൽ Create.
                 </p>
               </div>
 
               <div className="usecase-card">
                 <span>06</span>
 
-                <h3>ആശയം ലളിതമാക്കാം</h3>
+                <h3>Simplify Complex Concepts</h3>
 
                 <p>
                   ബുദ്ധിമുട്ടുള്ള ആശയങ്ങൾ വിദ്യാർത്ഥികൾക്ക് മനസ്സിലാകുന്ന രീതിയിൽ വിശദീകരിക്കാം.
@@ -2194,16 +2194,16 @@ function App() {
 
             <div className="creation-extra-chips">
               <span className="creation-chip">
-                <Check size={14} /> ടീച്ചിംഗ് മാനുവലുകൾ
+                <Check size={14} /> Teaching Manuals
               </span>
               <span className="creation-chip">
-                <Check size={14} /> MCQ & ക്വിസുകൾ
+                <Check size={14} /> MCQ & Quizzes
               </span>
               <span className="creation-chip">
                 <Check size={14} /> ലേണിംഗ് ഔട്ട്കംസ്
               </span>
               <span className="creation-chip">
-                <Check size={14} /> പഠന സാമഗ്രികൾ
+                <Check size={14} /> Study Materials
               </span>
               <span className="creation-chip">
                 <Check size={14} /> രക്ഷിതാക്കളുമായുള്ള ആശയവിനിമയം
@@ -2215,10 +2215,10 @@ function App() {
               <div className="ai-sample-header">
                 <div className="ai-sample-badge">
                   <Sparkles size={15} />
-                  <span>യഥാർത്ഥ AI മാതൃക (Live AI Samples)</span>
+                  <span>Real AI Examples (Live AI Samples)</span>
                 </div>
-                <h3>AI ഉപയോഗിച്ച് അധ്യാപകർ തയ്യാറാക്കിയ സാമ്പിളുകൾ കാണാം</h3>
-                <p>നിങ്ങൾ കോഴ്സ് പൂർത്തിയാക്കുമ്പോൾ ഇത്തരത്തിലുള്ള സാമഗ്രികൾ ഏതാനും നിമിഷങ്ങൾക്കുള്ളിൽ തയ്യാറാക്കാം</p>
+                <h3>Explore samples created by teachers using AI</h3>
+                <p>By the end of this course, you will be able to create similar materials in minutes.</p>
 
                 <div className="ai-sample-tabs">
                   <button
@@ -2226,14 +2226,14 @@ function App() {
                     className={`ai-sample-tab ${activeSample === 'lesson' ? 'active' : ''}`}
                     onClick={() => setActiveSample('lesson')}
                   >
-                    📝 ലെസൺ പ്ലാൻ മാതൃക (Lesson Plan)
+                    📝 Lesson Plan മാതൃക (Lesson Plan)
                   </button>
                   <button
                     type="button"
                     className={`ai-sample-tab ${activeSample === 'question' ? 'active' : ''}`}
                     onClick={() => setActiveSample('question')}
                   >
-                    📋 ചോദ്യപേപ്പർ & ഉത്തരസൂചിക (Question Paper)
+                    📋 Question Paper & Answer Key (Question Paper)
                   </button>
                 </div>
               </div>
@@ -2241,57 +2241,57 @@ function App() {
               {activeSample === 'lesson' ? (
                 <div className="ai-sample-content">
                   <div className="ai-sample-meta">
-                    <span><strong>വിഷയം:</strong> ജീവശാസ്ത്രം (Biology - Class 10)</span>
-                    <span><strong>പാഠം:</strong> പാരമ്പര്യവും പരിണാമവും (Genetics)</span>
-                    <span><strong>സമയം:</strong> 45 മിനിറ്റ്</span>
+                    <span><strong>Subject:</strong> Biology (Class 10)</span>
+                    <span><strong>Lesson:</strong> Heredity and Evolution (Genetics)</span>
+                    <span><strong>Duration:</strong> 45 minutes</span>
                   </div>
                   <div className="ai-sample-body">
-                    <h4>🎯 പഠന ലക്ഷ്യങ്ങൾ (Learning Objectives):</h4>
+                    <h4>🎯 Learning Objectives:</h4>
                     <ul>
-                      <li>DNA യുടെ ഘടനയും സ്വഭാവ സവിശേഷതകളും തിരിച്ചറിയുക.</li>
-                      <li>മാതാപിതാക്കളിൽ നിന്ന് മക്കളിലേക്ക് ഗുണങ്ങൾ കൈമാറ്റം ചെയ്യപ്പെടുന്ന രീതി വിശകലനം ചെയ്യുക.</li>
+                      <li>Identify the structure of DNA and its characteristics.</li>
+                      <li>Analyze how traits are passed from parents to children.</li>
                     </ul>
 
-                    <h4>⏱️ ക്ലാസ്സ്റൂം ഘട്ടങ്ങൾ (Classroom Workflow):</h4>
+                    <h4>⏱️ Classroom Workflow:</h4>
                     <div className="ai-sample-step">
-                      <strong>01. ആമുഖം (5 മിനിറ്റ്):</strong> ദൈനംദിന ജീവിതത്തിലെ സാദൃശ്യങ്ങളെക്കുറിച്ചുള്ള ചോദ്യങ്ങളിലൂടെ താല്പര്യം ഉണർത്തൽ.
+                      <strong>01. Introduction (5 minutes):</strong> Engage students with questions about similarities in everyday life.
                     </div>
                     <div className="ai-sample-step">
-                      <strong>02. ആശയാവതരണം (20 മിനിറ്റ്):</strong> AI നിർമ്മിച്ച ഡിജിറ്റൽ ചാർട്ടുകൾ ഉപയോഗിച്ച് ജീനുകളുടെ പ്രവർത്തനം വിശദീകരിക്കൽ.
+                      <strong>02. Concept Explanation (20 minutes):</strong> Explain gene activity using AI-generated digital charts.
                     </div>
                     <div className="ai-sample-step">
-                      <strong>03. ഗ്രൂപ്പ് പ്രവർത്തനം (10 മിനിറ്റ്):</strong> വിദ്യാർത്ഥികൾ സ്വന്തം കുടുംബ ഗുണങ്ങളുടെ ലളിതമായ ഫാമിലി ട്രീ ചാർട്ട് തയ്യാറാക്കൽ.
+                      <strong>03. Group Activity (10 minutes):</strong> Students create a simple family-tree chart of inherited traits.
                     </div>
                     <div className="ai-sample-step">
-                      <strong>04. മൂല്യനിർണ്ണയം & ഉപസംഹാരം (10 മിനിറ്റ്):</strong> 3 ദ്രുത ചോദ്യങ്ങൾ വഴി ആശയം ഉറപ്പിക്കൽ.
+                      <strong>04. Assessment & Conclusion (10 minutes):</strong> Reinforce understanding with three quick questions.
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className="ai-sample-content">
                   <div className="ai-sample-meta">
-                    <span><strong>പരീക്ഷ:</strong> യൂണിറ്റ് ടെസ്റ്റ് - ഭൗതികശാസ്ത്രം (Physics - Class 9)</span>
-                    <span><strong>പാഠം:</strong> ചലനവും ബലവും (Motion & Laws of Motion)</span>
-                    <span><strong>ആകെ മാർക്ക്:</strong> 20</span>
+                    <span><strong>Exam:</strong> Unit Test - Physics (Class 9)</span>
+                    <span><strong>Lesson:</strong> Motion and Laws of Motion</span>
+                    <span><strong>Total Marks:</strong> 20</span>
                   </div>
                   <div className="ai-sample-body">
-                    <h4>വിഭാഗം A: ശരിയുത്തരം തിരഞ്ഞെടുക്കുക (1 മാർക്ക് വീതം)</h4>
+                    <h4>Section A: Choose the Correct Answer (1 mark each)</h4>
                     <p style={{ margin: "6px 0", color: "#203b59" }}>
-                      <strong>ചോദ്യം 1:</strong> താഴെ പറയുന്നവയിൽ സദിശ അളവ് (Vector Quantity) ഏതാണ്?<br />
+                      <strong>Question 1:</strong> Which of the following is a vector quantity?<br />
                       (A) വേഗത &nbsp;&nbsp;(B) പ്രവേഗം &nbsp;&nbsp;(C) ദൂരം &nbsp;&nbsp;(D) സമയം
-                      <span className="sample-answer">✓ ഉത്തരം: (B) പ്രവേഗം</span>
+                      <span className="sample-answer">✓ Answer: (B) Velocity</span>
                     </p>
 
-                    <h4>വിഭാഗം B: ഹ്രസ്വ ഉത്തര ചോദ്യങ്ങൾ (2 മാർക്ക് വീതം)</h4>
+                    <h4>Section B: Short Answer Questions (2 marks each)</h4>
                     <p style={{ margin: "6px 0", color: "#203b59" }}>
-                      <strong>ചോദ്യം 2:</strong> ന്യൂട്ടന്റെ രണ്ടാം ചലനനിയമം പ്രസ്താവിച്ച് സമവാക്യം എഴുതുക.
-                      <span className="sample-answer">✓ ഉത്തരം: ഒരു വസ്തുവിന്റെ സംവേഗ വ്യതിയാന നിരക്ക് അതിന്മേൽ പ്രയോഗിക്കുന്ന അസന്തുലിത ബാഹ്യബലത്തിന് നേർ അനുപാതത്തിലായിരിക്കും (F = ma).</span>
+                      <strong>Question 2:</strong> State Newton’s second law of motion and write its equation.
+                      <span className="sample-answer">✓ Answer: The rate of change of momentum is directly proportional to the net external force applied (F = ma).</span>
                     </p>
 
-                    <h4>വിഭാഗം C: കണക്കുകൂട്ടൽ & വിശദീകരണം (4 മാർക്ക്)</h4>
+                    <h4>Section C: Calculation & Explanation (4 marks)</h4>
                     <p style={{ margin: "6px 0", color: "#203b59" }}>
-                      <strong>ചോദ്യം 3:</strong> 1000 kg പിണ്ഡമുള്ള ഒരു വാഹനം 20 m/s വേഗതയിൽ സഞ്ചരിക്കുന്നു. 5 സെക്കൻഡിനുള്ളിൽ വാഹനം നിശ്ചലാവസ്ഥയിലെത്താൻ ആവശ്യമായ ബലം കണക്കാക്കുക.
-                      <span className="sample-answer">✓ ഉത്തരസൂചിക: u = 20 m/s, v = 0, t = 5 s → a = (0 - 20) / 5 = -4 m/s² → F = m × a = 1000 × (-4) = -4000 N (മന്ദീകരണ ബലം).</span>
+                      <strong>Question 3:</strong> A vehicle of mass 1000 kg travels at 20 m/s. Calculate the force required to bring it to rest in 5 seconds.
+                      <span className="sample-answer">✓ Answer Key: u = 20 m/s, v = 0, t = 5 s → a = (0 - 20) / 5 = -4 m/s² → F = m × a = -4000 N (decelerating force).</span>
                     </p>
                   </div>
                 </div>
@@ -2307,15 +2307,14 @@ function App() {
         <section className="section reviews-section" id="reviews">
           <div className="container">
             <div className="section-heading">
-              <div className="section-tag">അധ്യാപകരുടെ അഭിപ്രായങ്ങൾ</div>
+              <div className="section-tag">Teacher Reviews</div>
 
               <h2>
                 അധ്യാപകർ <span>പറയുന്നു...</span>
               </h2>
 
               <p>
-                AI പഠിച്ച ശേഷം അധ്യാപനം എളുപ്പമായതിനെക്കുറിച്ച് ഞങ്ങളുടെ
-                പഠിതാക്കൾ പറയുന്നത്.
+                Hear from our learners about how AI has made teaching easier.
               </p>
             </div>
 
@@ -2325,8 +2324,8 @@ function App() {
                 <div className="review-stars">★★★★★</div>
 
                 <p className="review-text">
-                  “Lesson Plan തയ്യാറാക്കാൻ എടുക്കുന്ന സമയം വളരെ കുറച്ചു. AI
-                  tools എങ്ങനെ practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course വഴി
+                  “Lesson Plan to create എടുക്കുന്ന സമയം വളരെ കുറച്ചു. AI
+                  tools How practical ആയി ഉപയോഗിക്കാം എന്ന് ഈ course വഴി
                   മനസ്സിലായി.”
                 </p>
 
@@ -2345,9 +2344,9 @@ function App() {
                 <div className="review-stars">★★★★★</div>
 
                 <p className="review-text">
-                  “Question papers, worksheets, presentations എന്നിവ
-                  തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ എളുപ്പമായി. തുടക്കക്കാർക്കും
-                  മനസ്സിലാകുന്ന ലളിതമായ ശൈലിയിലാണ് ക്ലാസുകൾ.”
+                  “Question papers, worksheets, presentations and more
+                  തയ്യാറാക്കുന്നത് ഇപ്പോൾ വളരെ easierി. തുടക്കക്കാർക്കും
+                  മനസ്സിലാകുന്ന ലളിതമായ ശൈലിയിലാണ് Classes.”
                 </p>
 
                 <div className="review-user">
@@ -2365,8 +2364,8 @@ function App() {
                 <div className="review-stars">★★★★★</div>
 
                 <p className="review-text">
-                  “AI-യെക്കുറിച്ച് കേട്ടിട്ടുണ്ടെങ്കിലും ക്ലാസ്റൂമിൽ എങ്ങനെ
-                  ഉപയോഗിക്കണം എന്ന് അറിയില്ലായിരുന്നു. കോഴ്സിന് ശേഷം വലിയ
+                  “AI-യെക്കുറിച്ച് കേട്ടിട്ടുണ്ടെങ്കിലും in the classroom How
+                  ഉപയോഗിക്കണം എന്ന് അറിയില്ലായിരുന്നു. for the course ശേഷം വലിയ
                   ആത്മവിശ്വാസം കിട്ടി.”
                 </p>
 
@@ -2405,7 +2404,7 @@ function App() {
                 <div className="review-stars">★★★★★</div>
 
                 <p className="review-text">
-                  “Teaching-നൊപ്പം technology എങ്ങനെ smart ആയി use ചെയ്യാം
+                  “Teaching-നൊപ്പം technology How smart ആയി use can do
                   എന്നത് വളരെ simple ആയി explain ചെയ്തിട്ടുണ്ട്. Especially the
                   practical sessions were useful.”
                 </p>
@@ -2427,7 +2426,7 @@ function App() {
                 <p className="review-text">
                   “AI tools പഠിക്കണമെന്ന് ആഗ്രഹിച്ചിരുന്നെങ്കിലും എവിടെ തുടങ്ങണം
                   എന്ന് അറിയില്ലായിരുന്നു. അധ്യാപകർക്കായി മലയാളത്തിൽ ഇങ്ങനെയൊരു
-                  കോഴ്സ് ലഭിച്ചത് വളരെ ഉപകാരമായി.”
+                  Course ലഭിച്ചത് വളരെ ഉപകാരമായി.”
                 </p>
 
                 <div className="review-user">
@@ -2444,7 +2443,7 @@ function App() {
             {/* Review CTA */}
             <div className="section-cta-row">
               <button className="section-join-button" onClick={openEnrollment}>
-                ₹1,999-ന് ഇപ്പോൾ ചേരൂ
+                Join Now for ₹1,999
               </button>
             </div>
           </div>
@@ -2457,16 +2456,16 @@ function App() {
         <section className="section mentor-section">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">നിങ്ങളുടെ മെന്റർ</span>
+              <span className="section-tag">Your Mentor</span>
 
               <h2>
-                പ്രായോഗിക പരിചയം.
-                <span> അധ്യാപകർക്കായുള്ള മാർഗനിർദേശം.</span>
+                Practical പരിചയം.
+                <span> Guidance for Teachers.</span>
               </h2>
 
               <p>
-                AI ടൂളുകൾ പഠിപ്പിക്കുന്നതിൽ മാത്രമല്ല, അവയെ യഥാർത്ഥ അധ്യാപന
-                ജോലിയിൽ എങ്ങനെ ഉപയോഗിക്കാം എന്നതിലാണ് മെന്ററുടെ ശ്രദ്ധ.
+                AI Tools പഠിപ്പിക്കുന്നതിൽ മാത്രമല്ല, അവയെ യഥാർത്ഥ അധ്യാപന
+                ജോലിയിൽ How ഉപയോഗിക്കാം എന്നതിലാണ് മെന്ററുടെ ശ്രദ്ധ.
               </p>
             </div>
 
@@ -2474,22 +2473,22 @@ function App() {
               <aside className="mentor-intro">
                 <img
                   src={mentorImage}
-                  alt="മുഹമ്മദ് നിഷാദ് - AI for Teachers mentor"
+                  alt="Muhammad Nishad - AI for Teachers mentor"
                   className="mentor-image"
                 />
 
                 <div className="mentor-info">
-                  <h3>മുഹമ്മദ് നിഷാദ്</h3>
+                  <h3>Muhammad Nishad</h3>
 
                   <span className="mentor-role">
-                    AI ഇന്റഗ്രേഷൻ ലീഡ് & പ്രോഗ്രാം കോർഡിനേറ്റർ
+                    AI Integration Lead & Program Coordinator
                   </span>
 
                   <div className="mentor-credential">
                     <Award size={16} />
 
                     <span>
-                      <strong>പ്രോംപ്റ്റ് എൻജിനീയറിങ്ങിൽ സർട്ടിഫൈഡ്</strong> (Dubai Future Foundation)
+                      <strong>Prompt Engineering Certified</strong> (Dubai Future Foundation)
                     </span>
                   </div>
                 </div>
@@ -2499,27 +2498,27 @@ function App() {
                 <div className="mentor-highlights">
                   <div className="mentor-highlight">
                     <Award size={23} />
-                    <strong>AI & എഡ്‌ടെക് വിദഗ്ധൻ</strong>
+                    <strong>AI & EdTech Expert</strong>
                   </div>
 
                   <div className="mentor-highlight">
                     <BriefcaseBusiness size={23} />
-                    <strong>AI ഇന്റഗ്രേഷൻ ലീഡ്</strong>
+                    <strong>AI Integration Lead</strong>
                   </div>
 
                   <div className="mentor-highlight">
                     <Users size={23} />
-                    <strong>AI ഇന്റഗ്രേഷനും പ്രോംപ്റ്റ് എൻജിനീയറിങ്ങും</strong>
+                    <strong>AI Integration and Prompt Engineering</strong>
                   </div>
 
                   <div className="mentor-highlight">
                     <Clock size={23} />
-                    <strong>7 വർഷത്തെ പരിചയം</strong>
+                    <strong>7 Years of Experience</strong>
                   </div>
                 </div>
 
                 <blockquote className="mentor-quote">
-                  “സാങ്കേതികവിദ്യ അധ്യാപകരെ മാറ്റിസ്ഥാപിക്കാനല്ല, മറിച്ച് അധ്യാപകരുടെ അധ്വാനം കുറയ്ക്കാനും കൂടുതൽ മിടുക്കോടെ പഠിപ്പിക്കാനും സഹായിക്കാനാണ് AI. ഓരോ അധ്യാപകനും AI-യിലൂടെ കൂടുതൽ ആത്മവിശ്വാസവും സമയലാഭവും നേടാൻ ഞാൻ ഒപ്പമുണ്ട്.”
+                  “സാങ്കേതികവിദ്യ അധ്യാപകരെ മാറ്റിസ്ഥാപിക്കാനല്ല, മറിച്ച് അധ്യാപകരുടെ അധ്വാനം കുറയ്ക്കാനും More മിടുക്കോടെ പഠിപ്പിക്കാനും സഹായിക്കാനാണ് AI. ഓരോ അധ്യാപകനും AI-യിലൂടെ More ആത്മവിശ്വാസവും സമയലാഭവും നേടാൻ ഞാൻ ഒപ്പമുണ്ട്.”
                 </blockquote>
               </div>
             </div>
@@ -2533,15 +2532,15 @@ function App() {
         <section className="section syllabus-section" id="syllabus">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">കോഴ്സ് സിലബസ്</span>
+              <span className="section-tag">Course Syllabus</span>
 
               <h2>
-                7 മൊഡ്യൂളുകൾ.
-                <span> പ്രായോഗിക AI കഴിവുകൾ.</span>
+                7 Modules.
+                <span> Practical AI Skills.</span>
               </h2>
 
               <p>
-                ഒരു അധ്യാപകന് ക്ലാസ്റൂമിലും ദൈനംദിന ജോലിയിലും AI ഉപയോഗിക്കാൻ
+                ഒരു അധ്യാപകന് Classറൂമിലും ദൈനംദിന ജോലിയിലും AI ഉപയോഗിക്കാൻ
                 ആവശ്യമായ പ്രധാന കഴിവുകൾ.
               </p>
             </div>
@@ -2577,16 +2576,16 @@ function App() {
         <section className="section workflow-section">
           <div className="container">
             <div className="section-heading">
-              <span className="section-tag">സുരക്ഷിത AI പഠനം</span>
+              <span className="section-tag">Safe AI Learning</span>
 
               <h2>
-                AI സഹായിക്കുന്നു.
-                <span> അധ്യാപകർ നയിക്കുന്നു.</span>
+                AI Empowers.
+                <span>  Teachers Lead Learning.</span>
               </h2>
 
               <p>
-                AI ഒരു സഹായി മാത്രമാണ്. അധ്യാപന തീരുമാനം, പരിശോധന, ക്ലാസ്സിലെ
-                ഉപയോഗം എന്നിവ അധ്യാപകൻ തന്നെ നിയന്ത്രിക്കും.
+                AI ഒരു സഹായി മാത്രമാണ്. അധ്യാപന തീരുമാനം, പരിശോധന, Classസിലെ
+                ഉപയോഗം and more അധ്യാപകൻ തന്നെ നിയന്ത്രിക്കും.
               </p>
             </div>
 
@@ -2594,9 +2593,9 @@ function App() {
               <div className="workflow-step">
                 <span>01</span>
 
-                <h3>അധ്യാപന ആവശ്യം</h3>
+                <h3>Teaching Need</h3>
 
-                <p>എന്താണ് വേണ്ടതെന്ന് തീരുമാനിക്കുക</p>
+                <p>Define what you need</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2604,9 +2603,9 @@ function App() {
               <div className="workflow-step">
                 <span>02</span>
 
-                <h3>AI-യോട് ചോദിക്കുക</h3>
+                <h3>Ask AI</h3>
 
-                <p>ശരിയായ പ്രോംപ്റ്റ് നൽകുക</p>
+                <p>Enter a clear prompt</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2614,9 +2613,9 @@ function App() {
               <div className="workflow-step">
                 <span>03</span>
 
-                <h3>തയ്യാറാക്കുക</h3>
+                <h3>Create</h3>
 
-                <p>AI ഉള്ളടക്കം തയ്യാറാക്കുന്നു</p>
+                <p>AI generates the content</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2624,9 +2623,9 @@ function App() {
               <div className="workflow-step">
                 <span>04</span>
 
-                <h3>പരിശോധിക്കുക</h3>
+                <h3>Review</h3>
 
-                <p>അധ്യാപകൻ ഉള്ളടക്കം പരിശോധിക്കുന്നു</p>
+                <p>The teacher reviews the content</p>
               </div>
 
               <ArrowRight className="workflow-arrow" />
@@ -2634,9 +2633,9 @@ function App() {
               <div className="workflow-step">
                 <span>05</span>
 
-                <h3>ക്ലാസ്സിന് തയ്യാർ</h3>
+                <h3>Ready for Class</h3>
 
-                <p>അന്തിമ സാമഗ്രി ക്ലാസ്സിൽ ഉപയോഗിക്കാം</p>
+                <p>Use the final material in class</p>
               </div>
             </div>
 
@@ -2646,17 +2645,17 @@ function App() {
               </div>
 
               <div>
-                <span className="section-tag">സുരക്ഷയും ഉത്തരവാദിത്തവും</span>
+                <span className="section-tag">Safety and Responsibility</span>
 
                 <h2>
                   AI ഉപയോഗിക്കുമ്പോൾ
-                  <span> സുരക്ഷയ്ക്ക് ആദ്യ സ്ഥാനം</span>
+                  <span> Safety Comes First</span>
                 </h2>
 
                 <p>
-                  AI ഉണ്ടാക്കിയ ഉള്ളടക്കം പരിശോധിക്കുക, വിദ്യാർത്ഥികളുടെ വിവരങ്ങൾ
-                  സംരക്ഷിക്കുക, സ്വകാര്യത പാലിക്കുക, അക്കാദമിക സത്യസന്ധത
-                  നിലനിർത്തുക എന്നിവ കോഴ്സിന്റെ പ്രധാന ഭാഗമാണ്.
+                  AI ഉണ്ടാക്കിയ ഉള്ളടക്കം Review, വിദ്യാർത്ഥികളുടെ വിവരങ്ങൾ
+                  സംരക്ഷിക്കുക, സ്വകാര്യത പാലിക്കുക, Academyക സത്യസന്ധത
+                  നിലനിർത്തുക and more Course's പ്രധാന ഭാഗമാണ്.
                 </p>
 
                 <div className="safe-list">
@@ -2677,7 +2676,7 @@ function App() {
 
                   <span>
                     <Check size={16} />
-                    അക്കാദമിക സത്യസന്ധത
+                    Academyക സത്യസന്ധത
                   </span>
                 </div>
               </div>
@@ -2692,15 +2691,15 @@ function App() {
         <section className="section tools-section">
           <div className="container narrow">
             <div className="section-heading">
-              <span className="section-tag">AI ടൂളുകൾ</span>
+              <span className="section-tag">AI Tools</span>
 
               <h2>
                 അധ്യാപകർ ഉപയോഗിക്കുന്ന
-                <span> പ്രധാന AI ടൂളുകൾ</span>
+                <span> Key AI Tools</span>
               </h2>
 
               <p>
-                ഈ ടൂളുകൾ അധ്യാപനത്തിൽ എങ്ങനെ ഉപയോഗിക്കാം എന്ന് പ്രായോഗികമായി പഠിക്കാം.
+                ഈ Tools അധ്യാപനത്തിൽ How ഉപയോഗിക്കാം എന്ന് Practicalമായി Learn.
               </p>
             </div>
 
@@ -2708,31 +2707,31 @@ function App() {
               <div className="tool-card">
                 <strong>ChatGPT</strong>
 
-                <span>AI സഹായി</span>
+                <span>AI Assistant</span>
               </div>
 
               <div className="tool-card">
                 <strong>Canva</strong>
 
-                <span>ഡിസൈനും പ്രസന്റേഷനും</span>
+                <span>Design and Presentations</span>
               </div>
 
               <div className="tool-card">
                 <strong>Gamma</strong>
 
-                <span>AI പ്രസന്റേഷനുകൾ</span>
+                <span>AI Presentations</span>
               </div>
 
               <div className="tool-card">
                 <strong>Google Tools</strong>
 
-                <span>അധ്യാപക ഉൽപ്പാദനക്ഷമത</span>
+                <span>Teacher Productivity</span>
               </div>
             </div>
 
             <div style={{ textAlign: "center" }}>
               <p className="tools-note">
-                💡 <strong>ടൂളുകൾ സൗജന്യമാണോ?</strong> അതെ, ഇവയുടെ സൗജന്യ പതിപ്പുകൾ തന്നെ അധ്യാപകരുടെ ദൈനംദിന ആവശ്യങ്ങൾക്ക് പൂർണ്ണമായും പര്യാപ്തമാണ്.
+                💡 <strong>Are these tools free?</strong> Yes, the free versions of these tools are sufficient for teachers’ everyday needs.
               </p>
             </div>
           </div>
@@ -2745,11 +2744,11 @@ function App() {
         <section className="section faq-section">
           <div className="container faq-container">
             <div className="section-heading">
-              <span className="section-tag">പതിവ് ചോദ്യങ്ങൾ</span>
+              <span className="section-tag">FAQs</span>
 
               <h2>
-                സംശയങ്ങളും
-                <span> മറുപടികളും</span>
+                Questions
+                <span> Answers</span>
               </h2>
             </div>
 
@@ -2793,19 +2792,19 @@ function App() {
 
         <section className="final-cta">
           <div className="container">
-            <h2>
+             <h2>
               ഇനി നിങ്ങളുടെ അധ്യാപനം
               <br />
-              <span>കൂടുതൽ സ്മാർട്ട് ആക്കാം.</span>
+              <span>കൂടുതൽ Smart ആക്കാം.</span>
             </h2>
 
             <p>
-              പ്രായോഗിക AI കഴിവുകൾ നേടി സമയം ലാഭിക്കൂ, അധ്യാപന ഒരുക്കം കൂടുതൽ
+              Practical AI കഴിവുകൾ നേടി സമയം ലാഭിക്കൂ, അധ്യാപന ഒരുക്കം More
               മികവുറ്റതാക്കൂ.
             </p>
 
             <div className="final-offer-box">
-              <div className="save-badge">₹3,001 ലാഭം</div>
+              <div className="save-badge">Save ₹3,001</div>
 
               <div className="hero-offer-price">
                 <del style={{ fontSize: "34px", fontWeight: "700" }}>
@@ -2818,7 +2817,7 @@ function App() {
               </div>
 
               <span className="final-offer-note">
-                ഒറ്റത്തവണ പേയ്മെന്റ് • കോഴ്സ് ആക്സസ്
+                ഒറ്റത്തവണ Payment • Course Access
               </span>
 
               <button
@@ -2826,7 +2825,7 @@ function App() {
                 className="final-offer-button"
                 onClick={openEnrollment}
               >
-                ₹1,999-ന് ഇപ്പോൾ ചേരൂ
+                Join Now for ₹1,999
                 <ArrowRight size={19} />
               </button>
             </div>
@@ -2839,11 +2838,11 @@ function App() {
 
         <section className="footer-intro">
           <div className="container">
-            <h2>QNAYDS അക്കാദമി ഒരുക്കിയത്</h2>
+            <h2>Presented by QNAYDS Academy</h2>
 
             <p>
-              അധ്യാപകർക്ക് സ്മാർട്ടായ അധ്യാപനത്തിനും മെച്ചപ്പെട്ട
-              ഉൽപ്പാദനക്ഷമതയ്ക്കും വേണ്ട പ്രായോഗിക AI കഴിവുകൾ നേടാൻ സഹായിക്കുന്നു.
+              for teachers സ്മാർട്ടായ അധ്യാപനത്തിനും മെച്ചപ്പെട്ട
+              Productivity വേണ്ട Practical AI കഴിവുകൾ നേടാൻ സഹായിക്കുന്നു.
             </p>
           </div>
         </section>
@@ -2857,11 +2856,11 @@ function App() {
             <div className="footer-logo-area"></div>
 
             <div className="footer-help">
-              <strong>സഹായം വേണോ?</strong>
+              <strong>Need Help?</strong>
 
               <a href={whatsappUrl} target="_blank" rel="noreferrer">
                 <FaWhatsapp size={21} />
-                WhatsApp ചെയ്യൂ
+                Message us on WhatsApp
               </a>
             </div>
 
@@ -2870,18 +2869,18 @@ function App() {
             </p>
 
             <div className="footer-links">
-              <a href="#terms">നിബന്ധനകളും വ്യവസ്ഥകളും</a>
+              <a href="#terms">Terms and Conditions</a>
 
-              <a href="#privacy">സ്വകാര്യതാ നയം</a>
+              <a href="#privacy">Privacy Policy</a>
 
-              <a href="#refund">റീഫണ്ട് നയം</a>
+              <a href="#refund">Refund Policy</a>
 
-              <a href="#contact">ബന്ധപ്പെടുക</a>
+              <a href="#contact">Contact Us</a>
             </div>
 
             <p className="footer-notice">
-              റീഫണ്ട് നയം: ഇത് റെക്കോർഡ് ചെയ്ത ഡിജിറ്റൽ കോഴ്സ് ആയതിനാൽ ആക്സസ്
-              നൽകിയ ശേഷം റീഫണ്ട് നൽകുന്നതല്ല. ചേരുന്നതിന് മുമ്പ് സംശയങ്ങൾ
+              Refund Policy: ഇത് Recorded Digital Course ആയതിനാൽ Access
+              നൽകിയ ശേഷം Refund നൽകുന്നതല്ല. Before enrolling, സംശയങ്ങൾ
               WhatsApp-ൽ ചോദിക്കാം.
             </p>
           </div>
@@ -2918,9 +2917,9 @@ function App() {
             >
               <div className="enrollment-header">
                 <div>
-                  <h2>എൻറോൾമെന്റ് പൂർത്തിയാക്കൂ</h2>
+                  <h2>Complete Your Enrollment</h2>
 
-                  <p>തുടരുന്നതിനായി നിങ്ങളുടെ വിവരങ്ങൾ നൽകുക.</p>
+                  <p>To continue, enter your details.</p>
                 </div>
 
                 <button
@@ -2935,7 +2934,7 @@ function App() {
 
               <div className="enrollment-body">
                 <div className="enrollment-offer">
-                  <div className="offer-course-name">അധ്യാപകർക്കുള്ള AI കോഴ്സ്</div>
+                  <div className="offer-course-name">AI Course for Teachers</div>
 
                   <div className="offer-price-row">
                     <div className="offer-prices">
@@ -2947,10 +2946,10 @@ function App() {
                         <h6>₹1,999</h6>
                       </span>
 
-                      <span className="offer-label">പരിമിതകാല ഓഫർ</span>
+                      <span className="offer-label">Limited-time Offer</span>
                     </div>
 
-                    <span className="offer-saving">₹3,001 ലാഭം</span>
+                    <span className="offer-saving">Save ₹3,001</span>
                   </div>
                 </div>
 
@@ -2966,44 +2965,44 @@ function App() {
                     )}
 
                     <label>
-                      പൂർണ്ണമായ പേര് (Full Name)
+                      Full Name (Full Name)
                       <input
                         type="text"
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleEnrollmentChange}
-                        placeholder="നിങ്ങളുടെ പേര് നൽകുക"
+                        placeholder="Enter your name"
                         required
                       />
                     </label>
 
                     <label>
-                      ഫോൺ നമ്പർ (WhatsApp Number)
+                      Phone Number (WhatsApp Number)
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleEnrollmentChange}
-                        placeholder="നിങ്ങളുടെ ഫോൺ നമ്പർ"
+                        placeholder="Your phone number"
                         required
                       />
                     </label>
 
                     <label>
-                      ഇമെയിൽ വിലാസം (Email)
+                      Email Address (Email)
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleEnrollmentChange}
-                        placeholder="നിങ്ങളുടെ ഇമെയിൽ നൽകുക"
+                        placeholder="Enter your email"
                         required
                       />
                     </label>
 
                     <div className="enrollment-actions">
                       <button type="submit" className="payment-button">
-                        പേയ്‌മെന്റിലേക്ക് തുടരുക (₹1,999)
+                        to Payment തുടരുക (₹1,999)
                         <ArrowRight size={18} />
                       </button>
 
@@ -3012,7 +3011,7 @@ function App() {
                         className="payment-button"
                         onClick={() => setShowModal(false)}
                       >
-                        റദ്ദാക്കുക
+                        Cancel
                       </button>
                     </div>
                   </form>
@@ -3020,10 +3019,10 @@ function App() {
                   <div className="payment-ready">
                     <Clock size={42} />
 
-                    <h3>സുരക്ഷിത പേയ്‌മെന്റ് വിൻഡോ തുറക്കുന്നു...</h3>
+                    <h3>Opening Secure Payment...</h3>
 
                     <p>
-                      ദയവായി കാത്തിരിക്കുക. നിങ്ങളുടെ വിവരങ്ങൾ പൂർണ്ണമായും സുരക്ഷിതമാണ്.
+                      Please wait. Your information is completely secure.
                     </p>
 
                     <button
@@ -3031,7 +3030,7 @@ function App() {
                       className="payment-button"
                       onClick={() => setPaymentStarted(false)}
                     >
-                      റദ്ദാക്കുക
+                      Cancel
                     </button>
                   </div>
                 )}

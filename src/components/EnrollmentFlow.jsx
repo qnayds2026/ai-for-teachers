@@ -14,20 +14,20 @@ const steps = [
   {
     num: "1",
     icon: CreditCard,
-    title: "എൻറോൾ & പേയ്‌മെന്റ്",
-    desc: "പേരും ഫോൺ നമ്പറും നൽകി GPay, PhonePe അല്ലെങ്കിൽ കാർഡ് വഴി സുരക്ഷിതമായി ഫീസ് അടയ്ക്കുക.",
+    title: "Enroll & Payment",
+    desc: "പേരും Phone നമ്പറും നൽകി GPay, PhonePe അല്ലെങ്കിൽ Card വഴി securely Fee അടയ്ക്കുക.",
   },
   {
     num: "2",
     icon: MailCheck,
-    title: "ലോഗിൻ ലിങ്ക് ലഭിക്കുന്നു",
-    desc: "പേയ്‌മെന്റ് കഴിഞ്ഞ ഉടൻ ഇമെയിൽ വഴി ലോഗിൻ ലിങ്ക് എത്തും. ഇമെയിൽ കിട്ടിയില്ലെങ്കിൽ WhatsApp-ൽ ഞങ്ങളെ അറിയിക്കൂ.",
+    title: "Login Link ലഭിക്കുന്നു",
+    desc: "After payment ഉടൻ Email വഴി Login Link എത്തും. Email കിട്ടിയില്ലെങ്കിൽ WhatsApp-ൽ ഞങ്ങളെ അറിയിക്കൂ.",
   },
   {
     num: "3",
     icon: GraduationCap,
-    title: "പഠനം ആരംഭിക്കാം!",
-    desc: "പാസ്‌വേഡ് നൽകി ലോഗിൻ ചെയ്ത് ഫോണിലോ ലാപ്ടോപ്പിലോ ക്ലാസുകൾ കണ്ടുതുടങ്ങാം.",
+    title: "Start Learning!",
+    desc: "Password നൽകി Login ചെയ്ത് ഫോണിലോ ലാപ്ടോപ്പിലോ Classes കണ്ടുതുടങ്ങാം.",
     isLast: true,
   },
 ];
@@ -40,12 +40,12 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
         <div className="simple-flow-header">
           <span className="simple-flow-tag">
             <Sparkles size={13} />
-            പഠനം തുടങ്ങാം
+            Start Learning
           </span>
           <h2>
-            <span>3 ലളിതമായ ഘട്ടങ്ങളിൽ</span> പഠനം തുടങ്ങാം
+            <span>3 ലളിതമായ ഘട്ടങ്ങളിൽ</span> Start Learning
           </h2>
-          <p>സങ്കീർണ്ണമായ ഒന്നുമില്ല, 1 മിനിറ്റിൽ ചേരാം.</p>
+          <p>സങ്കീർണ്ണമായ ഒന്നുമില്ല, 1 മിനിറ്റിൽ Join Now.</p>
         </div>
 
         {/* 3 Step Pipeline */}
@@ -87,13 +87,13 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
         <div className="simple-flow-footer">
           <div className="simple-flow-pills">
             <span>
-              <ShieldCheck size={14} /> സുരക്ഷിത പേയ്‌മെന്റ്
+              <ShieldCheck size={14} /> Secure Payment
             </span>
             <span>
-              <Sparkles size={14} /> ഇപ്പോൾ ചേരാം
+              <Sparkles size={14} /> ഇപ്പോൾ Join Now
             </span>
             <span>
-              <FaWhatsapp size={14} /> സംശയങ്ങൾ ചോദിക്കാം
+              <FaWhatsapp size={14} /> Ask Questions
             </span>
           </div>
 
@@ -104,7 +104,7 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
                 className="simple-enroll-btn"
                 onClick={onEnroll}
               >
-                <span>₹1,999-ന് ഇപ്പോൾ ചേരൂ</span>
+                <span>Join Now for ₹1,999</span>
                 <ArrowRight size={15} />
               </button>
             )}
@@ -117,7 +117,7 @@ const EnrollmentFlow = ({ onEnroll, whatsappUrl }) => {
                 className="simple-whatsapp-link"
               >
                 <FaWhatsapp size={15} />
-                <span>സംശയങ്ങൾ ചോദിക്കാം</span>
+                <span>Ask Questions</span>
               </a>
             )}
           </div>
